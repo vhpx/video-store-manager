@@ -7,6 +7,9 @@ public class Application {
         return instance;
     }
 
+    public static AuthManager auth = AuthManager.getInstance();
+    public static InternalManager internal = InternalManager.getInstance();
+
     public void run() {
         System.out.println("Howdy!");
     }
