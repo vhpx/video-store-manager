@@ -1,1 +1,1 @@
-# oop-final-project
+# Video Store Manager application (Work in progress)
