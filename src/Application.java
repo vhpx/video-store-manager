@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Application {
     private Application() {}
     private static Application instance = null;
@@ -14,8 +16,12 @@ public class Application {
         System.out.println("Howdy!");
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Application app = Application.getInstance();
         app.run();
+
+        Application.internal.items.loadData();
+        Application.internal.items.deleteItem();
+        Application.internal.items.displayAll();
     }
 }
