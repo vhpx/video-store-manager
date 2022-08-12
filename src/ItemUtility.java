@@ -1,10 +1,7 @@
-import java.util.Scanner;
 
 public class ItemUtility {
 
-
-    public boolean isValidId (String itemId)
-    {
+    public boolean isValidId(String itemId) {
         int currentYear = 2022;
         int maxLength = 9;
 
@@ -14,14 +11,13 @@ public class ItemUtility {
 
         if (!itemId.matches(regexPattern))
             return false;
-        if (Integer.valueOf(itemId.substring(5,9))>currentYear)
+        if (Integer.valueOf(itemId.substring(5, 9)) > currentYear)
             return false;
         return true;
     }
 
-    public Item.RentalType isValidRentalType(String rentalType)
-    {
-        switch (rentalType){
+    public Item.RentalType isValidRentalType(String rentalType) {
+        switch (rentalType) {
             case "Game":
                 return Item.RentalType.GAME;
             case "Record":
@@ -34,7 +30,7 @@ public class ItemUtility {
     }
 
     public Item.LoanType isValidLoanType(String loanType) {
-        switch (loanType){
+        switch (loanType) {
             case "1-week":
                 return Item.LoanType.ONE_WEEK_LOAN;
             case "2-day":
@@ -43,10 +39,10 @@ public class ItemUtility {
                 return null;
         }
     }
+
     public GenreItem.Genre isValidGenre(String genre) {
 
-        switch (genre)
-        {
+        switch (genre) {
             case "Action":
                 return GenreItem.Genre.ACTION;
             case "Horror":
@@ -59,9 +55,5 @@ public class ItemUtility {
                 return null;
         }
     }
-
-
-
-
 
 }

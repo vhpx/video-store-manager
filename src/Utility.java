@@ -1,9 +1,14 @@
 import java.util.Scanner;
 
 public class Utility {
-    public String askInfo (String message)
-    {
+    public String askInfo(String message) {
         System.out.print(message);
-        return new Scanner(System.in).nextLine();
+
+        Scanner input = new Scanner(System.in);
+        String info = input.nextLine();
+
+        // Close the scanner object to prevent resource leak
+        input.close();
+        return info;
     }
 }
