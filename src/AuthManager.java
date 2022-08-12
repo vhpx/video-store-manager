@@ -1,11 +1,14 @@
 public class AuthManager {
-    private AuthManager() {}
+    private AuthManager() {
+    }
+
     private static AuthManager instance = null;
-    private String loggedInUserId = null;
-    private boolean isAdmin = false;
+    // private String loggedInUserId = null;
+    // private boolean isAdmin = false;
 
     public static AuthManager getInstance() {
-        if (instance == null) instance = new AuthManager();
+        if (instance == null)
+            instance = new AuthManager();
         return instance;
     }
 
@@ -16,8 +19,8 @@ public class AuthManager {
     public void logout() {
         System.out.println("Logging out");
 
-        loggedInUserId = null;
-        isAdmin = false;
+        // loggedInUserId = null;
+        // isAdmin = false;
     }
 
     public void changePassword(String oldPassword, String newPassword) {
