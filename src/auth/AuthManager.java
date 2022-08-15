@@ -1,3 +1,5 @@
+package auth;
+
 public class AuthManager {
     private AuthManager() {
     }

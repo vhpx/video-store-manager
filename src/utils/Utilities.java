@@ -1,6 +1,8 @@
+package utils;
+
 import java.util.Scanner;
 
-public class Utility {
+public class Utilities {
     public String askInfo(String message) {
         System.out.print(message);
 

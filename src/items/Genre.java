@@ -1,30 +1,30 @@
-public class GenreItem extends Item{
-    enum Genre{
+package items;
+
+public class Genre extends Item {
+    public enum GenreType {
         ACTION,
         HORROR,
         DRAMA,
         COMEDY
     }
 
-    private Genre genre;
+    private GenreType genre;
 
-    public GenreItem(String itemId, String itemTitle, RentalType rentalType, LoanType loanType, int numCopy,
-                     double rentalFee, Genre genre) throws ItemException
-    {
+    public Genre(String itemId, String itemTitle, RentalType rentalType, LoanType loanType, int numCopy,
+            double rentalFee, GenreType genre) throws ItemException {
         super(itemId, itemTitle, rentalType, loanType, numCopy, rentalFee);
         this.genre = genre;
     }
 
-    public GenreItem(String itemId, String itemTitle, String rentalType, String loanType, int numCopy,
-                     double rentalFee, String genre) throws ItemException
-    {
+    public Genre(String itemId, String itemTitle, String rentalType, String loanType, int numCopy,
+            double rentalFee, String genre) throws ItemException {
         super(itemId, itemTitle, rentalType, loanType, numCopy, rentalFee);
         if (!this.setGenre(genre))
             throw new ItemException("cannot set genre");
     }
 
     public String getGenre() {
-        switch (this.genre){
+        switch (this.genre) {
             case ACTION:
                 return "Action";
             case HORROR:
@@ -38,24 +38,24 @@ public class GenreItem extends Item{
         }
     }
 
-    protected boolean setGenre(String genre) {
-        Genre type = this.isValidGenre(genre);
+    protected boolean setGenre(String input) {
+        GenreType type = this.isValidGenre(input);
 
         if (type == null)
             return false;
 
-        switch (type){
+        switch (type) {
             case ACTION:
-                this.genre = Genre.ACTION;
+                this.genre = GenreType.ACTION;
                 return true;
             case HORROR:
-                this.genre = Genre.HORROR;
+                this.genre = GenreType.HORROR;
                 return true;
             case DRAMA:
-                this.genre = Genre.DRAMA;
+                this.genre = GenreType.DRAMA;
                 return true;
             case COMEDY:
-                this.genre = Genre.COMEDY;
+                this.genre = GenreType.COMEDY;
                 return true;
             default:
                 return false;
@@ -66,6 +66,4 @@ public class GenreItem extends Item{
     public String toString() {
         return super.toString() + "Genre: " + this.getGenre() + "\n";
     }
-
-
 }

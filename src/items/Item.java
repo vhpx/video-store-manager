@@ -1,11 +1,15 @@
-public abstract class Item extends ItemUtility {
-    enum RentalType {
+package items;
+
+import utils.ItemUtilities;
+
+public abstract class Item extends ItemUtilities {
+    public enum RentalType {
         RECORD,
         DVD,
         GAME
     }
 
-    enum LoanType {
+    public enum LoanType {
         TWO_DAYS_LOAN,
         ONE_WEEK_LOAN
     }

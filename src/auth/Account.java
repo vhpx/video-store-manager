@@ -1,4 +1,8 @@
+package auth;
+
 import java.util.ArrayList;
+
+import items.Item;
 
 public class Account {
     private String id;
@@ -10,7 +14,8 @@ public class Account {
     private String username;
     private String level;
 
-    public Account() {}
+    public Account() {
+    }
 
     public Account(String id, String address, String name, String phone, String password, String username) {
         this.id = id;
@@ -76,8 +81,9 @@ public class Account {
     }
 
     @Override
-    public String toString () {
-        return "Account [id=" + id + ", address=" + address + ", name=" + name + ", rentals=" + rentals + ", phone=" + phone + ", password=" + password + ", username=" + username + ", level=" + level + "]";
+    public String toString() {
+        return "Account [id=" + id + ", address=" + address + ", name=" + name + ", rentals=" + rentals + ", phone="
+                + phone + ", password=" + password + ", username=" + username + ", level=" + level + "]";
     }
 
     public void rentItem(Item item) {

@@ -1,10 +1,14 @@
+package items;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class ItemManager extends Utility {
+import utils.Utilities;
+
+public class ItemManager extends Utilities {
 
     private ArrayList<Item> items;
 
@@ -18,6 +22,10 @@ public class ItemManager extends Utility {
         if (instance == null)
             instance = new ItemManager();
         return instance;
+    }
+
+    public void initialize() {
+        // Load the items from the local storage
     }
 
     public void loadData() throws IOException {

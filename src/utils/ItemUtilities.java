@@ -1,5 +1,9 @@
+package utils;
 
-public class ItemUtility {
+import items.Genre;
+import items.Item;
+
+public class ItemUtilities {
 
     public boolean isValidId(String itemId) {
         int currentYear = 2022;
@@ -40,17 +44,16 @@ public class ItemUtility {
         }
     }
 
-    public GenreItem.Genre isValidGenre(String genre) {
-
+    public Genre.GenreType isValidGenre(String genre) {
         switch (genre) {
             case "Action":
-                return GenreItem.Genre.ACTION;
+                return Genre.GenreType.ACTION;
             case "Horror":
-                return GenreItem.Genre.HORROR;
+                return Genre.GenreType.HORROR;
             case "Drama":
-                return GenreItem.Genre.DRAMA;
+                return Genre.GenreType.DRAMA;
             case "Comedy":
-                return GenreItem.Genre.COMEDY;
+                return Genre.GenreType.COMEDY;
             default:
                 return null;
         }

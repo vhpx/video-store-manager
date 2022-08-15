@@ -1,3 +1,5 @@
+package auth;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,13 +13,17 @@ public class AccountManager {
     }
 
     public static AccountManager getInstance() {
-        if (instance == null) instance = new AccountManager();
+        if (instance == null)
+            instance = new AccountManager();
         return instance;
     }
 
-
     protected ArrayList<Account> getAccounts() {
         return accounts;
+    }
+
+    public void initialize() {
+        // Load the accounts from the local storage
     }
 
     // display all accounts
@@ -57,7 +63,6 @@ public class AccountManager {
             }
         }
     }
-
 
     public static void main(String[] args) {
         AccountManager accountManager = AccountManager.getInstance();

@@ -1,4 +1,8 @@
+package core;
+
 import java.io.IOException;
+
+import auth.AuthManager;
 
 public class Application {
     private Application() {
@@ -15,16 +19,16 @@ public class Application {
     public static AuthManager auth = AuthManager.getInstance();
     public static InternalManager internal = InternalManager.getInstance();
 
-    public void run() {
-        System.out.println("Howdy!");
+    public void start() {
+        // Initialize the internal manager
+        internal.initialize();
     }
 
     public static void main(String[] args) throws IOException {
-        Application app = Application.getInstance();
-        app.run();
+        // Application app = Application.getInstance();
 
-        Application.internal.items.loadData();
-        Application.internal.items.deleteItem();
-        Application.internal.items.displayAll();
+        // Application.internal.items.loadData();
+        // Application.internal.items.deleteItem();
+        // Application.internal.items.displayAll();
     }
 }
