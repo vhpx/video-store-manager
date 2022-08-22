@@ -7,12 +7,9 @@ public class VideoStoreManager {
         Application app = Application.getInstance();
 
         // Start the application
+        app.initialize();
+
+        // Execute application loop
         app.start();
-
-        // Display the main menu screen
-        // app.displayMainMenu();
-
-        // Exit the application
-        System.exit(0);
     }
 }

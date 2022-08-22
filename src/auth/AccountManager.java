@@ -5,9 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class AccountManager {
-
     private static AccountManager instance = null;
-    private ArrayList<Account> accounts;
+    private ArrayList<Account> accounts = new ArrayList<Account>();
 
     private AccountManager() {
     }
@@ -24,12 +23,36 @@ public class AccountManager {
 
     public void initialize() {
         // Load the accounts from the local storage
+        Account a1 = new Account("1", "jdoe1", "password", "123 Main St.", "123-456-7890", "Fane Doe", "ADMIN");
+        Account a3 = new Account("2", "jdoe2", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
+        Account a4 = new Account("3", "jdoe3", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
+        Account a2 = new Account("4", "jsmith", "password", "123 Main St.", "123-456-7890", "John Smith", "ADMIN");
+
+        addAccount(a1);
+        addAccount(a2);
+        addAccount(a3);
+        addAccount(a4);
     }
 
-    // display all accounts
+    public void addAccount(Account account) {
+        System.out.println("Adding account " + account.getUsername());
+        accounts.add(account);
+    }
+
+    public void deleteAccount(Account account) {
+        System.out.println("Deleting account " + account.getUsername());
+        accounts.remove(account);
+    }
+
+    public void displayAll() {
+        for (Account account : accounts) {
+            System.out.println(account.toString());
+        }
+    }
+
     public void displayAccounts(ArrayList<Account> accounts) {
         for (Account account : accounts) {
-            System.out.println(account);
+            System.out.println(account.toString());
         }
     }
 
@@ -55,10 +78,10 @@ public class AccountManager {
         displayAccounts(sortedAccounts);
     }
 
-    // display a group of account according to level
-    public void displayAccountsByLevel(String level) {
+    // display a group of account according to role
+    public void displayAccountsByRole(String role) {
         for (Account account : this.getAccounts()) {
-            if (account.getLevel().equals(level)) {
+            if (account.getRole().equals(role)) {
                 System.out.println(account);
             }
         }
@@ -66,18 +89,21 @@ public class AccountManager {
 
     public static void main(String[] args) {
         AccountManager accountManager = AccountManager.getInstance();
-        accountManager.accounts = new ArrayList<Account>();
-        accountManager.accounts.add(new Account("6", "123 Main St.", "Fane Doe", "123-456-7890", "password", "jdoe"));
-        accountManager.accounts.add(new Account("2", "123 Main St.", "Cohn Smith", "123-456-7890", "password", "jdoe"));
-        accountManager.accounts.add(new Account("1", "123 Main St.", "Aohn Doe", "123-456-7890", "password", "jdoe"));
-        accountManager.accounts.add(new Account("3", "123 Main St.", "Eohn Doe", "123-456-7890", "password", "jdoe"));
-        accountManager.accounts.add(new Account("5", "123 Main St.", "Dane Smith", "123-456-7890", "password", "jdoe"));
-        accountManager.accounts.add(new Account("4", "123 Main St.", "Bane Doe", "123-456-7890", "password", "jdoe"));
 
-        accountManager.accounts.get(1).setLevel("REGULAR");
-        accountManager.accounts.get(2).setLevel("VIP");
-        accountManager.accounts.get(3).setLevel("VIP");
-        accountManager.accounts.get(5).setLevel("REGULAR");
+        Account a1 = new Account("1", "jdoe1", "password", "123 Main St.", "123-456-7890", "Fane Doe", "ADMIN");
+        Account a3 = new Account("2", "jdoe2", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
+        Account a4 = new Account("3", "jdoe3", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
+        Account a2 = new Account("4", "jsmith", "password", "123 Main St.", "123-456-7890", "John Smith", "ADMIN");
+
+        accountManager.addAccount(a1);
+        accountManager.addAccount(a2);
+        accountManager.addAccount(a3);
+        accountManager.addAccount(a4);
+
+        accountManager.accounts.get(1).setRole("REGULAR");
+        accountManager.accounts.get(2).setRole("VIP");
+        accountManager.accounts.get(3).setRole("VIP");
+        accountManager.accounts.get(4).setRole("REGULAR");
 
         System.out.println("Before sorting:");
         accountManager.displayAccounts(accountManager.getAccounts());
@@ -92,13 +118,13 @@ public class AccountManager {
         accountManager.displayAccounts(accountManager.getAccounts());
 
         System.out.println("\n\nDisplay GUEST accounts:");
-        accountManager.displayAccountsByLevel("GUEST");
+        accountManager.displayAccountsByRole("GUEST");
 
         System.out.println("\n\nDisplay REGULAR accounts:");
-        accountManager.displayAccountsByLevel("REGULAR");
+        accountManager.displayAccountsByRole("REGULAR");
 
         System.out.println("\n\nDisplay VIP accounts:");
-        accountManager.displayAccountsByLevel("VIP");
+        accountManager.displayAccountsByRole("VIP");
 
     }
 
