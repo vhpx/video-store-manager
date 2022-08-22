@@ -102,8 +102,8 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account [id=" + id + ", username=" + username + ", password=" + password + ", address=" + address
-                + ", phone=" + phone + ", name=" + name + ", role=" + role + ", rentals=" + rentals + "]";
+        String quantity = (rentals != null) ? String.valueOf(rentals.size()) : "0";
+        return id + ", " + name + ", " + address + ", " + phone + ", " + quantity + ", " + role + ", " + username + ", " + password;
     }
 
     public void rentItem(Item item) {

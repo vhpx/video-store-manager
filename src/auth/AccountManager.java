@@ -1,5 +1,6 @@
 package auth;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,6 +16,17 @@ public class AccountManager {
         if (instance == null)
             instance = new AccountManager();
         return instance;
+    }
+
+    public static void main(String[] args) {
+        AccountManager accountManager = AccountManager.getInstance();
+        Account a1 = new Account("0", "Thu", "password", "123 Main St.", "123-456-7890", "Thu", "ADMIN");
+        accountManager.addAccount(a1);
+        accountManager.loadData();
+        Account a2 = new Account("5", "Anh", "password", "123 Main St.", "123-456-7890", "Anh", "ADMIN");
+        accountManager.addAccount(a2);
+        accountManager.saveData();
+
     }
 
     protected ArrayList<Account> getAccounts() {
@@ -87,45 +99,44 @@ public class AccountManager {
         }
     }
 
-    public static void main(String[] args) {
-        AccountManager accountManager = AccountManager.getInstance();
+    private void loadData() {
+        try {
+            FileReader reader = new FileReader("src/data/customers.txt");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] props = line.split(", ");
+                String id = props[0];
+                String username = props[6];
+                String password = props[7];
+                String address = props[2];
+                String phone = props[3];
+                String name = props[1];
+                String role = props[5];
+                int quantity = Integer. parseInt(props[4]);
+                Account account = new Account(id, username, password, address, phone, name, role);
+                addAccount(account);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        Account a1 = new Account("1", "jdoe1", "password", "123 Main St.", "123-456-7890", "Fane Doe", "ADMIN");
-        Account a3 = new Account("2", "jdoe2", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
-        Account a4 = new Account("3", "jdoe3", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
-        Account a2 = new Account("4", "jsmith", "password", "123 Main St.", "123-456-7890", "John Smith", "ADMIN");
-
-        accountManager.addAccount(a1);
-        accountManager.addAccount(a2);
-        accountManager.addAccount(a3);
-        accountManager.addAccount(a4);
-
-        accountManager.accounts.get(1).setRole("REGULAR");
-        accountManager.accounts.get(2).setRole("VIP");
-        accountManager.accounts.get(3).setRole("VIP");
-        accountManager.accounts.get(4).setRole("REGULAR");
-
-        System.out.println("Before sorting:");
-        accountManager.displayAccounts(accountManager.getAccounts());
-
-        System.out.println("\n\nSorting by id:");
-        accountManager.displayAccountsSortedById();
-
-        System.out.println("\n\nSorting by name:");
-        accountManager.displayAccountsSortedByName();
-
-        System.out.println("\n\nAfter sorting:");
-        accountManager.displayAccounts(accountManager.getAccounts());
-
-        System.out.println("\n\nDisplay GUEST accounts:");
-        accountManager.displayAccountsByRole("GUEST");
-
-        System.out.println("\n\nDisplay REGULAR accounts:");
-        accountManager.displayAccountsByRole("REGULAR");
-
-        System.out.println("\n\nDisplay VIP accounts:");
-        accountManager.displayAccountsByRole("VIP");
-
+    private void saveData() {
+        try {
+            FileWriter writer = new FileWriter("src/data/customers.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            for (Account account : accounts) {
+                bufferedWriter.write(account.toString());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
