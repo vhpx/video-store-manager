@@ -1,6 +1,11 @@
 package items;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -26,10 +31,10 @@ public class ItemManager extends Utilities {
     public static void main(String[] args) throws ItemException {
         ItemManager itemManager = ItemManager.getInstance();
         itemManager.initialize();
-        itemManager.saveData();
         Item i1 = new Item("I007-2000", "Dead in Daylight", "GAME", "TWO_DAY", "", 8, 2.0);
         itemManager.addItem(i1);
-        
+        itemManager.saveData();
+
     }
 
     public void initialize() {
@@ -366,7 +371,6 @@ public class ItemManager extends Utilities {
         for (Item i : items) {
             System.out.println(i);
         }
-        return;
     }
 
     private void loadData() {
