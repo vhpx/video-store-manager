@@ -1,6 +1,5 @@
 package utils;
 
-import items.Genre;
 import items.Item;
 
 public class ItemUtilities {
@@ -44,16 +43,20 @@ public class ItemUtilities {
         }
     }
 
-    public Genre.GenreType isValidGenre(String genre) {
+    public Item.Genre isValidGenre(String genre) {
         switch (genre) {
             case "Action":
-                return Genre.GenreType.ACTION;
+                return Item.Genre.ACTION;
             case "Horror":
-                return Genre.GenreType.HORROR;
+                return Item.Genre.HORROR;
             case "Drama":
-                return Genre.GenreType.DRAMA;
+                return Item.Genre.DRAMA;
             case "Comedy":
-                return Genre.GenreType.COMEDY;
+                return Item.Genre.COMEDY;
+            case "Non-genre":
+                return Item.Genre.NON_GENRE;
+            case "":
+                return Item.Genre.NON_GENRE;
             default:
                 return null;
         }

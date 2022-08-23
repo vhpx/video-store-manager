@@ -2,7 +2,15 @@ package items;
 
 import utils.ItemUtilities;
 
-public abstract class Item extends ItemUtilities {
+public class Item extends ItemUtilities {
+    public enum Genre {
+        ACTION,
+        HORROR,
+        DRAMA,
+        COMEDY,
+        NON_GENRE
+    }
+
     public enum RentalType {
         RECORD,
         DVD,
@@ -19,18 +27,19 @@ public abstract class Item extends ItemUtilities {
         BORROWED
     }
 
-    private String itemId;
-    private String itemTitle;
+    private String id;
+    private String title;
     private RentalType rentalType;
     private LoanType loanType;
     private int numCopy;
     private double rentalFee;
     private RentalStatus rentalStatus;
+    private Genre genre;
 
-    private Item(String itemId, String itemTitle, int numCopy, double rentalFee) throws ItemException {
-        if (!setItemId(itemId))
-            throw new ItemException("cannot set item id " + itemId);
-        if (!setItemTitle(itemTitle))
+    private Item(String id, String title, int numCopy, double rentalFee) throws ItemException {
+        if (!setId(id))
+            throw new ItemException("cannot set item id " + id);
+        if (!setTitle(title))
             throw new ItemException("cannot set item title");
         if (!setNumCopy(numCopy))
             throw new ItemException("cannot set item number of copy");
@@ -43,41 +52,41 @@ public abstract class Item extends ItemUtilities {
 
     }
 
-    public Item(String itemId, String itemTitle, RentalType rentalType, LoanType loanType,
-            int numCopy, double rentalFee) throws ItemException {
-        this(itemId, itemTitle, numCopy, rentalFee);
+    public Item(String id, String title, RentalType rentalType, LoanType loanType, Genre genre,
+            int numCopy, double rentalFee) throws ItemException  {
+        this(id, title, numCopy, rentalFee);
         this.rentalType = rentalType;
         this.loanType = loanType;
-
+        this.genre = (rentalType == RentalType.GAME) ? Genre.NON_GENRE : genre;
     }
 
-    public Item(String itemId, String itemTitle, String rentalType, String loanType,
+    public Item(String id, String title, String rentalType, String loanType, String genre,
             int numCopy, double rentalFee) throws ItemException {
-        this(itemId, itemTitle, numCopy, rentalFee);
+        this(id, title, numCopy, rentalFee);
         if (!this.setRentalType(rentalType))
             throw new ItemException("cannot set the rental type of the item");
         if (!this.setLoanType(loanType))
             throw new ItemException("cannot set the loan type of the item");
-
+        if (!this.setGenre(genre))
+            throw new ItemException("cannot set the genre of the item");
     }
 
     // create item
 
     // ---------------- Setter _____________________________
 
-    protected boolean setItemId(String itemId) {
-        if (this.isValidId(itemId)) {
-            this.itemId = itemId;
+    protected boolean setId(String id) {
+        if (this.isValidId(id)) {
+            this.id = id;
             return true;
         }
         return false;
-
     }
 
-    protected boolean setItemTitle(String itemTitle) {
-        if (itemTitle.length() == 0)
+    protected boolean setTitle(String title) {
+        if (title.length() == 0)
             return false;
-        this.itemTitle = itemTitle;
+        this.title = title;
         return true;
     }
 
@@ -127,6 +136,36 @@ public abstract class Item extends ItemUtilities {
         }
     }
 
+    protected boolean setGenre(Genre genre) {
+        this.genre = genre;
+        return true;
+    }
+
+    protected boolean setGenre(String genre) {
+        Genre type = this.isValidGenre(genre);
+        if (type == null)
+            return false;
+        switch (type) {
+            case ACTION:
+                this.genre = Genre.ACTION;
+                return true;
+            case HORROR:
+                this.genre = Genre.HORROR;
+                return true;
+            case DRAMA:
+                this.genre = Genre.DRAMA;
+                return true;
+            case COMEDY:
+                this.genre = Genre.COMEDY;
+                return true;
+            case NON_GENRE:
+                this.genre = Genre.NON_GENRE;
+                return true;
+            default:
+                return false;
+        }
+    }
+
     protected boolean setNumCopy(int numCopy) {
         if (numCopy >= 0) {
             this.numCopy = numCopy;
@@ -162,14 +201,14 @@ public abstract class Item extends ItemUtilities {
         }
     }
 
-    // ------------Gettter-----------
+    // ------------Getter-----------
 
-    protected String getItemId() {
-        return itemId;
+    protected String getId() {
+        return id;
     }
 
-    protected String getItemTitle() {
-        return itemTitle;
+    protected String getTitle() {
+        return title;
     }
 
     protected String getRentalType() {
@@ -188,9 +227,26 @@ public abstract class Item extends ItemUtilities {
     protected String getLoanType() {
         switch (this.loanType) {
             case ONE_WEEK_LOAN:
-                return "1-week";
+                return "1 week";
             case TWO_DAYS_LOAN:
-                return "2-day";
+                return "2 day";
+            default:
+                return "N/A";
+        }
+    }
+
+    protected String getGenre() {
+        switch (this.genre) {
+            case ACTION:
+                return "Action";
+            case HORROR:
+                return "Horror";    
+            case DRAMA:
+                return "Drama";
+            case COMEDY: 
+                return "Comedy";
+            case NON_GENRE:
+                return "";
             default:
                 return "N/A";
         }
@@ -227,18 +283,15 @@ public abstract class Item extends ItemUtilities {
 
     // ------other feature function-------
     protected boolean isEmpty() {
-        return this.getNumCopy() == 0 ? true : false;
+        return this.getNumCopy() == 0;
     }
 
     @Override
     public String toString() {
-        return "ID: " + this.getItemId() + "\n" +
-                "Title: " + this.getItemTitle() + "\n" +
-                "Rental Type: " + this.getRentalType() + "\n" +
-                "Loan Type: " + this.getLoanType() + "\n" +
-                "Number of copy: " + this.getNumCopy() + "\n" +
-                "Rental Fee: " + this.getRentalFee() + "\n" +
-                "Rental Status: " + this.getRentalStatus() + "\n";
+        return this.getId() + ", " + this.getTitle() + ", "  + this.getRentalType() + ", " +
+                 this.getLoanType() + ", " +
+                 this.getNumCopy() + ", " +
+                 this.getRentalFee() + this.getGenre();
     }
 
 }

@@ -26,7 +26,6 @@ public class AccountManager {
         Account a2 = new Account("5", "Anh", "password", "123 Main St.", "123-456-7890", "Anh", "ADMIN");
         accountManager.addAccount(a2);
         accountManager.saveData();
-
     }
 
     protected ArrayList<Account> getAccounts() {
@@ -35,15 +34,7 @@ public class AccountManager {
 
     public void initialize() {
         // Load the accounts from the local storage
-        Account a1 = new Account("1", "jdoe1", "password", "123 Main St.", "123-456-7890", "Fane Doe", "ADMIN");
-        Account a3 = new Account("2", "jdoe2", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
-        Account a4 = new Account("3", "jdoe3", "password", "123 Main St.", "123-456-7890", "Jane Doe", "USER");
-        Account a2 = new Account("4", "jsmith", "password", "123 Main St.", "123-456-7890", "John Smith", "ADMIN");
-
-        addAccount(a1);
-        addAccount(a2);
-        addAccount(a3);
-        addAccount(a4);
+        loadData();
     }
 
     public void addAccount(Account account) {
