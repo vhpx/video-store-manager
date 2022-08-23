@@ -28,9 +28,11 @@ public class ItemManager extends Utilities {
         Item i1 = new Item("I000-1998", "The Godfather", Item.RentalType.DVD, Item.LoanType.ONE_WEEK_LOAN, Item.Genre.DRAMA, 1, 2.0);
         itemManager.addItem(i1);
         itemManager.loadData();
-        Item i2 = new Item("I007-2000", "Dead in Daylight", "Game", "2-day", "Horror", 8, 2.0);
+        Item i2 = new Item("I007-2000", "Dead in Daylight", "GAME", "TWO_DAY", "HORROR", 8, 2.0);
         itemManager.addItem(i2);
         itemManager.saveData();
+//        itemManager.initialize();
+//        itemManager.saveData();
         
     }
 

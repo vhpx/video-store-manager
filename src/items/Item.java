@@ -76,10 +76,12 @@ public class Item extends ItemUtilities {
     // ---------------- Setter _____________________________
 
     protected boolean setId(String id) {
+
         if (this.isValidId(id)) {
             this.id = id;
             return true;
         }
+
         return false;
     }
 
@@ -189,16 +191,14 @@ public class Item extends ItemUtilities {
     }
 
     protected boolean setRentalStatus(String rentalStatus) {
-
-        switch (rentalStatus) {
-            case "available":
-                this.rentalStatus = RentalStatus.AVAILABLE;
-                return true;
-            case "borrowed":
-                this.rentalStatus = RentalStatus.BORROWED;
-            default:
-                return false;
+        if (rentalStatus.equalsIgnoreCase("available")) {
+            this.rentalStatus = RentalStatus.AVAILABLE;
+            return true;
+        } else if (rentalStatus.equalsIgnoreCase("borrowed")) {
+            this.rentalStatus = RentalStatus.BORROWED;
+            return true;
         }
+        return false;
     }
 
     // ------------Getter-----------
@@ -214,11 +214,11 @@ public class Item extends ItemUtilities {
     protected String getRentalType() {
         switch (this.rentalType) {
             case RECORD:
-                return "Record";
+                return "RECORD";
             case DVD:
                 return "DVD";
             case GAME:
-                return "Game";
+                return "GAME";
             default:
                 return "N/A";
         }
@@ -227,9 +227,9 @@ public class Item extends ItemUtilities {
     protected String getLoanType() {
         switch (this.loanType) {
             case ONE_WEEK_LOAN:
-                return "1 week";
+                return "ONE_WEEK";
             case TWO_DAYS_LOAN:
-                return "2 day";
+                return "TWO_DAY";
             default:
                 return "N/A";
         }
@@ -238,13 +238,13 @@ public class Item extends ItemUtilities {
     protected String getGenre() {
         switch (this.genre) {
             case ACTION:
-                return "Action";
+                return "ACTION";
             case HORROR:
-                return "Horror";    
+                return "HORROR";    
             case DRAMA:
-                return "Drama";
+                return "DRAMA";
             case COMEDY: 
-                return "Comedy";
+                return "COMEDY";
             case NON_GENRE:
                 return "";
             default:
@@ -264,9 +264,9 @@ public class Item extends ItemUtilities {
 
         switch (rentalStatus) {
             case AVAILABLE:
-                return "available";
+                return "AVAILABLE";
             case BORROWED:
-                return "borrowed";
+                return "BORROWED";
             default:
                 return "N/A";
 
@@ -277,7 +277,7 @@ public class Item extends ItemUtilities {
         if (n < 0)
             return false;
         this.numCopy += n;
-        this.setRentalStatus("available");
+        this.setRentalStatus("BORROWED");
         return true;
     }
 
@@ -288,10 +288,11 @@ public class Item extends ItemUtilities {
 
     @Override
     public String toString() {
+        String genre = (this.getGenre().length()==0) ? "" : ", " + this.getGenre();
         return this.getId() + ", " + this.getTitle() + ", "  + this.getRentalType() + ", " +
                  this.getLoanType() + ", " +
                  this.getNumCopy() + ", " +
-                 this.getRentalFee() + this.getGenre();
+                 this.getRentalFee() + genre;
     }
 
 }
