@@ -1,7 +1,6 @@
 package items;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -24,35 +23,18 @@ public class ItemManager extends Utilities {
         return instance;
     }
 
+    public static void main(String[] args) throws ItemException {
+        ItemManager itemManager = ItemManager.getInstance();
+        itemManager.initialize();
+        itemManager.saveData();
+        Item i1 = new Item("I007-2000", "Dead in Daylight", "GAME", "TWO_DAY", "", 8, 2.0);
+        itemManager.addItem(i1);
+        
+    }
+
     public void initialize() {
         // Load the items from the local storage
-    }
-
-    public void loadData() throws IOException {
-        try {
-            File myObj = new File("/Users/huuphuoc/IdeaProjects/phuoc_OOP_finalProject/src/items.txt");
-            Scanner scan = new Scanner(myObj);
-
-            while (scan.hasNextLine()) {
-                String input = scan.nextLine();
-                input = input.strip();
-                if (Character.compare(input.charAt(0), '#') == 0)
-                    continue;
-                String[] data = input.split(",");
-                this.createItem(data);
-            }
-
-            // Close the scanner object to prevent resource leak
-            scan.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        } catch (ItemException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public void saveData() {
+        loadData();
     }
 
     public String[] getInformation() {
@@ -71,18 +53,23 @@ public class ItemManager extends Utilities {
             // ask the item typed first
             // based on the type, different questions will be asked
             info[n] = askInfo(questionList.get(n));
-            if (info[n].equals("1"))
-                info[n] = "Record";
-            else if (info[n].equals("2"))
-                info[n] = "DVD";
-            else if (info[n].equals("3"))
-                info[n] = "Game";
-            else
-                continue;
+            switch (info[n]) {
+                case "1":
+                    info[n] = "RECORD";
+                    break;
+                case "2":
+                    info[n] = "DVD";
+                    break;
+                case "3":
+                    info[n] = "GAME";
+                    break;
+                default:
+                    continue;
+            }
             break;
         }
 
-        if (info[n] != "Game") // if new item is not game then extra question for genre will be asked
+        if (info[n].equalsIgnoreCase("Game")) // if new item is not game then extra question for genre will be asked
         {
             n = 7;
             questionList.push(
@@ -90,18 +77,19 @@ public class ItemManager extends Utilities {
         } else // otherwise only 6 question will be asked
         {
             n = 6;
+            info[6] = ""; // item is game -> default genre is non-genre
         }
         String[] result = new String[info.length];
         for (int i = 0; i < n; i++) // loop through the question number, and record the answer
         {
-            if (i == 3) // when getting to loan type question asked, valid input should be enterd
+            if (i == 3) // when getting to loan type question asked, valid input should be entered
             {
                 while (true) {
                     info[i] = askInfo(questionList.get(i));
                     if (info[i].equals("1"))
-                        info[i] = "2-day";
+                        info[i] = "TWO_DAY";
                     else if (info[i].equals("2"))
-                        info[i] = "1-week";
+                        info[i] = "ONE_WEEK";
                     else
                         continue;
                     break;
@@ -109,16 +97,22 @@ public class ItemManager extends Utilities {
             } else if (i == 6) {
                 while (true) {
                     info[i] = askInfo(questionList.get(i));
-                    if (info[i].equals("1"))
-                        info[i] = "Action";
-                    else if (info[i].equals("2"))
-                        info[i] = "Horror";
-                    else if (info[i].equals("3"))
-                        info[i] = "Drama";
-                    else if (info[i].equals("4"))
-                        info[i] = "Comedy";
-                    else
-                        continue;
+                    switch (info[i]) {
+                        case "1":
+                            info[i] = "ACTION";
+                            break;
+                        case "2":
+                            info[i] = "HORROR";
+                            break;
+                        case "3":
+                            info[i] = "DRAMA";
+                            break;
+                        case "4":
+                            info[i] = "COMEDY";
+                            break;
+                        default:
+                            continue;
+                    }
                     break;
                 }
             } else if (i != 2)
@@ -130,29 +124,34 @@ public class ItemManager extends Utilities {
 
     }
 
-    public void createItem() {
+    public void addItem() {
         try {
-            this.createItem(getInformation());
+            this.addItem(getInformation());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
-    public void createItem(String[] data) throws ItemException {
+    public void addItem(Item item) {
+        try {
+            if (!this.isUnique(item.getId().substring(1, 4)))
+                throw new ItemException("ID " + item.getId() + " already exists in the database.");
+            else {
+                items.add(item);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void addItem(String[] data) {
         try {
             if (!this.isUnique(data[0].substring(1, 4)))
                 throw new ItemException("ID " + data[0].substring(0, 4) + " already exists in the database.");
-            if (data[2].equals("Game"))
-                items.add(new Game(data[0], data[1], data[2], data[3], Integer.valueOf(data[4]),
+            else {
+                items.add(new Item(data[0], data[1], data[2], data[3], data[6], Integer.valueOf(data[4]),
                         Double.valueOf(data[5])));
-            else if (data[2].equals("DVD"))
-                items.add(new DVD(data[0], data[1], data[2], data[3], Integer.valueOf(data[4]), Double.valueOf(data[5]),
-                        data[6]));
-            else if (data[2].equals("Record"))
-                items.add(new Movie(data[0], data[1], data[2], data[3], Integer.valueOf(data[4]),
-                        Double.valueOf(data[5]), data[6]));
-
+            }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -187,7 +186,7 @@ public class ItemManager extends Utilities {
                 case 1:
                     return this.modifyTitle(temp);
                 case 2:
-                    return this.modifyLoantype(temp);
+                    return this.modifyLoanType(temp);
                 case 3:
                     return this.increaseNumCopy(temp);
                 case 4:
@@ -208,7 +207,7 @@ public class ItemManager extends Utilities {
         // Close the scanner object to prevent resource leak
         input.close();
 
-        if (!item.setItemTitle(newTitle)) {
+        if (!item.setTitle(newTitle)) {
             System.out.println("Cannot set the item title.");
             return false;
         }
@@ -220,7 +219,7 @@ public class ItemManager extends Utilities {
         return true;
     }
 
-    public boolean modifyLoantype(Item item) {
+    public boolean modifyLoanType(Item item) {
         while (true) {
             String result = askInfo(
                     "Please enter loan type:\n1. 2-day loan\n2. 1-week loan\nSelect either number [1] or [2]: ");
@@ -230,8 +229,7 @@ public class ItemManager extends Utilities {
             } else if (result.equals("2")) {
                 item.setLoanType(Item.LoanType.ONE_WEEK_LOAN);
                 break;
-            } else
-                continue;
+            }
         }
         System.out.println("Successfully set the new loan type for item.");
         System.out.println("The information for the item after being modified is: ");
@@ -256,7 +254,7 @@ public class ItemManager extends Utilities {
             }
 
             if (!item.setNumCopy(copies)) {
-                System.out.println("Cannot increase the number of copp");
+                System.out.println("Cannot increase the number of copy");
                 return false;
             } else {
                 break;
@@ -310,7 +308,7 @@ public class ItemManager extends Utilities {
         if (items.size() == 0)
             return true;
         for (Item i : items) {
-            if (i.getItemId().substring(1, 4).equals(input))
+            if (i.getId().substring(1, 4).equals(input))
                 return false;
         }
         return true;
@@ -332,15 +330,12 @@ public class ItemManager extends Utilities {
             input.nextLine();
 
             switch (numSelection) {
-                case 1:
-                    System.out.println("Please enter ID: ");
-                    break;
-                case 2:
-                    System.out.println("Please enter the title: ");
-                    break;
-                default:
+                case 1 -> System.out.println("Please enter ID: ");
+                case 2 -> System.out.println("Please enter the title: ");
+                default -> {
                     System.out.println("Invalid Selection.");
                     continue;
+                }
             }
 
             String choice = input.nextLine();
@@ -355,13 +350,13 @@ public class ItemManager extends Utilities {
     public Item searchItem(String input, int menuSelection) {
         if (items.size() == 0)
             return null;
-        for (int i = 0; i < items.size(); i++) {
+        for (Item item : items) {
             if (menuSelection == 1) {
-                if (items.get(i).getItemId().equals(input))
-                    return items.get(i);
+                if (item.getId().equals(input))
+                    return item;
             } else {
-                if (items.get(i).getItemTitle().equals(input))
-                    return items.get(i);
+                if (item.getTitle().equals(input))
+                    return item;
             }
         }
         return null;
@@ -372,6 +367,48 @@ public class ItemManager extends Utilities {
             System.out.println(i);
         }
         return;
+    }
+
+    private void loadData() {
+        try {
+            FileReader reader = new FileReader("src/data/items.txt");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] props = line.split(", ");
+                String id = props[0];
+                String title = props[1];
+                String rentalType = props[2];
+                String loanType = props[3];
+                int numCopy = Integer.parseInt(props[4]);
+                double rentalFee = Double.parseDouble(props[5]);
+
+                String genre = (rentalType.equalsIgnoreCase("Game")) ? "" : props[6] ;
+                Item item = new Item(id, title, rentalType, loanType, genre, numCopy, rentalFee);
+                items.add(item);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ItemException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void saveData() {
+        try {
+            FileWriter writer = new FileWriter("src/data/items.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            for (Item item : items) {
+                bufferedWriter.write(item.toString());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

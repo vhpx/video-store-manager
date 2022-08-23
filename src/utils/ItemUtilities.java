@@ -1,6 +1,5 @@
 package utils;
 
-import items.Genre;
 import items.Item;
 
 public class ItemUtilities {
@@ -21,42 +20,36 @@ public class ItemUtilities {
     }
 
     public Item.RentalType isValidRentalType(String rentalType) {
-        switch (rentalType) {
-            case "Game":
-                return Item.RentalType.GAME;
-            case "Record":
-                return Item.RentalType.RECORD;
-            case "DVD":
-                return Item.RentalType.DVD;
-            default:
-                return null;
-        }
+        if (rentalType.equalsIgnoreCase("record"))
+            return Item.RentalType.RECORD;
+        if (rentalType.equalsIgnoreCase("dvd"))
+            return Item.RentalType.DVD;
+        if (rentalType.equalsIgnoreCase("game"))
+            return Item.RentalType.GAME;
+        return null;
     }
 
     public Item.LoanType isValidLoanType(String loanType) {
-        switch (loanType) {
-            case "1-week":
-                return Item.LoanType.ONE_WEEK_LOAN;
-            case "2-day":
-                return Item.LoanType.TWO_DAYS_LOAN;
-            default:
-                return null;
-        }
+        if (loanType.equalsIgnoreCase("one_week"))
+            return Item.LoanType.ONE_WEEK_LOAN;
+        if (loanType.equalsIgnoreCase("two_day"))
+            return Item.LoanType.TWO_DAYS_LOAN;
+        return null;
     }
 
-    public Genre.GenreType isValidGenre(String genre) {
-        switch (genre) {
-            case "Action":
-                return Genre.GenreType.ACTION;
-            case "Horror":
-                return Genre.GenreType.HORROR;
-            case "Drama":
-                return Genre.GenreType.DRAMA;
-            case "Comedy":
-                return Genre.GenreType.COMEDY;
-            default:
-                return null;
-        }
+    public Item.Genre isValidGenre(String genre) {
+        if (genre.equalsIgnoreCase("action"))
+            return Item.Genre.ACTION;
+        if (genre.equalsIgnoreCase("comedy"))
+            return Item.Genre.COMEDY;
+        if (genre.equalsIgnoreCase("drama"))
+            return Item.Genre.DRAMA;
+        if (genre.equalsIgnoreCase("horror"))
+            return Item.Genre.HORROR;
+        if (genre.equalsIgnoreCase("") || genre.equalsIgnoreCase("non-genre"))
+            return Item.Genre.NON_GENRE;
+        return null;
+
     }
 
 }
