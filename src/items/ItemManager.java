@@ -25,14 +25,10 @@ public class ItemManager extends Utilities {
 
     public static void main(String[] args) throws ItemException {
         ItemManager itemManager = ItemManager.getInstance();
-        Item i1 = new Item("I000-1998", "The Godfather", Item.RentalType.DVD, Item.LoanType.ONE_WEEK_LOAN, Item.Genre.DRAMA, 1, 2.0);
-        itemManager.addItem(i1);
-        itemManager.loadData();
-        Item i2 = new Item("I007-2000", "Dead in Daylight", "GAME", "TWO_DAY", "HORROR", 8, 2.0);
-        itemManager.addItem(i2);
+        itemManager.initialize();
         itemManager.saveData();
-//        itemManager.initialize();
-//        itemManager.saveData();
+        Item i1 = new Item("I007-2000", "Dead in Daylight", "GAME", "TWO_DAY", "", 8, 2.0);
+        itemManager.addItem(i1);
         
     }
 
@@ -59,13 +55,13 @@ public class ItemManager extends Utilities {
             info[n] = askInfo(questionList.get(n));
             switch (info[n]) {
                 case "1":
-                    info[n] = "Record";
+                    info[n] = "RECORD";
                     break;
                 case "2":
                     info[n] = "DVD";
                     break;
                 case "3":
-                    info[n] = "Game";
+                    info[n] = "GAME";
                     break;
                 default:
                     continue;
@@ -91,9 +87,9 @@ public class ItemManager extends Utilities {
                 while (true) {
                     info[i] = askInfo(questionList.get(i));
                     if (info[i].equals("1"))
-                        info[i] = "2-day";
+                        info[i] = "TWO_DAY";
                     else if (info[i].equals("2"))
-                        info[i] = "1-week";
+                        info[i] = "ONE_WEEK";
                     else
                         continue;
                     break;
@@ -103,16 +99,16 @@ public class ItemManager extends Utilities {
                     info[i] = askInfo(questionList.get(i));
                     switch (info[i]) {
                         case "1":
-                            info[i] = "Action";
+                            info[i] = "ACTION";
                             break;
                         case "2":
-                            info[i] = "Horror";
+                            info[i] = "HORROR";
                             break;
                         case "3":
-                            info[i] = "Drama";
+                            info[i] = "DRAMA";
                             break;
                         case "4":
-                            info[i] = "Comedy";
+                            info[i] = "COMEDY";
                             break;
                         default:
                             continue;
@@ -136,8 +132,16 @@ public class ItemManager extends Utilities {
         }
     }
 
-    public void addItem(Item i) {
-        items.add(i);
+    public void addItem(Item item) {
+        try {
+            if (!this.isUnique(item.getId().substring(1, 4)))
+                throw new ItemException("ID " + item.getId() + " already exists in the database.");
+            else {
+                items.add(item);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public void addItem(String[] data) {
