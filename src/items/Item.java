@@ -73,7 +73,7 @@ public class Item extends ItemUtilities {
 
     // create item
 
-    // ---------------- Setter _____________________________
+    // ---------------- Setter -------------
 
     protected boolean setId(String id) {
 
