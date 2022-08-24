@@ -1,7 +1,8 @@
 package auth;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import utils.IOHelper;
 
 public class AuthManager {
     private AuthManager() {
@@ -50,14 +51,6 @@ public class AuthManager {
     }
 
     public void showLoginScreen() {
-        // Scanner sc = new Scanner(System.in);
-
-        // System.out.print("Enter username: ");
-        // String username = sc.nextLine();
-
-        // System.out.print("Enter password: ");
-        // String password = sc.nextLine();
-
         if (signup()) {
             System.out.println("Login successful");
         } else {
@@ -106,8 +99,7 @@ public class AuthManager {
     }
 
     public boolean signup() {
-        // Ask for username and password
-        Scanner sc = new Scanner(System.in);
+        var sc = IOHelper.getScanner();
 
         System.out.print("Enter username: ");
         String username = sc.nextLine();
@@ -119,22 +111,23 @@ public class AuthManager {
         System.out.print("Confirm password: ");
         String confirmPassword = sc.nextLine();
 
-        if (password.equals(confirmPassword)) {
-            // Create account
-            Account account = new Account(username, password);
-            accountManager.addAccount(account);
-
-            System.out.println("Account created");
-            accountManager.displayAll();
-
-            loggedInUserId = account.getId();
-            isAdmin = false;
-
-            return true;
-        } else {
+        // Check if passwords match
+        if (!password.equals(confirmPassword)) {
             System.out.println("Passwords do not match");
             return false;
         }
+
+        // Create account
+        Account account = new Account(username, password);
+        accountManager.addAccount(account);
+
+        System.out.println("Account created");
+        accountManager.displayAll();
+
+        loggedInUserId = account.getId();
+        isAdmin = false;
+
+        return true;
     }
 
     public void logout() {

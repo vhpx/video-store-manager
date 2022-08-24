@@ -1,9 +1,9 @@
 package items;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Stack;
 
+import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
 
@@ -178,11 +178,8 @@ public class ItemManager extends Utilities {
         while (true) {
             System.out.print("Enter the selection: ");
 
-            Scanner input = new Scanner(System.in);
-            numSelection = input.nextInt();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            var sc = IOHelper.getScanner();
+            numSelection = sc.nextInt();
 
             switch (numSelection) {
                 case 1:
@@ -203,11 +200,8 @@ public class ItemManager extends Utilities {
     public boolean modifyTitle(Item item) {
         System.out.println("Please enter the new title: ");
 
-        Scanner input = new Scanner(System.in);
-        String newTitle = input.nextLine();
-
-        // Close the scanner object to prevent resource leak
-        input.close();
+        var sc = IOHelper.getScanner();
+        String newTitle = sc.nextLine();
 
         if (!item.setTitle(newTitle)) {
             System.out.println("Cannot set the item title.");
@@ -244,11 +238,8 @@ public class ItemManager extends Utilities {
         while (true) {
             System.out.println("Please enter the additional number of copies: ");
 
-            Scanner input = new Scanner(System.in);
-            int copies = input.nextInt();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            var sc = IOHelper.getScanner();
+            int copies = sc.nextInt();
 
             if (copies < 0) {
                 System.out.println("Invalid input, number cannot be negative.");
@@ -272,11 +263,8 @@ public class ItemManager extends Utilities {
         while (true) {
             System.out.println("Please enter the new rental fee: ");
 
-            Scanner input = new Scanner(System.in);
-            int fee = input.nextInt();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            var sc = IOHelper.getScanner();
+            int fee = sc.nextInt();
 
             if (fee < 0) {
                 System.out.println("Invalid input, number cannot be negative.");
@@ -323,13 +311,13 @@ public class ItemManager extends Utilities {
         System.out.println("1. Search by ID.");
         System.out.println("2. Search by title.");
 
-        Scanner input = new Scanner(System.in);
+        var sc = IOHelper.getScanner();
         int numSelection = Integer.MAX_VALUE;
 
         while (true) {
             System.out.print("Enter the selection: ");
-            numSelection = input.nextInt();
-            input.nextLine();
+            numSelection = sc.nextInt();
+            sc.nextLine();
 
             switch (numSelection) {
                 case 1 -> System.out.println("Please enter ID: ");
@@ -340,10 +328,7 @@ public class ItemManager extends Utilities {
                 }
             }
 
-            String choice = input.nextLine();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            String choice = sc.nextLine();
 
             return searchItem(choice, numSelection);
         }

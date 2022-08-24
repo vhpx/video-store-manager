@@ -7,8 +7,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class IOHelper {
+    private final static Scanner sc = new Scanner(System.in);
+
+    public static Scanner getScanner() {
+        return sc;
+    }
+
     public static String getProjectPath() {
         // Create a check file
         File check = new File("check.txt");
