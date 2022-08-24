@@ -1,24 +1,29 @@
 package core;
 
-import java.io.IOException;
-
 import auth.AuthManager;
+import screens.ScreenManager;
 
 public class Application {
-    private Application() {
-    }
-
     private static Application instance = null;
-
-    public static Application getInstance() {
-        if (instance == null) instance = new Application();
-        return instance;
-    }
 
     public static AuthManager auth = AuthManager.getInstance();
     public static InternalManager internal = InternalManager.getInstance();
+    public static ScreenManager screen = ScreenManager.getInstance();
+
+    private Application() {
+        // Private constructor to prevent instantiation since
+        // this is a singleton class (only one instance)
+    }
+
+    public static Application getInstance() {
+        if (instance == null)
+            instance = new Application();
+        return instance;
+    }
 
     public void initialize() {
+        System.out.println("\nLoading...\n");
+
         // Initialize the internal manager
         internal.initialize();
 
@@ -26,25 +31,25 @@ public class Application {
         auth.initialize();
     }
 
-    public void start() {
-        System.out.println("Preparing to login...\n");
+    public static void stop() {
+        // Stop the internal manager
+        internal.stop();
 
-        // While user is not logged in, show the login screen
-        while (!auth.isLoggedIn()) {
-            auth.showLoginScreen();
-        }
+        // Stop the auth manager
+        auth.stop();
 
-        // If user is logged in, show the main menu
-        // internal.showMainMenu();
-
-        System.out.println("You are already logged in.");
+        // Exit the application
+        System.out.println("\nApplication stopped.\n");
+        System.exit(0);
     }
 
-    public static void main(String[] args) throws IOException {
-        // Application app = Application.getInstance();
+    public void execute() {
+        // While user is not logged in, show the login screen
+        while (!auth.isLoggedIn()) {
+            screen.showAuthScreen();
+        }
 
-        // Application.internal.items.loadData();
-        // Application.internal.items.deleteItem();
-        // Application.internal.items.displayAll();
+        // Once user is logged in, show the main screen
+        screen.showMainMenu();
     }
 }

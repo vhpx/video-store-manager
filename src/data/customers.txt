@@ -1,5 +1,0 @@
-0, Thu, 123 Main St., 123-456-7890, 0, ADMIN, Thu, password
-1, Fane Doe, 123 Main St., 123-456-7890, 0, ADMIN, jdoe1, password
-2, John Smith, 123 Main St., 123-456-7890, 0, ADMIN, jsmith, password
-3, Jane Doe, 123 Main St., 123-456-7890, 0, USER, jdoe2, password
-4, Jane Doe, 123 Main St., 123-456-7890, 0, USER, jdoe3, password

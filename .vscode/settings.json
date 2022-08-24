@@ -1,0 +1,16 @@
+{
+    "files.exclude": {
+        //* Git
+        ".git": true,
+        ".gitignore": true,
+        //* IntelliJ IDEA
+        ".idea": true,
+        "video-store-manager.iml": true,
+        //* Java
+        "**/*.class": true,
+        //* Renovate
+        "renovate.json": true,
+        //* Miscellaneous
+        "LICENSE": true
+    }
+}

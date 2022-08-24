@@ -1,26 +1,22 @@
 package items;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Stack;
 
+import utils.IOHelper;
+import utils.ItemIO;
 import utils.Utilities;
 
 public class ItemManager extends Utilities {
+    private static ItemManager instance = null;
+    private String fileName = "data/items.txt";
 
-    private ArrayList<Item> items;
+    private ArrayList<Item> items = new ArrayList<Item>();
 
     private ItemManager() {
-        items = new ArrayList<>();
+        // Private constructor to prevent instantiation since
+        // this is a singleton class (only one instance)
     }
-
-    private static ItemManager instance = null;
 
     public static ItemManager getInstance() {
         if (instance == null)
@@ -28,18 +24,18 @@ public class ItemManager extends Utilities {
         return instance;
     }
 
-    public static void main(String[] args) throws ItemException {
-        ItemManager itemManager = ItemManager.getInstance();
-        itemManager.initialize();
-        Item i1 = new Item("I007-2000", "Dead in Daylight", "GAME", "TWO_DAY", "", 8, 2.0);
-        itemManager.addItem(i1);
-        itemManager.saveData();
-
-    }
-
     public void initialize() {
         // Load the items from the local storage
-        loadData();
+        ItemIO.loadData(fileName);
+    }
+
+    public void stop() {
+        // Save the items to the local storage
+        ItemIO.saveData(fileName);
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
 
     public String[] getInformation() {
@@ -181,11 +177,8 @@ public class ItemManager extends Utilities {
         while (true) {
             System.out.print("Enter the selection: ");
 
-            Scanner input = new Scanner(System.in);
-            numSelection = input.nextInt();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            var sc = IOHelper.getScanner();
+            numSelection = sc.nextInt();
 
             switch (numSelection) {
                 case 1:
@@ -206,11 +199,8 @@ public class ItemManager extends Utilities {
     public boolean modifyTitle(Item item) {
         System.out.println("Please enter the new title: ");
 
-        Scanner input = new Scanner(System.in);
-        String newTitle = input.nextLine();
-
-        // Close the scanner object to prevent resource leak
-        input.close();
+        var sc = IOHelper.getScanner();
+        String newTitle = sc.nextLine();
 
         if (!item.setTitle(newTitle)) {
             System.out.println("Cannot set the item title.");
@@ -247,11 +237,8 @@ public class ItemManager extends Utilities {
         while (true) {
             System.out.println("Please enter the additional number of copies: ");
 
-            Scanner input = new Scanner(System.in);
-            int copies = input.nextInt();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            var sc = IOHelper.getScanner();
+            int copies = sc.nextInt();
 
             if (copies < 0) {
                 System.out.println("Invalid input, number cannot be negative.");
@@ -275,11 +262,8 @@ public class ItemManager extends Utilities {
         while (true) {
             System.out.println("Please enter the new rental fee: ");
 
-            Scanner input = new Scanner(System.in);
-            int fee = input.nextInt();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            var sc = IOHelper.getScanner();
+            int fee = sc.nextInt();
 
             if (fee < 0) {
                 System.out.println("Invalid input, number cannot be negative.");
@@ -326,13 +310,13 @@ public class ItemManager extends Utilities {
         System.out.println("1. Search by ID.");
         System.out.println("2. Search by title.");
 
-        Scanner input = new Scanner(System.in);
+        var sc = IOHelper.getScanner();
         int numSelection = Integer.MAX_VALUE;
 
         while (true) {
             System.out.print("Enter the selection: ");
-            numSelection = input.nextInt();
-            input.nextLine();
+            numSelection = sc.nextInt();
+            sc.nextLine();
 
             switch (numSelection) {
                 case 1 -> System.out.println("Please enter ID: ");
@@ -343,10 +327,7 @@ public class ItemManager extends Utilities {
                 }
             }
 
-            String choice = input.nextLine();
-
-            // Close the scanner object to prevent resource leak
-            input.close();
+            String choice = sc.nextLine();
 
             return searchItem(choice, numSelection);
         }
@@ -372,47 +353,4 @@ public class ItemManager extends Utilities {
             System.out.println(i);
         }
     }
-
-    private void loadData() {
-        try {
-            FileReader reader = new FileReader("src/data/items.txt");
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] props = line.split(", ");
-                String id = props[0];
-                String title = props[1];
-                String rentalType = props[2];
-                String loanType = props[3];
-                int numCopy = Integer.parseInt(props[4]);
-                double rentalFee = Double.parseDouble(props[5]);
-
-                String genre = (rentalType.equalsIgnoreCase("Game")) ? "" : props[6] ;
-                Item item = new Item(id, title, rentalType, loanType, genre, numCopy, rentalFee);
-                items.add(item);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ItemException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void saveData() {
-        try {
-            FileWriter writer = new FileWriter("src/data/items.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            for (Item item : items) {
-                bufferedWriter.write(item.toString());
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

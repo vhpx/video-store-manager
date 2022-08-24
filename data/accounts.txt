@@ -1,0 +1,8 @@
+C001, vhpx, 123123, Vo Hoang Phuc, 123 Main St., 123-456-7890, VIP, 0
+C002, npat273, 321321, Nguyen Pham Anh Thu, 123 Main St., 123-456-7890, VIP, 0
+C003, krusk, 121212, Nguyen Ngoc Luong, 123 Main St., 123-456-7890, VIP, 0
+C004, touletou, 212121, Le Cam Tu, 123 Main St., 123-456-7890, VIP, 0
+C005, hphuoc, 112233, Huu Phuoc, 123 Main St., 123-456-7890, VIP, 0
+C006, guest, 332211, Guest Account, 123 Main St., 123-456-7890, GUEST, 0
+C007, regular, 332211, Regular Account, 123 Main St., 123-456-7890, REGULAR, 0
+C008, vip, 332211, VIP Account, 123 Main St., 123-456-7890, VIP, 0

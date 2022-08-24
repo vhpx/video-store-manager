@@ -38,18 +38,17 @@ public class ItemUtilities {
     }
 
     public Item.Genre isValidGenre(String genre) {
-        if (genre.equalsIgnoreCase("action"))
+        if (genre.equalsIgnoreCase("ACTION"))
             return Item.Genre.ACTION;
-        if (genre.equalsIgnoreCase("comedy"))
+        if (genre.equalsIgnoreCase("COMEDY"))
             return Item.Genre.COMEDY;
-        if (genre.equalsIgnoreCase("drama"))
+        if (genre.equalsIgnoreCase("DRAMA"))
             return Item.Genre.DRAMA;
-        if (genre.equalsIgnoreCase("horror"))
+        if (genre.equalsIgnoreCase("HORROR"))
             return Item.Genre.HORROR;
-        if (genre.equalsIgnoreCase("") || genre.equalsIgnoreCase("non-genre"))
-            return Item.Genre.NON_GENRE;
+        if (genre.equalsIgnoreCase("") || genre.equalsIgnoreCase("N/A"))
+            return Item.Genre.NOT_APPPLICABLE;
+
         return null;
-
     }
-
 }

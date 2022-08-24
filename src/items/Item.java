@@ -8,7 +8,7 @@ public class Item extends ItemUtilities {
         HORROR,
         DRAMA,
         COMEDY,
-        NON_GENRE
+        NOT_APPPLICABLE
     }
 
     public enum RentalType {
@@ -36,6 +36,9 @@ public class Item extends ItemUtilities {
     private RentalStatus rentalStatus;
     private Genre genre;
 
+    public Item() {
+    }
+
     private Item(String id, String title, int numCopy, double rentalFee) throws ItemException {
         if (!setId(id))
             throw new ItemException("cannot set item id " + id);
@@ -53,11 +56,11 @@ public class Item extends ItemUtilities {
     }
 
     public Item(String id, String title, RentalType rentalType, LoanType loanType, Genre genre,
-            int numCopy, double rentalFee) throws ItemException  {
+            int numCopy, double rentalFee) throws ItemException {
         this(id, title, numCopy, rentalFee);
         this.rentalType = rentalType;
         this.loanType = loanType;
-        this.genre = (rentalType == RentalType.GAME) ? Genre.NON_GENRE : genre;
+        this.genre = (rentalType == RentalType.GAME) ? Genre.NOT_APPPLICABLE : genre;
     }
 
     public Item(String id, String title, String rentalType, String loanType, String genre,
@@ -160,8 +163,8 @@ public class Item extends ItemUtilities {
             case COMEDY:
                 this.genre = Genre.COMEDY;
                 return true;
-            case NON_GENRE:
-                this.genre = Genre.NON_GENRE;
+            case NOT_APPPLICABLE:
+                this.genre = Genre.NOT_APPPLICABLE;
                 return true;
             default:
                 return false;
@@ -203,15 +206,15 @@ public class Item extends ItemUtilities {
 
     // ------------Getter-----------
 
-    protected String getId() {
+    public String getId() {
         return id;
     }
 
-    protected String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    protected String getRentalType() {
+    public String getRentalType() {
         switch (this.rentalType) {
             case RECORD:
                 return "RECORD";
@@ -224,7 +227,7 @@ public class Item extends ItemUtilities {
         }
     }
 
-    protected String getLoanType() {
+    public String getLoanType() {
         switch (this.loanType) {
             case ONE_WEEK_LOAN:
                 return "ONE_WEEK";
@@ -235,28 +238,29 @@ public class Item extends ItemUtilities {
         }
     }
 
-    protected String getGenre() {
+    public String getGenre() {
         switch (this.genre) {
             case ACTION:
                 return "ACTION";
             case HORROR:
-                return "HORROR";    
+                return "HORROR";
             case DRAMA:
                 return "DRAMA";
-            case COMEDY: 
+            case COMEDY:
                 return "COMEDY";
-            case NON_GENRE:
-                return "";
+            case NOT_APPPLICABLE:
+                return "N/A";
+
             default:
                 return "N/A";
         }
     }
 
-    protected int getNumCopy() {
+    public int getNumCopy() {
         return numCopy;
     }
 
-    protected double getRentalFee() {
+    public double getRentalFee() {
         return rentalFee;
     }
 
@@ -288,11 +292,11 @@ public class Item extends ItemUtilities {
 
     @Override
     public String toString() {
-        String genre = (this.getGenre().length()==0) ? "" : ", " + this.getGenre();
-        return this.getId() + ", " + this.getTitle() + ", "  + this.getRentalType() + ", " +
-                 this.getLoanType() + ", " +
-                 this.getNumCopy() + ", " +
-                 this.getRentalFee() + genre;
+        String genre = (this.getGenre().length() == 0) ? "" : ", " + this.getGenre();
+        return this.getId() + ", " + this.getTitle() + ", " + this.getRentalType() + ", " +
+                this.getLoanType() + ", " +
+                this.getNumCopy() + ", " +
+                this.getRentalFee() + genre;
     }
 
 }

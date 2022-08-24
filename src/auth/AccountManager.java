@@ -1,20 +1,20 @@
 package auth;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import utils.AccountIO;
+
 public class AccountManager {
     private static AccountManager instance = null;
+    private String fileName = "data/accounts.txt";
+
     private ArrayList<Account> accounts = new ArrayList<Account>();
 
     private AccountManager() {
+        // Private constructor to prevent instantiation since
+        // this is a singleton class (only one instance)
     }
 
     public static AccountManager getInstance() {
@@ -23,32 +23,33 @@ public class AccountManager {
         return instance;
     }
 
-    public static void main(String[] args) {
-        AccountManager accountManager = AccountManager.getInstance();
-        Account a1 = new Account("0", "Thu", "password", "123 Main St.", "123-456-7890", "Thu", "ADMIN");
-        accountManager.addAccount(a1);
-        accountManager.loadData();
-        Account a2 = new Account("5", "Anh", "password", "123 Main St.", "123-456-7890", "Anh", "ADMIN");
-        accountManager.addAccount(a2);
-        accountManager.saveData();
+    public void initialize() {
+        // Load the accounts from the local storage
+        AccountIO.loadData(fileName);
     }
 
-    protected ArrayList<Account> getAccounts() {
+    public void stop() {
+        // Save the accounts to the local storage
+        AccountIO.saveData(fileName);
+    }
+
+    public ArrayList<Account> getAccounts() {
         return accounts;
     }
 
-    public void initialize() {
-        // Load the accounts from the local storage
-        loadData();
+    public Account getAccount(String username) {
+        for (Account account : accounts)
+            if (account.getUsername().equals(username))
+                return account;
+
+        return null;
     }
 
     public void addAccount(Account account) {
-        System.out.println("Adding account " + account.getUsername());
         accounts.add(account);
     }
 
     public void deleteAccount(Account account) {
-        System.out.println("Deleting account " + account.getUsername());
         accounts.remove(account);
     }
 
@@ -94,45 +95,4 @@ public class AccountManager {
             }
         }
     }
-
-    private void loadData() {
-        try {
-            FileReader reader = new FileReader("src/data/customers.txt");
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] props = line.split(", ");
-                String id = props[0];
-                String username = props[6];
-                String password = props[7];
-                String address = props[2];
-                String phone = props[3];
-                String name = props[1];
-                String role = props[5];
-                int quantity = Integer. parseInt(props[4]);
-                Account account = new Account(id, username, password, address, phone, name, role);
-                addAccount(account);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void saveData() {
-        try {
-            FileWriter writer = new FileWriter("src/data/customers.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            for (Account account : accounts) {
-                bufferedWriter.write(account.toString());
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
