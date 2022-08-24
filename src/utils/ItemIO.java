@@ -16,7 +16,7 @@ public class ItemIO {
             manager.addItem(item);
         }
 
-        System.out.println("Loaded " + lines.size() + " items from " + fileName + ".");
+        System.out.println("Loaded " + lines.size() + " items from \"" + fileName + "\" file.");
     }
 
     public static void saveData(String fileName) {
@@ -28,6 +28,6 @@ public class ItemIO {
         }
 
         IOHelper.createFile(fileName, lines);
-        System.out.println("Saved " + items.size() + " items to " + fileName + ".");
+        System.out.println("Saved " + items.size() + " items to \"" + fileName + "\" file.");
     }
 }
