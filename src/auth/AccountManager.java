@@ -46,12 +46,10 @@ public class AccountManager {
     }
 
     public void addAccount(Account account) {
-        System.out.println("Adding account " + account.getUsername());
         accounts.add(account);
     }
 
     public void deleteAccount(Account account) {
-        System.out.println("Deleting account " + account.getUsername());
         accounts.remove(account);
     }
 

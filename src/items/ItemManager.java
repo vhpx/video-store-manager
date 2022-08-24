@@ -134,7 +134,6 @@ public class ItemManager extends Utilities {
     }
 
     public void addItem(Item item) {
-        System.out.println("Adding item " + item.getId());
         try {
             if (!this.isUnique(item.getId().substring(1, 4)))
                 throw new ItemException("ID " + item.getId() + " already exists in the database.");

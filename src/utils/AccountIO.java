@@ -15,6 +15,8 @@ public class AccountIO {
             Account account = AccountUtils.parse(line);
             manager.addAccount(account);
         }
+
+        System.out.println("Loaded " + lines.size() + " accounts from " + fileName + ".");
     }
 
     public static void saveData(String fileName) {
@@ -26,5 +28,6 @@ public class AccountIO {
         }
 
         IOHelper.createFile(fileName, lines);
+        System.out.println("Saved " + accounts.size() + " accounts to " + fileName + ".");
     }
 }

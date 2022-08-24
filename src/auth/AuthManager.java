@@ -2,18 +2,16 @@ package auth;
 
 import java.util.ArrayList;
 
-import utils.IOHelper;
-
 public class AuthManager {
     private static AuthManager instance = null;
 
-    private AccountManager accountManager = AccountManager.getInstance();
+    private static AccountManager accountManager = AccountManager.getInstance();
 
-    private String adminUsername = "admin";
-    private String adminPassword = "admin";
+    private static String adminUsername = "admin";
+    private static String adminPassword = "admin";
 
-    private Account currentAccount = null;
-    private boolean isAdmin = false;
+    private static Account currentAccount = null;
+    private static boolean isAdmin = false;
 
     private AuthManager() {
         // Private constructor to prevent instantiation since
@@ -53,16 +51,8 @@ public class AuthManager {
         return isAdmin;
     }
 
-    public void showLoginScreen() {
-        if (signup()) {
-            System.out.println("Login successful");
-        } else {
-            System.out.println("Login failed");
-        }
-    }
-
-    public boolean login(String username, String password) {
-        System.out.println("Logging in as " + username);
+    public static boolean login(String username, String password) {
+        System.out.println("\nLogging in as " + username + "...");
 
         // Check if username is admin
         if (username.equals(adminUsername)) {
@@ -100,24 +90,8 @@ public class AuthManager {
         return false;
     }
 
-    public boolean signup() {
-        var sc = IOHelper.getScanner();
-
-        System.out.print("Enter username: ");
-        String username = sc.nextLine();
-
-        System.out.print("Enter password: ");
-        String password = sc.nextLine();
-
-        // Confirm password
-        System.out.print("Confirm password: ");
-        String confirmPassword = sc.nextLine();
-
-        // Check if passwords match
-        if (!password.equals(confirmPassword)) {
-            System.out.println("Passwords do not match");
-            return false;
-        }
+    public static boolean signup(String username, String password) {
+        System.out.println("Signing up as " + username + "...");
 
         // Create account
         Account account = new Account(username, password);

@@ -15,6 +15,8 @@ public class ItemIO {
             Item item = ItemUtils.parse(line);
             manager.addItem(item);
         }
+
+        System.out.println("Loaded " + lines.size() + " items from " + fileName + ".");
     }
 
     public static void saveData(String fileName) {
@@ -26,5 +28,6 @@ public class ItemIO {
         }
 
         IOHelper.createFile(fileName, lines);
+        System.out.println("Saved " + items.size() + " items to " + fileName + ".");
     }
 }
