@@ -1,6 +1,6 @@
 import core.Application;
 
-public class VideoStoreManager {
+public class Main {
     public static void main(String[] args) {
         // * Application entry point
         // Create a new instance of the Application class

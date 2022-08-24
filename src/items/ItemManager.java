@@ -1,26 +1,22 @@
 package items;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
+import utils.ItemIO;
 import utils.Utilities;
 
 public class ItemManager extends Utilities {
+    private static ItemManager instance = null;
+    private String fileName = "data/items.txt";
 
-    private ArrayList<Item> items;
+    private ArrayList<Item> items = new ArrayList<Item>();
 
     private ItemManager() {
-        items = new ArrayList<>();
+        // Private constructor to prevent instantiation since
+        // this is a singleton class (only one instance)
     }
-
-    private static ItemManager instance = null;
 
     public static ItemManager getInstance() {
         if (instance == null)
@@ -28,18 +24,18 @@ public class ItemManager extends Utilities {
         return instance;
     }
 
-    public static void main(String[] args) throws ItemException {
-        ItemManager itemManager = ItemManager.getInstance();
-        itemManager.initialize();
-        Item i1 = new Item("I007-2000", "Dead in Daylight", "GAME", "TWO_DAY", "", 8, 2.0);
-        itemManager.addItem(i1);
-        itemManager.saveData();
-
-    }
-
     public void initialize() {
         // Load the items from the local storage
-        loadData();
+        ItemIO.loadData(fileName);
+    }
+
+    public void stop() {
+        // Save the items to the local storage
+        ItemIO.saveData(fileName);
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
 
     public String[] getInformation() {
@@ -138,6 +134,7 @@ public class ItemManager extends Utilities {
     }
 
     public void addItem(Item item) {
+        System.out.println("Adding item " + item.getId());
         try {
             if (!this.isUnique(item.getId().substring(1, 4)))
                 throw new ItemException("ID " + item.getId() + " already exists in the database.");
@@ -372,47 +369,4 @@ public class ItemManager extends Utilities {
             System.out.println(i);
         }
     }
-
-    private void loadData() {
-        try {
-            FileReader reader = new FileReader("src/data/items.txt");
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] props = line.split(", ");
-                String id = props[0];
-                String title = props[1];
-                String rentalType = props[2];
-                String loanType = props[3];
-                int numCopy = Integer.parseInt(props[4]);
-                double rentalFee = Double.parseDouble(props[5]);
-
-                String genre = (rentalType.equalsIgnoreCase("Game")) ? "" : props[6] ;
-                Item item = new Item(id, title, rentalType, loanType, genre, numCopy, rentalFee);
-                items.add(item);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ItemException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void saveData() {
-        try {
-            FileWriter writer = new FileWriter("src/data/items.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            for (Item item : items) {
-                bufferedWriter.write(item.toString());
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

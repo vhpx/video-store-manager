@@ -1,7 +1,5 @@
 package core;
 
-import java.io.IOException;
-
 import auth.AuthManager;
 
 public class Application {
@@ -39,13 +37,5 @@ public class Application {
         // internal.showMainMenu();
 
         System.out.println("You are already logged in.");
-    }
-
-    public static void main(String[] args) throws IOException {
-        // Application app = Application.getInstance();
-
-        // Application.internal.items.loadData();
-        // Application.internal.items.deleteItem();
-        // Application.internal.items.displayAll();
     }
 }

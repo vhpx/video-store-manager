@@ -28,6 +28,6 @@ public class InternalManager {
         items.initialize();
 
         // Initialize the transaction manager
-        transactions.initialize();
+        // transactions.initialize();
     }
 }

@@ -4,7 +4,7 @@ import auth.Account;
 
 public class AccountUtils {
     public static Account parse(String str) {
-        String[] tokens = str.split(",");
+        String[] tokens = str.split(", ");
 
         String id = tokens[0];
         String username = tokens[1];

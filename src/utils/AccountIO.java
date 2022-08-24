@@ -8,7 +8,6 @@ import auth.AccountManager;
 public class AccountIO {
     private static AccountManager manager = AccountManager.getInstance();
 
-    // Take in filename and a function that take in Account and return void
     public static void loadData(String fileName) {
         ArrayList<String> lines = IOHelper.readFile(fileName);
 
