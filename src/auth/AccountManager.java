@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import utils.AccountUtils;
-import utils.IOHelper;
+import utils.AccountIO;
 
 public class AccountManager {
     private static AccountManager instance = null;
+    private String fileName = "data/accounts.txt";
+
     private ArrayList<Account> accounts = new ArrayList<Account>();
 
-    private String dataFileName = "data/accounts.txt";
-
     private AccountManager() {
+        // Private constructor to prevent instantiation since
+        // this is a singleton class (only one instance)
     }
 
     public static AccountManager getInstance() {
@@ -22,18 +23,18 @@ public class AccountManager {
         return instance;
     }
 
-    protected ArrayList<Account> getAccounts() {
-        return accounts;
-    }
-
     public void initialize() {
         // Load the accounts from the local storage
-        loadData();
+        AccountIO.loadData(fileName);
     }
 
     public void stop() {
         // Save the accounts to the local storage
-        saveData();
+        AccountIO.saveData(fileName);
+    }
+
+    public ArrayList<Account> getAccounts() {
+        return accounts;
     }
 
     public void addAccount(Account account) {
@@ -87,24 +88,5 @@ public class AccountManager {
                 System.out.println(account);
             }
         }
-    }
-
-    private void loadData() {
-        ArrayList<String> lines = IOHelper.readFile(dataFileName);
-
-        for (String line : lines) {
-            Account account = AccountUtils.parse(line);
-            addAccount(account);
-        }
-    }
-
-    private void saveData() {
-        ArrayList<String> lines = new ArrayList<String>();
-
-        for (Account account : accounts) {
-            lines.add(AccountUtils.serialize(account));
-        }
-
-        IOHelper.createFile(dataFileName, lines);
     }
 }
