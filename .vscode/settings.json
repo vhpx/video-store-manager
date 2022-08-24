@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+        //* Git
+        ".git": true,
+        ".gitignore": true,
+        //* Java
+        "**/*.class": true,
+        //* Miscellaneous
+        "LICENSE": true
+    }
+}
