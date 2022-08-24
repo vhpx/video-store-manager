@@ -26,13 +26,13 @@ public class ItemUtils {
 
     public static String serialize(Item item) {
         String[] tokens = {
-                item.getId(),
-                item.getTitle(),
-                item.getRentalType(),
-                item.getLoanType(),
+                item.getId() != null ? item.getId() : "UNKNOWN",
+                item.getTitle() != null ? item.getTitle() : "UNKNOWN",
+                item.getRentalType() != null ? item.getRentalType() : "UNKNOWN",
+                item.getLoanType() != null ? item.getLoanType() : "UNKNOWN",
                 Integer.toString(item.getNumCopy()),
                 Double.toString(item.getRentalFee()),
-                item.getGenre()
+                item.getGenre() != null ? item.getGenre() : "UNKNOWN",
         };
 
         return String.join(", ", tokens);

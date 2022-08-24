@@ -21,13 +21,14 @@ public class AccountUtils {
 
     public static String serialize(Account account) {
         String[] tokens = {
-                account.getId(),
-                account.getUsername(),
-                account.getPassword(),
-                account.getName(),
-                account.getAddress(),
-                account.getPhone(),
-                account.getRole()
+                account.getId() != null ? account.getId() : "UNKNOWN",
+                account.getUsername() != null ? account.getUsername() : "UNKNOWN",
+                account.getPassword() != null ? account.getPassword() : "UNKNOWN",
+                account.getName() != null ? account.getName() : "UNKNOWN",
+                account.getAddress() != null ? account.getAddress() : "UNKNOWN",
+                account.getPhone() != null ? account.getPhone() : "UNKNOWN",
+                account.getRole() != null ? account.getRole() : "UNKNOWN",
+                "0" // Integer.toString(account.getRentedItems())
         };
 
         return String.join(", ", tokens);
