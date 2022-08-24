@@ -12,7 +12,7 @@ public class AuthManager {
     private String adminUsername = "admin";
     private String adminPassword = "admin";
 
-    private String loggedInUserId = null;
+    private Account currentAccount = null;
     private boolean isAdmin = false;
 
     private AuthManager() {
@@ -29,7 +29,7 @@ public class AuthManager {
     // Initialize the auth manager
     public void initialize() {
         // Reset authentication flags
-        loggedInUserId = null;
+        currentAccount = null;
         isAdmin = false;
 
         // Load the logged in user id from the database
@@ -42,11 +42,11 @@ public class AuthManager {
     }
 
     public boolean isLoggedIn() {
-        return loggedInUserId != null;
+        return currentAccount != null || isAdmin;
     }
 
     public String getLoggedInUserId() {
-        return loggedInUserId;
+        return currentAccount.getId();
     }
 
     public boolean isAdmin() {
@@ -70,8 +70,6 @@ public class AuthManager {
                 // Set admin flag
                 isAdmin = true;
 
-                // Set logged in user id
-                loggedInUserId = username;
                 return true;
             }
 
@@ -87,8 +85,9 @@ public class AuthManager {
             if (account.getUsername().equals(username)) {
                 // Check if password is correct
                 if (account.getPassword().equals(password)) {
-                    // Set logged in user id
-                    loggedInUserId = username;
+                    // Set current account
+                    currentAccount = account;
+
                     return true;
                 }
 
@@ -127,7 +126,7 @@ public class AuthManager {
         System.out.println("Account created");
         accountManager.displayAll();
 
-        loggedInUserId = account.getId();
+        currentAccount = account;
         isAdmin = false;
 
         return true;
@@ -136,19 +135,50 @@ public class AuthManager {
     public void logout() {
         System.out.println("Logging out");
 
-        loggedInUserId = null;
+        currentAccount = null;
         isAdmin = false;
     }
 
+    public void changeUsername(String password, String newUsername) {
+        // Check if user is admin
+        if (isAdmin) {
+            System.out.println("Administrator username cannot be changed.");
+            return;
+        }
+
+        // Check if username is taken
+        if (accountManager.getAccount(newUsername) != null) {
+            System.out.println("Username is already taken");
+            return;
+        }
+
+        // Check if password is correct
+        if (!currentAccount.getPassword().equals(password)) {
+            System.out.println("Invalid password");
+            return;
+        }
+
+        // Change username
+        currentAccount.setUsername(newUsername);
+        System.out.println("Username changed");
+    }
+
     public void changePassword(String oldPassword, String newPassword) {
-        System.out.println("Changing password");
+        // Check if user is admin
+        if (isAdmin) {
+            System.out.println("Administrator password cannot be changed.");
+            return;
+        }
+
+        // Check if password is correct
+        if (!currentAccount.getPassword().equals(oldPassword)) {
+            System.out.println("Invalid password");
+            return;
+        }
+
+        // Change password
+        currentAccount.setPassword(newPassword);
+        System.out.println("Password changed");
     }
 
-    public void resetPassword(String username) {
-        System.out.println("Resetting password");
-    }
-
-    public void changeUsername(String oldUsername, String newUsername) {
-        System.out.println("Changing username");
-    }
 }

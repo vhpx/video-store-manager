@@ -37,6 +37,14 @@ public class AccountManager {
         return accounts;
     }
 
+    public Account getAccount(String username) {
+        for (Account account : accounts)
+            if (account.getUsername().equals(username))
+                return account;
+
+        return null;
+    }
+
     public void addAccount(Account account) {
         System.out.println("Adding account " + account.getUsername());
         accounts.add(account);
