@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import utils.IOHelper;
 
 public class AuthManager {
-    private AuthManager() {
-    }
-
     private static AuthManager instance = null;
+
     private AccountManager accountManager = AccountManager.getInstance();
 
     private String adminUsername = "admin";
@@ -16,6 +14,11 @@ public class AuthManager {
 
     private String loggedInUserId = null;
     private boolean isAdmin = false;
+
+    private AuthManager() {
+        // Private constructor to prevent instantiation since
+        // this is a singleton class (only one instance)
+    }
 
     public static AuthManager getInstance() {
         if (instance == null)

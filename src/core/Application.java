@@ -3,19 +3,21 @@ package core;
 import auth.AuthManager;
 
 public class Application {
-    private Application() {
-    }
-
     private static Application instance = null;
+
+    public static AuthManager auth = AuthManager.getInstance();
+    public static InternalManager internal = InternalManager.getInstance();
+
+    private Application() {
+        // Private constructor to prevent instantiation since
+        // this is a singleton class (only one instance)
+    }
 
     public static Application getInstance() {
         if (instance == null)
             instance = new Application();
         return instance;
     }
-
-    public static AuthManager auth = AuthManager.getInstance();
-    public static InternalManager internal = InternalManager.getInstance();
 
     public void initialize() {
         // Initialize the internal manager
