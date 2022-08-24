@@ -1,8 +1,8 @@
 package items;
 
-import utils.ItemUtilities;
+import utils.ItemUtils;
 
-public class Item extends ItemUtilities {
+public class Item {
     public enum Genre {
         ACTION,
         HORROR,
@@ -80,7 +80,7 @@ public class Item extends ItemUtilities {
 
     protected boolean setId(String id) {
 
-        if (this.isValidId(id)) {
+        if (ItemUtils.parseId(id)) {
             this.id = id;
             return true;
         }
@@ -101,7 +101,7 @@ public class Item extends ItemUtilities {
     }
 
     protected boolean setRentalType(String rentalType) {
-        RentalType type = this.isValidRentalType(rentalType);
+        RentalType type = ItemUtils.parseRentalType(rentalType);
         if (type == null)
             return false;
 
@@ -126,7 +126,7 @@ public class Item extends ItemUtilities {
     }
 
     protected boolean setLoanType(String loanType) {
-        LoanType type = this.isValidLoanType(loanType);
+        LoanType type = ItemUtils.parseLoanType(loanType);
         if (type == null)
             return false;
         switch (type) {
@@ -147,7 +147,7 @@ public class Item extends ItemUtilities {
     }
 
     protected boolean setGenre(String genre) {
-        Genre type = this.isValidGenre(genre);
+        Genre type = ItemUtils.parseGenre(genre);
         if (type == null)
             return false;
         switch (type) {

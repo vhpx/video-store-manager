@@ -7,7 +7,7 @@ import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
 
-public class ItemManager extends Utilities {
+public class ItemManager {
     private static ItemManager instance = null;
     private String fileName = "data/items.txt";
 
@@ -53,7 +53,7 @@ public class ItemManager extends Utilities {
         while (true) {
             // ask the item typed first
             // based on the type, different questions will be asked
-            info[n] = askInfo(questionList.get(n));
+            info[n] = Utilities.askInfo(questionList.get(n));
             switch (info[n]) {
                 case "1":
                     info[n] = "RECORD";
@@ -86,7 +86,7 @@ public class ItemManager extends Utilities {
             if (i == 3) // when getting to loan type question asked, valid input should be entered
             {
                 while (true) {
-                    info[i] = askInfo(questionList.get(i));
+                    info[i] = Utilities.askInfo(questionList.get(i));
                     if (info[i].equals("1"))
                         info[i] = "TWO_DAY";
                     else if (info[i].equals("2"))
@@ -97,7 +97,7 @@ public class ItemManager extends Utilities {
                 }
             } else if (i == 6) {
                 while (true) {
-                    info[i] = askInfo(questionList.get(i));
+                    info[i] = Utilities.askInfo(questionList.get(i));
                     switch (info[i]) {
                         case "1":
                             info[i] = "ACTION";
@@ -117,7 +117,7 @@ public class ItemManager extends Utilities {
                     break;
                 }
             } else if (i != 2)
-                info[i] = askInfo(questionList.get(i));
+                info[i] = Utilities.askInfo(questionList.get(i));
             result[i] = info[i]; // after all the answer are validated push it back to result
         }
 
@@ -216,7 +216,7 @@ public class ItemManager extends Utilities {
 
     public boolean modifyLoanType(Item item) {
         while (true) {
-            String result = askInfo(
+            String result = Utilities.askInfo(
                     "Please enter loan type:\n1. 2-day loan\n2. 1-week loan\nSelect either number [1] or [2]: ");
             if (result.equals("1")) {
                 item.setLoanType(Item.LoanType.TWO_DAYS_LOAN);
