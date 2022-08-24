@@ -1,18 +1,17 @@
 package auth;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import utils.AccountUtils;
+import utils.IOHelper;
+
 public class AccountManager {
     private static AccountManager instance = null;
     private ArrayList<Account> accounts = new ArrayList<Account>();
+
+    private String dataFileName = "data/accounts.txt";
 
     private AccountManager() {
     }
@@ -23,16 +22,6 @@ public class AccountManager {
         return instance;
     }
 
-    public static void main(String[] args) {
-        AccountManager accountManager = AccountManager.getInstance();
-        Account a1 = new Account("0", "Thu", "password", "123 Main St.", "123-456-7890", "Thu", "ADMIN");
-        accountManager.addAccount(a1);
-        accountManager.loadData();
-        Account a2 = new Account("5", "Anh", "password", "123 Main St.", "123-456-7890", "Anh", "ADMIN");
-        accountManager.addAccount(a2);
-        accountManager.saveData();
-    }
-
     protected ArrayList<Account> getAccounts() {
         return accounts;
     }
@@ -40,6 +29,11 @@ public class AccountManager {
     public void initialize() {
         // Load the accounts from the local storage
         loadData();
+    }
+
+    public void stop() {
+        // Save the accounts to the local storage
+        saveData();
     }
 
     public void addAccount(Account account) {
@@ -96,43 +90,21 @@ public class AccountManager {
     }
 
     private void loadData() {
-        try {
-            FileReader reader = new FileReader("src/data/customers.txt");
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] props = line.split(", ");
-                String id = props[0];
-                String username = props[6];
-                String password = props[7];
-                String address = props[2];
-                String phone = props[3];
-                String name = props[1];
-                String role = props[5];
-                int quantity = Integer. parseInt(props[4]);
-                Account account = new Account(id, username, password, address, phone, name, role);
-                addAccount(account);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
+        ArrayList<String> lines = IOHelper.readFile(dataFileName);
+
+        for (String line : lines) {
+            Account account = AccountUtils.parse(line);
+            addAccount(account);
         }
     }
 
     private void saveData() {
-        try {
-            FileWriter writer = new FileWriter("src/data/customers.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            for (Account account : accounts) {
-                bufferedWriter.write(account.toString());
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+        ArrayList<String> lines = new ArrayList<String>();
 
+        for (Account account : accounts) {
+            lines.add(AccountUtils.serialize(account));
+        }
+
+        IOHelper.createFile(dataFileName, lines);
+    }
 }

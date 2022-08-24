@@ -11,7 +11,8 @@ public class Application {
     private static Application instance = null;
 
     public static Application getInstance() {
-        if (instance == null) instance = new Application();
+        if (instance == null)
+            instance = new Application();
         return instance;
     }
 

@@ -17,6 +17,14 @@ public class Account {
     public Account() {
     }
 
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+
+        // TODO: generate ID
+        this.id = "";
+    }
+
     public Account(String id, String username, String password, String address, String phone, String name,
             String role) {
         this.id = id;
@@ -28,7 +36,7 @@ public class Account {
         this.role = role;
     }
 
-    protected String getId() {
+    public String getId() {
         return id;
     }
 
@@ -36,7 +44,7 @@ public class Account {
         this.id = id;
     }
 
-    protected String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -44,7 +52,7 @@ public class Account {
         this.username = username;
     }
 
-    protected String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -52,7 +60,7 @@ public class Account {
         this.password = password;
     }
 
-    protected String getAddress() {
+    public String getAddress() {
         return address;
     }
 
@@ -60,7 +68,7 @@ public class Account {
         this.address = address;
     }
 
-    protected String getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -68,7 +76,7 @@ public class Account {
         this.phone = phone;
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 
@@ -76,7 +84,7 @@ public class Account {
         this.name = name;
     }
 
-    protected String getRole() {
+    public String getRole() {
         return role;
     }
 
@@ -103,7 +111,8 @@ public class Account {
     @Override
     public String toString() {
         String quantity = (rentals != null) ? String.valueOf(rentals.size()) : "0";
-        return id + ", " + name + ", " + address + ", " + phone + ", " + quantity + ", " + role + ", " + username + ", " + password;
+        return id + ", " + name + ", " + address + ", " + phone + ", " + quantity + ", " + role + ", " + username + ", "
+                + password;
     }
 
     public void rentItem(Item item) {
