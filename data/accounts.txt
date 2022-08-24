@@ -1,0 +1,5 @@
+C001, Thu, password, Thu, 123 Main St., 123-456-7890, ADMIN, 0
+C002, jdoe1, password, Fane Doe, 123 Main St., 123-456-7890, ADMIN, 0, 
+C003, jsmith, password, John Smith, 123 Main St., 123-456-7890, ADMIN, 0
+C004, jdoe2, password, Jane Doe, 123 Main St., 123-456-7890, USER, 0
+C005, jdoe3, password, Jane Doe, 123 Main St., 123-456-7890, USER, 0
