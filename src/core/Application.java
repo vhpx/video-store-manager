@@ -49,9 +49,7 @@ public class Application {
             screen.showAuthScreen();
         }
 
-        // If user is logged in, show the main menu
-        // internal.showMainMenu();
-
+        // Once user is logged in, show the main screen
         screen.showMainMenu();
     }
 }
