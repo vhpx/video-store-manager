@@ -25,7 +25,15 @@ public class Application {
         auth.initialize();
     }
 
-    public void start() {
+    public void stop() {
+        // Stop the internal manager
+        internal.stop();
+
+        // Stop the auth manager
+        auth.stop();
+    }
+
+    public void execute() {
         System.out.println("Preparing to login...\n");
 
         // While user is not logged in, show the login screen
@@ -37,5 +45,6 @@ public class Application {
         // internal.showMainMenu();
 
         System.out.println("You are already logged in.");
+        stop();
     }
 }

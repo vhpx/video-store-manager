@@ -14,15 +14,23 @@ public class Account {
     private String role;
     private ArrayList<Item> rentals;
 
+    AccountManager manager = AccountManager.getInstance();
+
     public Account() {
     }
 
     public Account(String username, String password) {
+        String id = generateId();
+
+        if (id == null) {
+            System.out.println("Error: Could not generate id");
+            return;
+        }
+
+        this.id = id;
         this.username = username;
         this.password = password;
-
-        // TODO: generate ID
-        this.id = "";
+        this.role = "GUEST";
     }
 
     public Account(String id, String username, String password, String address, String phone, String name,
@@ -34,6 +42,32 @@ public class Account {
         this.phone = phone;
         this.name = name;
         this.role = role;
+    }
+
+    private String generateId() {
+        // IDs have the format:
+        // C-000 to C-999 for customers
+
+        // Check for unused IDs
+        for (int i = 1; i < 1000; i++) {
+            // Pad ID with leading zeros
+            String id = "C" + String.format("%03d", i);
+
+            if (!isIdUsed(id))
+                return id;
+        }
+
+        // No IDs available.
+        return null;
+    }
+
+    private boolean isIdUsed(String id) {
+        for (Account account : manager.getAccounts()) {
+            if (account.getId().equals(id))
+                return true;
+        }
+
+        return false;
     }
 
     public String getId() {

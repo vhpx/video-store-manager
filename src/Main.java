@@ -10,6 +10,6 @@ public class Main {
         app.initialize();
 
         // Execute application loop
-        app.start();
+        app.execute();
     }
 }

@@ -32,6 +32,11 @@ public class AuthManager {
         // loadLoggedInUser();
     }
 
+    public void stop() {
+        // Save the logged in user id to the database
+        // saveLoggedInUser();
+    }
+
     public boolean isLoggedIn() {
         return loggedInUserId != null;
     }
@@ -45,15 +50,15 @@ public class AuthManager {
     }
 
     public void showLoginScreen() {
-        Scanner sc = new Scanner(System.in);
+        // Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter username: ");
-        String username = sc.nextLine();
+        // System.out.print("Enter username: ");
+        // String username = sc.nextLine();
 
-        System.out.print("Enter password: ");
-        String password = sc.nextLine();
+        // System.out.print("Enter password: ");
+        // String password = sc.nextLine();
 
-        if (login(username, password)) {
+        if (signup()) {
             System.out.println("Login successful");
         } else {
             System.out.println("Login failed");
@@ -100,11 +105,43 @@ public class AuthManager {
         return false;
     }
 
+    public boolean signup() {
+        // Ask for username and password
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter username: ");
+        String username = sc.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = sc.nextLine();
+
+        // Confirm password
+        System.out.print("Confirm password: ");
+        String confirmPassword = sc.nextLine();
+
+        if (password.equals(confirmPassword)) {
+            // Create account
+            Account account = new Account(username, password);
+            accountManager.addAccount(account);
+
+            System.out.println("Account created");
+            accountManager.displayAll();
+
+            loggedInUserId = account.getId();
+            isAdmin = false;
+
+            return true;
+        } else {
+            System.out.println("Passwords do not match");
+            return false;
+        }
+    }
+
     public void logout() {
         System.out.println("Logging out");
 
-        // loggedInUserId = null;
-        // isAdmin = false;
+        loggedInUserId = null;
+        isAdmin = false;
     }
 
     public void changePassword(String oldPassword, String newPassword) {

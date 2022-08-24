@@ -30,4 +30,15 @@ public class InternalManager {
         // Initialize the transaction manager
         // transactions.initialize();
     }
+
+    public void stop() {
+        // Stop the account manager
+        accounts.stop();
+
+        // Stop the item manager
+        items.stop();
+
+        // Stop the transaction manager
+        // transactions.stop();
+    }
 }

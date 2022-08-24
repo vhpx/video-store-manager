@@ -1,5 +1,5 @@
-C001, Thu, password, Thu, 123 Main St., 123-456-7890, ADMIN, 0
-C002, jdoe1, password, Fane Doe, 123 Main St., 123-456-7890, ADMIN, 0, 
-C003, jsmith, password, John Smith, 123 Main St., 123-456-7890, ADMIN, 0
-C004, jdoe2, password, Jane Doe, 123 Main St., 123-456-7890, USER, 0
-C005, jdoe3, password, Jane Doe, 123 Main St., 123-456-7890, USER, 0
+C001, vhpx, 123123, Vo Hoang Phuc, 123 Main St., 123-456-7890, GUEST, 0
+C002, npat273, 321321, Nguyen Pham Anh Thu, 123 Main St., 123-456-7890, GUEST, 0
+C003, krusk, 121212, Nguyen Ngoc Luong, 123 Main St., 123-456-7890, GUEST, 0
+C003, touletou, 212121, Le Cam Tu, 123 Main St., 123-456-7890, GUEST, 0
+C003, hphuoc, 112233, Huu Phuoc, 123 Main St., 123-456-7890, GUEST, 0
