@@ -61,6 +61,23 @@ public class Account {
         return null;
     }
 
+    // promote from GUESS to REGULAR
+    public void promote() {
+        if (this.role.equals("GUEST")) {
+            if (this.rentals.size() > 3) {
+                this.role = "REGULAR";
+            }
+        }
+    }
+    // promote REGULAR to VIP
+    public void promote2() {
+        if (this.role.equals("REGULAR")) {
+            if (this.rentals.size() > 5) {
+                this.role = "VIP";
+            }
+        }
+    }
+
     private boolean isIdUsed(String id) {
         for (Account account : manager.getAccounts()) {
             if (account.getId().equals(id))
