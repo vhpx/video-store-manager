@@ -350,7 +350,7 @@ public class ItemManager {
             System.out.println(i);
         }
     }
-    
+    // Display all items sorted by titles or IDs
     public void displayAllSorted() {
         System.out.println("Display all items sorted by titles or IDs.");
         System.out.println("Enter the the option below: ");
@@ -368,14 +368,20 @@ public class ItemManager {
             switch (numSelection) {
                 case 1 -> {
                     System.out.println("Sort by ID.");
+                    ArrayList<Item> items = new ArrayList<>(this.getItems());
                     items.sort(Comparator.comparing(Item::getId));
-                    displayAll();
+                    for (Item i : items) {
+                        System.out.println(i);
+                    }
                     return;
                 }
                 case 2 -> {
                     System.out.println("Sort by title.");
+                    ArrayList<Item> items = new ArrayList<>(this.getItems());
                     items.sort(Comparator.comparing(Item::getTitle));
-                    displayAll();
+                    for (Item i : items) {
+                        System.out.println(i);
+                    }
                     return;
                 }
                 default -> {
@@ -383,6 +389,14 @@ public class ItemManager {
                     continue;
                 }
             }
+        }
+    }
+    // Display all items that have no copies in stock.
+    public void displayAllOutOfStock() {
+        System.out.println("Items that currently have no copies in stock.");
+        for (Item i : items) {
+            if (i.getNumCopy() == 0)
+                System.out.println(i);
         }
     }
 }
