@@ -9,9 +9,9 @@ import utils.Utilities;
 
 public class ItemManager {
     private static ItemManager instance = null;
-    private String fileName = "data/items.txt";
+    private final String fileName = "data/items.txt";
 
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private final ArrayList<Item> items = new ArrayList<Item>();
 
     private ItemManager() {
         // Private constructor to prevent instantiation since

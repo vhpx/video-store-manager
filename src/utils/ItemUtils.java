@@ -48,9 +48,8 @@ public class ItemUtils {
 
         if (!itemId.matches(regexPattern))
             return false;
-        if (Integer.valueOf(itemId.substring(5, 9)) > currentYear)
-            return false;
-        return true;
+            
+        return Integer.parseInt(itemId.substring(5, 9)) <= currentYear;
     }
 
     public static Item.RentalType parseRentalType(String rentalType) {

@@ -31,7 +31,7 @@ public class ScreenManager {
         var choice = sc.nextInt();
 
         switch (choice) {
-            case 1:
+            case 1 -> {
                 System.out.print("\nEnter your username: ");
                 var username = sc.next();
 
@@ -45,35 +45,33 @@ public class ScreenManager {
                 } else {
                     System.out.println("Signup failed!");
                 }
+            }
 
-                break;
-
-            case 2:
+            case 2 -> {
                 System.out.print("\nEnter your username: ");
-                username = sc.next();
+                String username = sc.next();
 
                 System.out.print("\nEnter your password: ");
-                password = sc.next();
+                String password = sc.next();
 
-                success = AuthManager.login(username, password);
+                boolean success = AuthManager.login(username, password);
 
                 if (success) {
                     System.out.println("Login successful!");
                 } else {
                     System.out.println("Login failed!");
                 }
+            }
 
-                break;
-
-            case 3:
+            case 3 -> {
                 System.out.println("\nSaving...\n");
                 Application.stop();
-                break;
+            }
 
-            default:
+            default -> {
                 System.out.println("Invalid choice.");
                 showAuthScreen();
-                break;
+            }
         }
     }
 

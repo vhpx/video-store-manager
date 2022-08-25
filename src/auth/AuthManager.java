@@ -30,12 +30,12 @@ public class AuthManager {
         currentAccount = null;
         isAdmin = false;
 
-        // Load the logged in user id from the database
+        // Load the logged-in user id from the database
         // loadLoggedInUser();
     }
 
     public void stop() {
-        // Save the logged in user id to the database
+        // Save the logged-in user id to the database
         // saveLoggedInUser();
     }
 

@@ -8,9 +8,9 @@ import utils.AccountIO;
 
 public class AccountManager {
     private static AccountManager instance = null;
-    private String fileName = "data/accounts.txt";
+    private final String fileName = "data/accounts.txt";
 
-    private ArrayList<Account> accounts = new ArrayList<Account>();
+    private final ArrayList<Account> accounts = new ArrayList<Account>();
 
     private AccountManager() {
         // Private constructor to prevent instantiation since
