@@ -1,16 +1,15 @@
 package auth;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import utils.AccountIO;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class AccountManager {
     private static AccountManager instance = null;
     private final String fileName = "data/accounts.txt";
 
-    private final ArrayList<Account> accounts = new ArrayList<Account>();
+    private final ArrayList<Account> accounts = new ArrayList<>();
 
     private AccountManager() {
         // Private constructor to prevent instantiation since
@@ -68,22 +67,14 @@ public class AccountManager {
     // display all accounts sorted by id
     public void displayAccountsSortedById() {
         ArrayList<Account> sortedAccounts = this.getAccounts();
-        Collections.sort(sortedAccounts, new Comparator<Account>() {
-            public int compare(Account o1, Account o2) {
-                return o1.getId().compareTo(o2.getId());
-            }
-        });
+        sortedAccounts.sort(Comparator.comparing(Account::getId));
         displayAccounts(sortedAccounts);
     }
 
     // display all accounts sorted by name
     public void displayAccountsSortedByName() {
         ArrayList<Account> sortedAccounts = this.getAccounts();
-        Collections.sort(sortedAccounts, new Comparator<Account>() {
-            public int compare(Account o1, Account o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+        sortedAccounts.sort(Comparator.comparing(Account::getName));
         displayAccounts(sortedAccounts);
     }
 

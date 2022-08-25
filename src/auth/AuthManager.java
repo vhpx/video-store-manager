@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class AuthManager {
     private static AuthManager instance = null;
 
-    private static AccountManager accountManager = AccountManager.getInstance();
+    private static final AccountManager accountManager = AccountManager.getInstance();
 
-    private static String adminUsername = "admin";
-    private static String adminPassword = "admin";
+    private static final String adminUsername = "admin";
+    private static final String adminPassword = "admin";
 
     private static Account currentAccount = null;
     private static boolean isAdmin = false;

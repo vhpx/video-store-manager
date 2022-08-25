@@ -80,7 +80,7 @@ public class ItemUtils {
         if (genre.equalsIgnoreCase("HORROR"))
             return Item.Genre.HORROR;
         if (genre.equalsIgnoreCase("") || genre.equalsIgnoreCase("N/A"))
-            return Item.Genre.NOT_APPPLICABLE;
+            return Item.Genre.NOT_APPLICABLE;
 
         return null;
     }
