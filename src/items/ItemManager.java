@@ -2,6 +2,7 @@ package items;
 
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.Comparator;
 
 import utils.IOHelper;
 import utils.ItemIO;
@@ -347,6 +348,41 @@ public class ItemManager {
     public void displayAll() {
         for (Item i : items) {
             System.out.println(i);
+        }
+    }
+    
+    public void displayAllSorted() {
+        System.out.println("Display all items sorted by titles or IDs.");
+        System.out.println("Enter the the option below: ");
+        System.out.println("1. Sort by ID.");
+        System.out.println("2. Sort by title.");
+
+        var sc = IOHelper.getScanner();
+        int numSelection = Integer.MAX_VALUE;
+
+        while (true) {
+            System.out.print("Enter the selection: ");
+            numSelection = sc.nextInt();
+            sc.nextLine();
+
+            switch (numSelection) {
+                case 1 -> {
+                    System.out.println("Sort by ID.");
+                    items.sort(Comparator.comparing(Item::getId));
+                    displayAll();
+                    return;
+                }
+                case 2 -> {
+                    System.out.println("Sort by title.");
+                    items.sort(Comparator.comparing(Item::getTitle));
+                    displayAll();
+                    return;
+                }
+                default -> {
+                    System.out.println("Invalid Selection.");
+                    continue;
+                }
+            }
         }
     }
 }
