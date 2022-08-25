@@ -8,6 +8,9 @@ import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 public class ItemManager {
     private static ItemManager instance = null;
     private final String fileName = "data/items.txt";
@@ -231,23 +234,19 @@ public class ItemManager {
     }
 
     public boolean increaseNumCopy(Item item) {
-        while (true) {
-            System.out.println("Please enter the additional number of copies: ");
+        System.out.println("Please enter the additional number of copies: ");
 
-            var sc = IOHelper.getScanner();
-            int copies = sc.nextInt();
+        var sc = IOHelper.getScanner();
+        int copies = sc.nextInt();
 
-            if (copies < 0) {
-                System.out.println("Invalid input, number cannot be negative.");
-                return false;
-            }
+        if (copies < 0) {
+            System.out.println("Invalid input, number cannot be negative.");
+            return false;
+        }
 
-            if (!item.setNumCopy(copies)) {
-                System.out.println("Cannot increase the number of copy");
-                return false;
-            } else {
-                break;
-            }
+        if (!item.setNumCopy(copies)) {
+            System.out.println("Cannot increase the number of copy");
+            return false;
         }
         System.out.println("Successfully increase the number of copy for item.");
         System.out.println("The information for the item after being modified is: ");
@@ -256,22 +255,18 @@ public class ItemManager {
     }
 
     public boolean modifyRentalFee(Item item) {
-        while (true) {
-            System.out.println("Please enter the new rental fee: ");
+        System.out.println("Please enter the new rental fee: ");
 
-            var sc = IOHelper.getScanner();
-            int fee = sc.nextInt();
+        var sc = IOHelper.getScanner();
+        int fee = sc.nextInt();
 
-            if (fee < 0) {
-                System.out.println("Invalid input, number cannot be negative.");
-                return false;
-            }
-            if (!item.setNumCopy(fee)) {
-                System.out.println("Cannot set the the rental fee for item");
-                return false;
-            } else {
-                break;
-            }
+        if (fee < 0) {
+            System.out.println("Invalid input, number cannot be negative.");
+            return false;
+        }
+        if (!item.setNumCopy(fee)) {
+            System.out.println("Cannot set the the rental fee for item");
+            return false;
         }
         System.out.println("Successfully set the new rental fee for item.");
         System.out.println("The information for the item after being modified is: ");
