@@ -48,9 +48,8 @@ public class ItemUtils {
 
         if (!itemId.matches(regexPattern))
             return false;
-        if (Integer.valueOf(itemId.substring(5, 9)) > currentYear)
-            return false;
-        return true;
+            
+        return Integer.parseInt(itemId.substring(5, 9)) <= currentYear;
     }
 
     public static Item.RentalType parseRentalType(String rentalType) {
@@ -81,7 +80,7 @@ public class ItemUtils {
         if (genre.equalsIgnoreCase("HORROR"))
             return Item.Genre.HORROR;
         if (genre.equalsIgnoreCase("") || genre.equalsIgnoreCase("N/A"))
-            return Item.Genre.NOT_APPPLICABLE;
+            return Item.Genre.NOT_APPLICABLE;
 
         return null;
     }

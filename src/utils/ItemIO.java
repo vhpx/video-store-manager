@@ -21,7 +21,7 @@ public class ItemIO {
 
     public static void saveData(String fileName) {
         ArrayList<Item> items = manager.getItems();
-        ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<String> lines = new ArrayList<>();
 
         for (Item item : items) {
             lines.add(ItemUtils.serialize(item));
