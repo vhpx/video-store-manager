@@ -80,7 +80,7 @@ public class Item {
 
     protected boolean setId(String id) {
 
-        if (ItemUtils.parseId(id)) {
+        if (ItemUtils.isValidId(id)) {
             this.id = id;
             return true;
         }

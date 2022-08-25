@@ -1,11 +1,11 @@
 package items;
 
-import java.util.ArrayList;
-import java.util.Stack;
-
 import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
+
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class ItemManager {
     private static ItemManager instance = null;
@@ -172,27 +172,23 @@ public class ItemManager {
         System.out.println("3: Increase number of copies");
         System.out.println("4: Modify rental fee");
 
-        int numSelection = Integer.MAX_VALUE;
+        System.out.print("Enter the selection: ");
 
-        while (true) {
-            System.out.print("Enter the selection: ");
+        var sc = IOHelper.getScanner();
+        int numSelection = sc.nextInt();
 
-            var sc = IOHelper.getScanner();
-            numSelection = sc.nextInt();
-
-            switch (numSelection) {
-                case 1:
-                    return this.modifyTitle(temp);
-                case 2:
-                    return this.modifyLoanType(temp);
-                case 3:
-                    return this.increaseNumCopy(temp);
-                case 4:
-                    return this.modifyRentalFee(temp);
-                default:
-                    System.out.println("Invalid Selection.");
-                    return false;
-            }
+        switch (numSelection) {
+            case 1:
+                return this.modifyTitle(temp);
+            case 2:
+                return this.modifyLoanType(temp);
+            case 3:
+                return this.increaseNumCopy(temp);
+            case 4:
+                return this.modifyRentalFee(temp);
+            default:
+                System.out.println("Invalid Selection.");
+                return false;
         }
     }
 
@@ -234,23 +230,19 @@ public class ItemManager {
     }
 
     public boolean increaseNumCopy(Item item) {
-        while (true) {
-            System.out.println("Please enter the additional number of copies: ");
+        System.out.println("Please enter the additional number of copies: ");
 
-            var sc = IOHelper.getScanner();
-            int copies = sc.nextInt();
+        var sc = IOHelper.getScanner();
+        int copies = sc.nextInt();
 
-            if (copies < 0) {
-                System.out.println("Invalid input, number cannot be negative.");
-                return false;
-            }
+        if (copies < 0) {
+            System.out.println("Invalid input, number cannot be negative.");
+            return false;
+        }
 
-            if (!item.setNumCopy(copies)) {
-                System.out.println("Cannot increase the number of copy");
-                return false;
-            } else {
-                break;
-            }
+        if (!item.setNumCopy(copies)) {
+            System.out.println("Cannot increase the number of copy");
+            return false;
         }
         System.out.println("Successfully increase the number of copy for item.");
         System.out.println("The information for the item after being modified is: ");
@@ -259,22 +251,18 @@ public class ItemManager {
     }
 
     public boolean modifyRentalFee(Item item) {
-        while (true) {
-            System.out.println("Please enter the new rental fee: ");
+        System.out.println("Please enter the new rental fee: ");
 
-            var sc = IOHelper.getScanner();
-            int fee = sc.nextInt();
+        var sc = IOHelper.getScanner();
+        int fee = sc.nextInt();
 
-            if (fee < 0) {
-                System.out.println("Invalid input, number cannot be negative.");
-                return false;
-            }
-            if (!item.setNumCopy(fee)) {
-                System.out.println("Cannot set the the rental fee for item");
-                return false;
-            } else {
-                break;
-            }
+        if (fee < 0) {
+            System.out.println("Invalid input, number cannot be negative.");
+            return false;
+        }
+        if (!item.setNumCopy(fee)) {
+            System.out.println("Cannot set the the rental fee for item");
+            return false;
         }
         System.out.println("Successfully set the new rental fee for item.");
         System.out.println("The information for the item after being modified is: ");

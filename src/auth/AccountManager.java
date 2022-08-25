@@ -8,9 +8,9 @@ import utils.AccountIO;
 
 public class AccountManager {
     private static AccountManager instance = null;
-    private String fileName = "data/accounts.txt";
+    private final String fileName = "data/accounts.txt";
 
-    private ArrayList<Account> accounts = new ArrayList<Account>();
+    private final ArrayList<Account> accounts = new ArrayList<>();
 
     private AccountManager() {
         // Private constructor to prevent instantiation since
@@ -67,24 +67,16 @@ public class AccountManager {
 
     // display all accounts sorted by id
     public void displayAccountsSortedById() {
-        ArrayList<Account> sortedAccounts = this.getAccounts();
-        Collections.sort(sortedAccounts, new Comparator<Account>() {
-            public int compare(Account o1, Account o2) {
-                return o1.getId().compareTo(o2.getId());
-            }
-        });
-        displayAccounts(sortedAccounts);
+        ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
+        accounts.sort(Comparator.comparing(Account::getId));
+        displayAccounts(accounts);
     }
 
     // display all accounts sorted by name
     public void displayAccountsSortedByName() {
-        ArrayList<Account> sortedAccounts = this.getAccounts();
-        Collections.sort(sortedAccounts, new Comparator<Account>() {
-            public int compare(Account o1, Account o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
-        displayAccounts(sortedAccounts);
+        ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
+        accounts.sort(Comparator.comparing(Account::getName));
+        displayAccounts(accounts);
     }
 
     // display a group of account according to role
