@@ -1,5 +1,9 @@
 package items;
 
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.Comparator;
+
 import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
@@ -9,9 +13,9 @@ import java.util.Stack;
 
 public class ItemManager {
     private static ItemManager instance = null;
-    private String fileName = "data/items.txt";
+    private final String fileName = "data/items.txt";
 
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private final ArrayList<Item> items = new ArrayList<>();
 
     private ItemManager() {
         // Private constructor to prevent instantiation since
@@ -150,8 +154,8 @@ public class ItemManager {
             if (!this.isUnique(data[0].substring(1, 4)))
                 throw new ItemException("ID " + data[0].substring(0, 4) + " already exists in the database.");
             else {
-                items.add(new Item(data[0], data[1], data[2], data[3], data[6], Integer.valueOf(data[4]),
-                        Double.valueOf(data[5])));
+                items.add(new Item(data[0], data[1], data[2], data[3], data[6], Integer.parseInt(data[4]),
+                        Double.parseDouble(data[5])));
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -172,24 +176,24 @@ public class ItemManager {
         System.out.println("3: Increase number of copies");
         System.out.println("4: Modify rental fee");
 
-        System.out.print("Enter the selection: ");
+            System.out.print("Enter the selection: ");
 
-        var sc = IOHelper.getScanner();
-        int numSelection = sc.nextInt();
+            var sc = IOHelper.getScanner();
+            int numSelection = sc.nextInt();
 
-        switch (numSelection) {
-            case 1:
-                return this.modifyTitle(temp);
-            case 2:
-                return this.modifyLoanType(temp);
-            case 3:
-                return this.increaseNumCopy(temp);
-            case 4:
-                return this.modifyRentalFee(temp);
-            default:
-                System.out.println("Invalid Selection.");
-                return false;
-        }
+            switch (numSelection) {
+                case 1:
+                    return this.modifyTitle(temp);
+                case 2:
+                    return this.modifyLoanType(temp);
+                case 3:
+                    return this.increaseNumCopy(temp);
+                case 4:
+                    return this.modifyRentalFee(temp);
+                default:
+                    System.out.println("Invalid Selection.");
+                    return false;
+            }
     }
 
     public boolean modifyTitle(Item item) {
@@ -339,6 +343,55 @@ public class ItemManager {
     public void displayAll() {
         for (Item i : items) {
             System.out.println(i);
+        }
+    }
+    // Display all items sorted by titles or IDs
+    public void displayAllSorted() {
+        System.out.println("Display all items sorted by titles or IDs.");
+        System.out.println("Enter the the option below: ");
+        System.out.println("1. Sort by ID.");
+        System.out.println("2. Sort by title.");
+
+        var sc = IOHelper.getScanner();
+        int numSelection = Integer.MAX_VALUE;
+
+        while (true) {
+            System.out.print("Enter the selection: ");
+            numSelection = sc.nextInt();
+            sc.nextLine();
+
+            switch (numSelection) {
+                case 1 -> {
+                    System.out.println("Sort by ID.");
+                    ArrayList<Item> items = new ArrayList<>(this.getItems());
+                    items.sort(Comparator.comparing(Item::getId));
+                    for (Item i : items) {
+                        System.out.println(i);
+                    }
+                    return;
+                }
+                case 2 -> {
+                    System.out.println("Sort by title.");
+                    ArrayList<Item> items = new ArrayList<>(this.getItems());
+                    items.sort(Comparator.comparing(Item::getTitle));
+                    for (Item i : items) {
+                        System.out.println(i);
+                    }
+                    return;
+                }
+                default -> {
+                    System.out.println("Invalid Selection.");
+                    continue;
+                }
+            }
+        }
+    }
+    // Display all items that have no copies in stock.
+    public void displayAllOutOfStock() {
+        System.out.println("Items that currently have no copies in stock.");
+        for (Item i : items) {
+            if (i.getNumCopy() == 0)
+                System.out.println(i);
         }
     }
 }

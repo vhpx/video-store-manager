@@ -5,8 +5,6 @@ public class Utilities {
         System.out.print(message);
 
         var sc = IOHelper.getScanner();
-        String info = sc.nextLine();
-
-        return info;
+        return sc.nextLine();
     }
 }

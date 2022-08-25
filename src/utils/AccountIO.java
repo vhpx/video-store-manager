@@ -21,7 +21,7 @@ public class AccountIO {
 
     public static void saveData(String fileName) {
         ArrayList<Account> accounts = manager.getAccounts();
-        ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<String> lines = new ArrayList<>();
 
         for (Account account : accounts) {
             lines.add(AccountUtils.serialize(account));

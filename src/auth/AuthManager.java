@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class AuthManager {
     private static AuthManager instance = null;
 
-    private static AccountManager accountManager = AccountManager.getInstance();
+    private static final AccountManager accountManager = AccountManager.getInstance();
 
-    private static String adminUsername = "admin";
-    private static String adminPassword = "admin";
+    private static final String adminUsername = "admin";
+    private static final String adminPassword = "admin";
 
     private static Account currentAccount = null;
     private static boolean isAdmin = false;
@@ -30,12 +30,12 @@ public class AuthManager {
         currentAccount = null;
         isAdmin = false;
 
-        // Load the logged in user id from the database
+        // Load the logged-in user id from the database
         // loadLoggedInUser();
     }
 
     public void stop() {
-        // Save the logged in user id to the database
+        // Save the logged-in user id to the database
         // saveLoggedInUser();
     }
 

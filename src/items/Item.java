@@ -8,7 +8,7 @@ public class Item {
         HORROR,
         DRAMA,
         COMEDY,
-        NOT_APPPLICABLE
+        NOT_APPLICABLE
     }
 
     public enum RentalType {
@@ -60,7 +60,7 @@ public class Item {
         this(id, title, numCopy, rentalFee);
         this.rentalType = rentalType;
         this.loanType = loanType;
-        this.genre = (rentalType == RentalType.GAME) ? Genre.NOT_APPPLICABLE : genre;
+        this.genre = (rentalType == RentalType.GAME) ? Genre.NOT_APPLICABLE : genre;
     }
 
     public Item(String id, String title, String rentalType, String loanType, String genre,
@@ -163,8 +163,8 @@ public class Item {
             case COMEDY:
                 this.genre = Genre.COMEDY;
                 return true;
-            case NOT_APPPLICABLE:
-                this.genre = Genre.NOT_APPPLICABLE;
+            case NOT_APPLICABLE:
+                this.genre = Genre.NOT_APPLICABLE;
                 return true;
             default:
                 return false;
@@ -215,45 +215,28 @@ public class Item {
     }
 
     public String getRentalType() {
-        switch (this.rentalType) {
-            case RECORD:
-                return "RECORD";
-            case DVD:
-                return "DVD";
-            case GAME:
-                return "GAME";
-            default:
-                return "N/A";
-        }
+        return switch (this.rentalType) {
+            case RECORD -> "RECORD";
+            case DVD -> "DVD";
+            case GAME -> "GAME";
+        };
     }
 
     public String getLoanType() {
-        switch (this.loanType) {
-            case ONE_WEEK_LOAN:
-                return "ONE_WEEK";
-            case TWO_DAYS_LOAN:
-                return "TWO_DAY";
-            default:
-                return "N/A";
-        }
+        return switch (this.loanType) {
+            case ONE_WEEK_LOAN -> "ONE_WEEK";
+            case TWO_DAYS_LOAN -> "TWO_DAY";
+        };
     }
 
     public String getGenre() {
-        switch (this.genre) {
-            case ACTION:
-                return "ACTION";
-            case HORROR:
-                return "HORROR";
-            case DRAMA:
-                return "DRAMA";
-            case COMEDY:
-                return "COMEDY";
-            case NOT_APPPLICABLE:
-                return "N/A";
-
-            default:
-                return "N/A";
-        }
+        return switch (this.genre) {
+            case ACTION -> "ACTION";
+            case HORROR -> "HORROR";
+            case DRAMA -> "DRAMA";
+            case COMEDY -> "COMEDY";
+            case NOT_APPLICABLE -> "N/A";
+        };
     }
 
     public int getNumCopy() {
@@ -266,15 +249,10 @@ public class Item {
 
     protected String getRentalStatus() {
 
-        switch (rentalStatus) {
-            case AVAILABLE:
-                return "AVAILABLE";
-            case BORROWED:
-                return "BORROWED";
-            default:
-                return "N/A";
-
-        }
+        return switch (rentalStatus) {
+            case AVAILABLE -> "AVAILABLE";
+            case BORROWED -> "BORROWED";
+        };
     }
 
     public boolean incrementNumCopy(int n) {

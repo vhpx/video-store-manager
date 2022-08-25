@@ -1,10 +1,9 @@
 package auth;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import utils.AccountIO;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class AccountManager {
     private static AccountManager instance = null;
@@ -67,6 +66,7 @@ public class AccountManager {
 
     // display all accounts sorted by id
     public void displayAccountsSortedById() {
+
         ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
         accounts.sort(Comparator.comparing(Account::getId));
         displayAccounts(accounts);
@@ -74,6 +74,7 @@ public class AccountManager {
 
     // display all accounts sorted by name
     public void displayAccountsSortedByName() {
+
         ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
         accounts.sort(Comparator.comparing(Account::getName));
         displayAccounts(accounts);
