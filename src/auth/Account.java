@@ -1,10 +1,19 @@
 package auth;
 
+import items.Item;
+import items.ItemException;
+import items.ItemManager;
+import transactions.Transaction;
+import transactions.TransactionException;
+import transactions.TransactionManager;
+import utils.IOHelper;
+
 import java.util.ArrayList;
 
-import items.Item;
-
 public class Account {
+    AccountManager accountManager = AccountManager.getInstance();
+    TransactionManager transactionManager = TransactionManager.getInstance();
+    ItemManager itemManager = ItemManager.getInstance();
     private String id;
     private String username;
     private String password;
@@ -12,9 +21,7 @@ public class Account {
     private String phone;
     private String name;
     private String role;
-    private ArrayList<Item> rentals;
-
-    AccountManager manager = AccountManager.getInstance();
+    private ArrayList<Item> currentRentals;
 
     public Account() {
     }
@@ -34,7 +41,7 @@ public class Account {
     }
 
     public Account(String id, String username, String password, String address, String phone, String name,
-            String role) {
+                   String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -61,29 +68,11 @@ public class Account {
         return null;
     }
 
-    // promote from GUESS to REGULAR
-    public void promote() {
-        if (this.role.equals("GUEST")) {
-            if (this.rentals.size() > 3) {
-                this.role = "REGULAR";
-            }
-        }
-    }
-    // promote REGULAR to VIP
-    public void promote2() {
-        if (this.role.equals("REGULAR")) {
-            if (this.rentals.size() > 5) {
-                this.role = "VIP";
-            }
-        }
-    }
-
     private boolean isIdUsed(String id) {
-        for (Account account : manager.getAccounts()) {
+        for (Account account : accountManager.getAccounts()) {
             if (account.getId().equals(id))
                 return true;
         }
-
         return false;
     }
 
@@ -143,54 +132,107 @@ public class Account {
         this.role = role;
     }
 
-    protected ArrayList<Item> getRentals() {
-        return rentals;
+    protected ArrayList<Item> getCurrentRentals() {
+        return currentRentals;
     }
 
-    protected void setRentals(ArrayList<Item> rentals) {
-        this.rentals = rentals;
+    protected void setCurrentRentals(ArrayList<Item> currentRentals) {
+        this.currentRentals = currentRentals;
     }
 
     public void addRental(Item rental) {
-        this.rentals.add(rental);
+        this.currentRentals.add(rental);
     }
 
     public void removeRental(Item rental) {
-        this.rentals.remove(rental);
+        this.currentRentals.remove(rental);
     }
 
     @Override
     public String toString() {
-        String quantity = (rentals != null) ? String.valueOf(rentals.size()) : "0";
+        String quantity = (currentRentals != null) ? String.valueOf(currentRentals.size()) : "0";
         return id + ", " + name + ", " + address + ", " + phone + ", " + quantity + ", " + role + ", " + username + ", "
                 + password;
     }
 
-    public void rentItem(Item item) {
 
+    public void rent(Item item) throws ItemException, AccountException {
+        if (canRent(item)) {
+            itemManager.decreaseStock(item);
+            addRental(item);
+            Transaction transaction = new Transaction(this, item);
+            transactionManager.addTransaction(transaction);
+        } else {
+            throw new AccountException("This account cannot rent this item");
+        }
     }
 
-    public void returnItem(Item item) {
-
+    public void returnItem() throws AccountException, TransactionException {
+        System.out.println("Please choose item to return");
+        showRentals();
+        System.out.print("Enter item's id:");
+        String id = IOHelper.getScanner().nextLine();
+        Item item = getItemFromID(id);
+        returnItem(item);
     }
 
-    public void verifyPassword(String password) {
-
+    public void returnItem (Item item) throws TransactionException {
+        itemManager.increaseStock(item);
+        Transaction transaction = transactionManager.getTransaction(this, item);
+        transaction.setResolved(true);
+        this.removeRental(item);
     }
 
-    public void changeUsername(String username) {
-
+    public void showRentals() {
+        for (Item i : currentRentals) {
+            System.out.println(i.toString());
+        }
     }
 
-    public void changePassword(String oldPassword, String newPassword) {
-
+    public Item getItemFromID(String id) throws AccountException {
+        for (Item i : currentRentals) {
+            if (i.getId().equals(id)) {
+                return i;
+            }
+        }
+        throw new AccountException("Wrong id");
     }
 
-    public void changeAddress(String address) {
-
+    public boolean isRented(Item item) {
+        // check if this item was already rented by this account
+        for (Item i : currentRentals) {
+            if (i.equals(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void changePhone(String phone) {
-
+    public boolean canRent(Item item) {
+        if (isRented(item)) return false;
+        // if guest account and had rented 2 items -> cannot rent
+        return !this.getRole().equals("GUEST") || this.currentRentals.size() <= 2;
     }
+
+    public void changeUsername(String newUsername) {
+        this.username = newUsername;
+    }
+
+    public void changePassword(String oldPassword, String newPassword) throws AccountException {
+        if (oldPassword.equals(this.password)) {
+            this.password = newPassword;
+        } else {
+            throw new AccountException("Incorrect password.");
+        }
+    }
+
+    public void changeAddress(String newAddress) {
+        this.setAddress(newAddress);
+    }
+
+    public void changePhone(String newPhone) {
+        this.setPhone(phone);
+    }
+
 }
+
