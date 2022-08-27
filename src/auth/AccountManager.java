@@ -91,6 +91,14 @@ public class AccountManager {
         }
     }
 
+    boolean isIdUsed(String id) {
+        for (Account account : this.getAccounts()) {
+            if (account.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
     public void levelUp(Account account) {
         if (Objects.equals(account.getRole(), "VIP")) return;
 

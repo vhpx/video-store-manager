@@ -60,20 +60,12 @@ public class Account {
             // Pad ID with leading zeros
             String id = "C" + String.format("%03d", i);
 
-            if (!isIdUsed(id))
+            if (!accountManager.isIdUsed(id))
                 return id;
         }
 
         // No IDs available.
         return null;
-    }
-
-    private boolean isIdUsed(String id) {
-        for (Account account : accountManager.getAccounts()) {
-            if (account.getId().equals(id))
-                return true;
-        }
-        return false;
     }
 
     public String getId() {
@@ -132,7 +124,7 @@ public class Account {
         this.role = role;
     }
 
-    protected ArrayList<Item> getCurrentRentals() {
+    public ArrayList<Item> getCurrentRentals() {
         return currentRentals;
     }
 
@@ -172,7 +164,7 @@ public class Account {
         showRentals();
         System.out.print("Enter item's id:");
         String id = IOHelper.getScanner().nextLine();
-        Item item = getItemFromID(id);
+        Item item = itemManager.getItem(this, id);
         returnItem(item);
     }
 
@@ -187,15 +179,6 @@ public class Account {
         for (Item i : currentRentals) {
             System.out.println(i.toString());
         }
-    }
-
-    public Item getItemFromID(String id) throws AccountException {
-        for (Item i : currentRentals) {
-            if (i.getId().equals(id)) {
-                return i;
-            }
-        }
-        throw new AccountException("Wrong id");
     }
 
     public boolean isRented(Item item) {

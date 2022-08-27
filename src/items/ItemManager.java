@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Comparator;
 
+import auth.Account;
+import auth.AccountException;
+import auth.AccountManager;
 import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
@@ -13,6 +16,7 @@ public class ItemManager {
     private final String fileName = "data/items.txt";
 
     private final ArrayList<Item> items = new ArrayList<>();
+    private final AccountManager accountManager = AccountManager.getInstance();
 
     private ItemManager() {
         // Private constructor to prevent instantiation since
@@ -405,5 +409,14 @@ public class ItemManager {
             if (i.getInStock() == 0)
                 System.out.println(i);
         }
+    }
+
+    public Item getItem(Account account, String id) throws AccountException {
+        for (Item i : account.getCurrentRentals()) {
+            if (i.getId().equals(id)) {
+                return i;
+            }
+        }
+        throw new AccountException("Id does not exist");
     }
 }
