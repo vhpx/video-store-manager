@@ -159,6 +159,7 @@ public class Account {
                 + password;
     }
 
+
     public void rent(Item item) throws ItemException, AccountException {
         if (canRent(item)) {
             itemManager.decreaseStock(item);
@@ -169,15 +170,6 @@ public class Account {
         } else {
             throw new AccountException("This account cannot rent this item");
         }
-    }
-
-    public void returnItem() throws AccountException, TransactionException {
-        System.out.println("Please choose item to return");
-        showRentals();
-        System.out.print("Enter item's id:");
-        String id = IOHelper.getScanner().nextLine();
-        Item item = itemManager.getItem(this, id);
-        returnItem(item);
     }
 
     public void returnItem (Item item) throws TransactionException {
@@ -205,7 +197,7 @@ public class Account {
     }
 
     public boolean canRent(Item item) throws AccountException {
-        if (isRented(item)) return false;
+        if (isRented(item)) throw new AccountException("This account has rented this item");
 
         if (this.getRole().equals("GUEST")) {
             if (this.getCurrentRentals().size() <= 2) {

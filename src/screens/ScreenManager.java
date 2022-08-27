@@ -1,11 +1,23 @@
 package screens;
 
+import auth.Account;
+import auth.AccountException;
+import auth.AccountManager;
 import auth.AuthManager;
 import core.Application;
+import items.Item;
+import items.ItemException;
+import items.ItemManager;
+import transactions.TransactionException;
 import utils.IOHelper;
+
+import java.util.Scanner;
 
 public class ScreenManager {
     private static ScreenManager instance = null;
+    private final ItemManager itemManager = ItemManager.getInstance();
+    private final AccountManager accountManager = AccountManager.getInstance();
+    private final AuthManager authManager = AuthManager.getInstance();
 
     private ScreenManager() {
         // Private constructor to prevent instantiation since
@@ -78,6 +90,78 @@ public class ScreenManager {
     public void showMainMenu() {
         System.out.println("\nMain menu\n");
         System.out.println("Work in progress...");
+
+        // Stop the application
+        System.out.println("\nSaving...\n");
+        Application.stop();
+    }
+
+    public void showAccountScreen() throws AccountException, ItemException, TransactionException {
+        System.out.println("\nAccount screen\n");
+
+        System.out.println("1. Browse all items");
+        System.out.println("2. List current rentals");
+        System.out.println("3. Rent items");
+        System.out.println("4. Return items");
+        System.out.println("5. Update your account");
+        System.out.println("6. Delete your account");
+        System.out.println("7. Exit");
+
+        System.out.print("\nEnter your choice: ");
+
+        var sc = IOHelper.getScanner();
+        var choice = sc.nextInt();
+
+        Account account = authManager.getCurrentAccount();
+
+        switch (choice) {
+            case 1: {
+                for (Item i : itemManager.getItems()) {
+                    System.out.println(i);
+                }
+                break;
+            }
+            case 2: {
+                account.showRentals();
+                break;
+            }
+            case 3: {
+                // Rent item
+                System.out.println("Please choose item to rent");
+                itemManager.displayAll();
+                System.out.print("Enter item's id:");
+                String id = IOHelper.getScanner().nextLine();
+                Item item = itemManager.getItem(id);
+                account.rent(item);
+                break;
+            }
+            case 4: {
+                // Return item
+                System.out.println("Please choose item to return");
+                account.showRentals();
+                System.out.print("Enter item's id:");
+                String id = IOHelper.getScanner().nextLine();
+                Item item = itemManager.getItem(account, id);
+                account.returnItem(item);
+            }
+            case 5: {
+                // Update account
+                System.out.println("Please choose which information you want to update");
+                break;
+            }
+            case 7 : {
+                System.out.println("\nSaving...\n");
+                Application.stop();
+            }
+
+            default : {
+                System.out.println("Invalid choice.");
+                showAccountScreen();
+            }
+
+        }
+
+        
 
         // Stop the application
         System.out.println("\nSaving...\n");

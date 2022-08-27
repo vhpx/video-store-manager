@@ -245,7 +245,7 @@ public class ItemManager {
             return false;
         }
 
-        if (!item.setNumCopy(copies)) {
+        if (!item.setInStock(copies)) {
             System.out.println("Cannot increase the number of copy");
             return false;
         }
@@ -281,7 +281,7 @@ public class ItemManager {
             System.out.println("Invalid input, number cannot be negative.");
             return false;
         }
-        if (!item.setNumCopy(fee)) {
+        if (!item.setInStock(fee)) {
             System.out.println("Cannot set the the rental fee for item");
             return false;
         }
@@ -413,6 +413,15 @@ public class ItemManager {
 
     public Item getItem(Account account, String id) throws AccountException {
         for (Item i : account.getCurrentRentals()) {
+            if (i.getId().equals(id)) {
+                return i;
+            }
+        }
+        throw new AccountException("Id does not exist");
+    }
+
+    public Item getItem (String id) throws AccountException {
+        for (Item i : items) {
             if (i.getId().equals(id)) {
                 return i;
             }
