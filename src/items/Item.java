@@ -14,28 +14,28 @@ public class Item {
     public Item() {
     }
 
-    private Item(String id, String title, int numCopy, double rentalFee) throws ItemException {
+    private Item(String id, String title, int inStock, double rentalFee) throws ItemException {
         if (!setId(id))
             throw new ItemException("cannot set item id " + id);
         if (!setTitle(title))
             throw new ItemException("cannot set item title");
-        if (!setNumCopy(numCopy))
+        if (!setInStock(inStock))
             throw new ItemException("cannot set item number of copy");
         if (!setRentalFee(rentalFee))
             throw new ItemException("cannot set item rental fee");
     }
 
     public Item(String id, String title, RentalType rentalType, LoanType loanType, Genre genre,
-                int numCopy, double rentalFee) throws ItemException {
-        this(id, title, numCopy, rentalFee);
+                int inStock, double rentalFee) throws ItemException {
+        this(id, title, inStock, rentalFee);
         this.rentalType = rentalType;
         this.loanType = loanType;
         this.genre = (rentalType == RentalType.GAME) ? Genre.NOT_APPLICABLE : genre;
     }
 
     public Item(String id, String title, String rentalType, String loanType, String genre,
-                int numCopy, double rentalFee) throws ItemException {
-        this(id, title, numCopy, rentalFee);
+                int inStock, double rentalFee) throws ItemException {
+        this(id, title, inStock, rentalFee);
         if (!this.setRentalType(rentalType))
             throw new ItemException("cannot set the rental type of the item");
         if (!this.setLoanType(loanType))
@@ -137,9 +137,9 @@ public class Item {
         }
     }
 
-    protected boolean setNumCopy(int numCopy) {
-        if (numCopy >= 0) {
-            this.inStock = numCopy;
+    protected boolean setInStock(int inStock) {
+        if (inStock >= 0) {
+            this.inStock = inStock;
             return true;
         }
         return false;
@@ -193,13 +193,6 @@ public class Item {
 
     public double getRentalFee() {
         return rentalFee;
-    }
-
-    public boolean increaseNumCopy(int n) {
-        if (n < 0)
-            return false;
-        this.inStock += n;
-        return true;
     }
 
     public void decreaseStock(int n) throws ItemException {

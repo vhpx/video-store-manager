@@ -21,6 +21,10 @@ public class Account {
     private String phone;
     private String name;
     private String role;
+    private int point = 20;
+    private final int POINT_RECEIVED = 50;
+    private final int POINT_DEDUCTED = 10;
+
     private ArrayList<Item> currentRentals;
 
     public Account() {
@@ -132,6 +136,14 @@ public class Account {
         this.currentRentals = currentRentals;
     }
 
+    protected int getPoint() {
+        return point;
+    }
+
+    protected void setPoint(int point) {
+        this.point = point;
+    }
+
     public void addRental(Item rental) {
         this.currentRentals.add(rental);
     }
@@ -147,13 +159,13 @@ public class Account {
                 + password;
     }
 
-
     public void rent(Item item) throws ItemException, AccountException {
         if (canRent(item)) {
             itemManager.decreaseStock(item);
-            addRental(item);
+            this.addRental(item);
             Transaction transaction = new Transaction(this, item);
             transactionManager.addTransaction(transaction);
+            this.point -= POINT_DEDUCTED;
         } else {
             throw new AccountException("This account cannot rent this item");
         }
@@ -173,6 +185,7 @@ public class Account {
         Transaction transaction = transactionManager.getTransaction(this, item);
         transaction.resolve();
         this.removeRental(item);
+        this.point += POINT_RECEIVED;
     }
 
     public void showRentals() {
@@ -191,10 +204,18 @@ public class Account {
         return false;
     }
 
-    public boolean canRent(Item item) {
+    public boolean canRent(Item item) throws AccountException {
         if (isRented(item)) return false;
-        // if guest account and had rented 2 items -> cannot rent
-        return !this.getRole().equals("GUEST") || this.currentRentals.size() <= 2;
+
+        if (this.getRole().equals("GUEST")) {
+            if (this.getCurrentRentals().size() <= 2) {
+                throw new AccountException("Guest account can rent maximum 2 items");
+            }
+            if (item.getLoanType().equals("TWO_DAY")) {
+                throw new AccountException("Guest account cannot borrow a 2-day item");
+            }
+        }
+        return true;
     }
 
     public void changeUsername(String newUsername) {
