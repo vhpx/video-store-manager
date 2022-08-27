@@ -179,7 +179,7 @@ public class Account {
     public void returnItem (Item item) throws TransactionException {
         itemManager.increaseStock(item);
         Transaction transaction = transactionManager.getTransaction(this, item);
-        transaction.setResolved(true);
+        transaction.resolve();
         this.removeRental(item);
     }
 

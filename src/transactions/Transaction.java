@@ -6,7 +6,7 @@ import items.Item;
 public class Transaction {
     private Account account;
     private Item item;
-    private boolean isResolved = false;
+    private boolean resolved = false;
 
     public Account getAccount() {
         return account;
@@ -25,11 +25,7 @@ public class Transaction {
     }
 
     public boolean isResolved() {
-        return isResolved;
-    }
-
-    public void setResolved(boolean resolved) {
-        isResolved = resolved;
+        return resolved;
     }
 
     public Transaction(Account account, Item item) {
@@ -38,7 +34,7 @@ public class Transaction {
     }
 
     public void resolve() {
-        setResolved(true);
+        this.resolved = true;
     }
 
 }

@@ -1,15 +1,19 @@
 package auth;
 
+import transactions.Transaction;
+import transactions.TransactionManager;
 import utils.AccountIO;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class AccountManager {
     private static AccountManager instance = null;
     private final String fileName = "data/accounts.txt";
 
     private final ArrayList<Account> accounts = new ArrayList<>();
+    private final TransactionManager transactionManager = TransactionManager.getInstance();
 
     private AccountManager() {
         // Private constructor to prevent instantiation since
@@ -84,6 +88,21 @@ public class AccountManager {
             if (account.getRole().equals(role)) {
                 System.out.println(account);
             }
+        }
+    }
+
+    public void levelUp(Account account) {
+        if (Objects.equals(account.getRole(), "VIP")) return;
+
+        ArrayList<Transaction> resolvedTransactions = transactionManager.getTransactions(account, true);
+
+        if (Objects.equals(account.getRole(), "REGULAR") && resolvedTransactions.size() >= 5) {
+            account.setRole("VIP");
+            return;
+        }
+
+        if (Objects.equals(account.getRole(), "GUEST") && resolvedTransactions.size() >= 3) {
+            account.setRole("REGULAR");
         }
     }
 }

@@ -20,7 +20,7 @@ public class AccountUtils {
         return Integer.parseInt(id.substring(5, 9)) <= currentYear;
     }
     public static boolean isPhoneValid (String phone) {
-        String regexPattern = "d{3}\\d{3}-\\d{4}";
+        String regexPattern = "d{3}-\\d{3}-\\d{4}";
         return phone.matches(regexPattern);
     }
 

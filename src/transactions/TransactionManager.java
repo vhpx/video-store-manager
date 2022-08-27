@@ -36,4 +36,23 @@ public class TransactionManager {
         }
         throw new TransactionException("Cannot get transaction");
     }
+
+    public ArrayList<Transaction> getTransactions(Account account) {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        for (Transaction t : this.transactions) {
+            if (t.getAccount().equals(account)) {
+                transactions.add(t);
+            }
+        }
+        return transactions;
+    }
+    public ArrayList<Transaction> getTransactions(Account account, boolean resolved) {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        for (Transaction t : this.transactions) {
+            if (t.getAccount().equals(account) && t.isResolved() == resolved) {
+                transactions.add(t);
+            }
+        }
+        return transactions;
+    }
 }
