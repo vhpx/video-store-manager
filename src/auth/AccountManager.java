@@ -66,7 +66,6 @@ public class AccountManager {
 
     // display all accounts sorted by id
     public void displayAccountsSortedById() {
-
         ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
         accounts.sort(Comparator.comparing(Account::getId));
         displayAccounts(accounts);
@@ -74,7 +73,6 @@ public class AccountManager {
 
     // display all accounts sorted by name
     public void displayAccountsSortedByName() {
-
         ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
         accounts.sort(Comparator.comparing(Account::getName));
         displayAccounts(accounts);
