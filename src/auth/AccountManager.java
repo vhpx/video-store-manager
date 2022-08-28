@@ -113,4 +113,22 @@ public class AccountManager {
             account.setRole("REGULAR");
         }
     }
+
+    public void searchCustomer(String input) {
+        int count = 0;
+
+        for (Account account : accounts) {
+            if (input.equals(account.getName()) || input.equals(account.getId())) {
+                System.out.println(account.getName()
+                        + ", " + account.getId()
+                        + ", " + account.getPhone()
+                        + ", " + account.getAddress());
+                        count++;
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No result matched");
+        }
+    }
 }
