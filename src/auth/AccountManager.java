@@ -1,15 +1,19 @@
 package auth;
 
+import transactions.Transaction;
+import transactions.TransactionManager;
 import utils.AccountIO;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class AccountManager {
     private static AccountManager instance = null;
     private final String fileName = "data/accounts.txt";
 
     private final ArrayList<Account> accounts = new ArrayList<>();
+    private final TransactionManager transactionManager = TransactionManager.getInstance();
 
     private AccountManager() {
         // Private constructor to prevent instantiation since
@@ -66,16 +70,16 @@ public class AccountManager {
 
     // display all accounts sorted by id
     public void displayAccountsSortedById() {
-        ArrayList<Account> sortedAccounts = this.getAccounts();
-        sortedAccounts.sort(Comparator.comparing(Account::getId));
-        displayAccounts(sortedAccounts);
+        ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
+        accounts.sort(Comparator.comparing(Account::getId));
+        displayAccounts(accounts);
     }
 
     // display all accounts sorted by name
     public void displayAccountsSortedByName() {
-        ArrayList<Account> sortedAccounts = this.getAccounts();
-        sortedAccounts.sort(Comparator.comparing(Account::getName));
-        displayAccounts(sortedAccounts);
+        ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
+        accounts.sort(Comparator.comparing(Account::getName));
+        displayAccounts(accounts);
     }
 
     // display a group of account according to role
@@ -84,6 +88,29 @@ public class AccountManager {
             if (account.getRole().equals(role)) {
                 System.out.println(account);
             }
+        }
+    }
+
+    boolean isIdUsed(String id) {
+        for (Account account : this.getAccounts()) {
+            if (account.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
+    public void levelUp(Account account) {
+        if (Objects.equals(account.getRole(), "VIP")) return;
+
+        ArrayList<Transaction> resolvedTransactions = transactionManager.getTransactions(account, true);
+
+        if (Objects.equals(account.getRole(), "REGULAR") && resolvedTransactions.size() >= 5) {
+            account.setRole("VIP");
+            return;
+        }
+
+        if (Objects.equals(account.getRole(), "GUEST") && resolvedTransactions.size() >= 3) {
+            account.setRole("REGULAR");
         }
     }
 }

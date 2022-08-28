@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Comparator;
 
+import auth.Account;
+import auth.AccountException;
+import auth.AccountManager;
 import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
@@ -13,6 +16,7 @@ public class ItemManager {
     private final String fileName = "data/items.txt";
 
     private final ArrayList<Item> items = new ArrayList<>();
+    private final AccountManager accountManager = AccountManager.getInstance();
 
     private ItemManager() {
         // Private constructor to prevent instantiation since
@@ -176,9 +180,9 @@ public class ItemManager {
             System.out.print("Enter the selection: ");
 
             var sc = IOHelper.getScanner();
-            int numSelection = sc.nextInt();
+            int choice = sc.nextInt();
 
-            switch (numSelection) {
+            switch (choice) {
                 case 1:
                     return this.modifyTitle(temp);
                 case 2:
@@ -231,23 +235,19 @@ public class ItemManager {
     }
 
     public boolean increaseNumCopy(Item item) {
-        while (true) {
-            System.out.println("Please enter the additional number of copies: ");
+        System.out.println("Please enter the additional number of copies: ");
 
-            var sc = IOHelper.getScanner();
-            int copies = sc.nextInt();
+        var sc = IOHelper.getScanner();
+        int copies = sc.nextInt();
 
-            if (copies < 0) {
-                System.out.println("Invalid input, number cannot be negative.");
-                return false;
-            }
+        if (copies < 0) {
+            System.out.println("Invalid input, number cannot be negative.");
+            return false;
+        }
 
-            if (!item.setNumCopy(copies)) {
-                System.out.println("Cannot increase the number of copy");
-                return false;
-            } else {
-                break;
-            }
+        if (!item.setInStock(copies)) {
+            System.out.println("Cannot increase the number of copy");
+            return false;
         }
         System.out.println("Successfully increase the number of copy for item.");
         System.out.println("The information for the item after being modified is: ");
@@ -255,23 +255,35 @@ public class ItemManager {
         return true;
     }
 
+    public void increaseStock(Item item) {
+        item.increaseStock();
+    }
+
+    public void increaseStock(Item item, int n) throws ItemException {
+        item.increaseStock(n);
+    }
+
+    public void decreaseStock(Item item) throws ItemException {
+        item.decreaseStock();
+    }
+
+    public void decreaseStock(Item item, int n) throws ItemException {
+        item.decreaseStock(n);
+    }
+
     public boolean modifyRentalFee(Item item) {
-        while (true) {
-            System.out.println("Please enter the new rental fee: ");
+        System.out.println("Please enter the new rental fee: ");
 
-            var sc = IOHelper.getScanner();
-            int fee = sc.nextInt();
+        var sc = IOHelper.getScanner();
+        int fee = sc.nextInt();
 
-            if (fee < 0) {
-                System.out.println("Invalid input, number cannot be negative.");
-                return false;
-            }
-            if (!item.setNumCopy(fee)) {
-                System.out.println("Cannot set the the rental fee for item");
-                return false;
-            } else {
-                break;
-            }
+        if (fee < 0) {
+            System.out.println("Invalid input, number cannot be negative.");
+            return false;
+        }
+        if (!item.setInStock(fee)) {
+            System.out.println("Cannot set the the rental fee for item");
+            return false;
         }
         System.out.println("Successfully set the new rental fee for item.");
         System.out.println("The information for the item after being modified is: ");
@@ -308,14 +320,14 @@ public class ItemManager {
         System.out.println("2. Search by title.");
 
         var sc = IOHelper.getScanner();
-        int numSelection = Integer.MAX_VALUE;
+        int choice = Integer.MAX_VALUE;
 
         while (true) {
             System.out.print("Enter the selection: ");
-            numSelection = sc.nextInt();
+            choice = sc.nextInt();
             sc.nextLine();
 
-            switch (numSelection) {
+            switch (choice) {
                 case 1 -> System.out.println("Please enter ID: ");
                 case 2 -> System.out.println("Please enter the title: ");
                 default -> {
@@ -324,17 +336,17 @@ public class ItemManager {
                 }
             }
 
-            String choice = sc.nextLine();
+            String input = sc.nextLine();
 
-            return searchItem(choice, numSelection);
+            return searchItem(input, choice);
         }
     }
 
-    public Item searchItem(String input, int menuSelection) {
+    public Item searchItem(String input, int choice) {
         if (items.size() == 0)
             return null;
         for (Item item : items) {
-            if (menuSelection == 1) {
+            if (choice == 1) {
                 if (item.getId().equals(input))
                     return item;
             } else {
@@ -358,14 +370,14 @@ public class ItemManager {
         System.out.println("2. Sort by title.");
 
         var sc = IOHelper.getScanner();
-        int numSelection = Integer.MAX_VALUE;
+        int choice = Integer.MAX_VALUE;
 
         while (true) {
             System.out.print("Enter the selection: ");
-            numSelection = sc.nextInt();
+            choice = sc.nextInt();
             sc.nextLine();
 
-            switch (numSelection) {
+            switch (choice) {
                 case 1 -> {
                     System.out.println("Sort by ID.");
                     ArrayList<Item> items = new ArrayList<>(this.getItems());
@@ -386,7 +398,6 @@ public class ItemManager {
                 }
                 default -> {
                     System.out.println("Invalid Selection.");
-                    continue;
                 }
             }
         }
@@ -395,8 +406,26 @@ public class ItemManager {
     public void displayAllOutOfStock() {
         System.out.println("Items that currently have no copies in stock.");
         for (Item i : items) {
-            if (i.getNumCopy() == 0)
+            if (i.getInStock() == 0)
                 System.out.println(i);
         }
+    }
+
+    public Item getItem(Account account, String id) throws AccountException {
+        for (Item i : account.getCurrentRentals()) {
+            if (i.getId().equals(id)) {
+                return i;
+            }
+        }
+        throw new AccountException("Id does not exist");
+    }
+
+    public Item getItem (String id) throws AccountException {
+        for (Item i : items) {
+            if (i.getId().equals(id)) {
+                return i;
+            }
+        }
+        throw new AccountException("Id does not exist");
     }
 }

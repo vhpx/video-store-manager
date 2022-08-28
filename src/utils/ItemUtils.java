@@ -2,6 +2,8 @@ package utils;
 
 import items.Item;
 
+import java.util.Calendar;
+
 public class ItemUtils {
     public static Item parse(String str) {
         try {
@@ -30,7 +32,7 @@ public class ItemUtils {
                 item.getTitle() != null ? item.getTitle() : "UNKNOWN",
                 item.getRentalType() != null ? item.getRentalType() : "UNKNOWN",
                 item.getLoanType() != null ? item.getLoanType() : "UNKNOWN",
-                Integer.toString(item.getNumCopy()),
+                Integer.toString(item.getInStock()),
                 Double.toString(item.getRentalFee()),
                 item.getGenre() != null ? item.getGenre() : "UNKNOWN",
         };
@@ -38,18 +40,18 @@ public class ItemUtils {
         return String.join(", ", tokens);
     }
 
-    public static boolean parseId(String itemId) {
-        int currentYear = 2022;
+    public static boolean isValidId(String id) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int maxLength = 9;
 
-        if (itemId.length() != maxLength)
+        if (id.length() != maxLength)
             return false;
         String regexPattern = "I\\d{3}-\\d{4}";
 
-        if (!itemId.matches(regexPattern))
+        if (!id.matches(regexPattern))
             return false;
             
-        return Integer.parseInt(itemId.substring(5, 9)) <= currentYear;
+        return Integer.parseInt(id.substring(5, 9)) <= currentYear;
     }
 
     public static Item.RentalType parseRentalType(String rentalType) {
