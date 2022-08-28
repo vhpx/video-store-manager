@@ -11,6 +11,7 @@ import items.ItemManager;
 import transactions.TransactionException;
 import utils.IOHelper;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScreenManager {
@@ -105,7 +106,8 @@ public class ScreenManager {
         System.out.println("4. Return items");
         System.out.println("5. Update your account");
         System.out.println("6. Delete your account");
-        System.out.println("7. Exit");
+        System.out.println("7. Search account by id or name");
+        System.out.println("8. Exit");
 
         System.out.print("\nEnter your choice: ");
 
@@ -150,7 +152,7 @@ public class ScreenManager {
             }
             case 6 -> {
                 // Delete account
-                System.out.println("Enter YES to confirm that you want to delete your account");
+                System.out.print("Enter YES to confirm that you want to delete your account: ");
                 String yourChoice = sc.nextLine();
                 if (yourChoice.equals("YES")) {
                     accountManager.deleteAccount(account);
@@ -162,6 +164,13 @@ public class ScreenManager {
                 }
             }
             case 7 -> {
+                // Search account by id / name
+                System.out.print("Enter id or name of account to want to search: ");
+                String input = sc.nextLine();
+                ArrayList<Account> accounts = accountManager.searchAccount(input);
+                accountManager.displayAccountsInfo(accounts);
+            }
+            case 8 -> {
                 System.out.println("\nSaving...\n");
                 Application.stop();
             }

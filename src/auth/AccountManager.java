@@ -68,6 +68,16 @@ public class AccountManager {
         }
     }
 
+    // this method only display information needed when search account
+    public void displayAccountsInfo(ArrayList<Account> accounts) {
+        for (Account account : accounts) {
+            System.out.println(account.getName()
+                        + ", " + account.getId()
+                        + ", " + account.getPhone()
+                        + ", " + account.getAddress());
+        }
+    }
+
     // display all accounts sorted by id
     public void displayAccountsSortedById() {
         ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
@@ -114,21 +124,16 @@ public class AccountManager {
         }
     }
 
-    public void searchCustomer(String input) {
-        int count = 0;
-
-        for (Account account : accounts) {
-            if (input.equals(account.getName()) || input.equals(account.getId())) {
-                System.out.println(account.getName()
-                        + ", " + account.getId()
-                        + ", " + account.getPhone()
-                        + ", " + account.getAddress());
-                        count++;
+    public ArrayList<Account> searchAccount(String input) throws AccountException {
+        ArrayList<Account> list = new ArrayList<Account>();
+        for (Account a : this.accounts) {
+            if (input.equals(a.getName()) || input.equals(a.getId())) {
+                list.add(a);
             }
         }
-
-        if (count == 0) {
-            System.out.println("No result matched");
+        if (list.size()==0) {
+            throw new AccountException("No result matched");
         }
+        return list;
     }
 }
