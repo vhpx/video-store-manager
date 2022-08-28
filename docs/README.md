@@ -26,7 +26,7 @@ _While each member participates in all project's stages, this section highlights
 
 #### CONTRIBUTOR 4: [LE CAM TU](https://github.com/toulletou03) (ID: S3915195)
 
-> Tu's greatest strengths appear to be writing and supporting. She is responsible for brainstorming and constructing many program functionalities, while strongly taking part in any writing tasks (e.g. markdown, video script,...). Any aspects of this project which are technically associated, she handles them.
+> Tu's greatest strengths appear to be writing and supporting. She is responsible for brainstorming and constructing many program functionalities, while strongly taking part in any writing tasks (e.g. markdown, video script, ...). Any aspects of this project which are technically associated, she handles them.
 
 #### CONTRIBUTOR 5: [DINH GIA HUU PHUOC](https://github.com/HPOKSG) (ID: S3878270)
 
@@ -36,8 +36,8 @@ ___
 
 ### II. PROJECT LINKS
 
- - [GITHUB REPO URL](https://github.com/vhpx/video-store-manager)
- - [VIDEO DEMONSTRATION LINK](#) (Work-in-progress)
+ - [GITHUB REPOSITORY](https://github.com/vhpx/video-store-manager)
+ - [VIDEO DEMONSTRATION](https://github.com/vhpx/video-store-manager) (Work-in-progress)
 
 ___
 
