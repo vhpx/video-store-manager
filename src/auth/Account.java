@@ -207,14 +207,19 @@ public class Account {
                 throw new AccountException("Guest account cannot borrow a 2-day item");
             }
         }
+
+        if (this.point < POINT_DEDUCTED) {
+            throw new AccountException("This account has not enough points");
+        }
+
         return true;
     }
 
-    public void changeUsername(String newUsername) {
+    public void updateUsername(String newUsername) {
         this.username = newUsername;
     }
 
-    public void changePassword(String oldPassword, String newPassword) throws AccountException {
+    public void updatePassword(String oldPassword, String newPassword) throws AccountException {
         if (oldPassword.equals(this.password)) {
             this.password = newPassword;
         } else {
@@ -222,11 +227,26 @@ public class Account {
         }
     }
 
-    public void changeAddress(String newAddress) {
+    // public void updatePassword(String newPassword, String oldPassword) throws AccountException {
+    //     if (isPasswordCorrect(oldPassword)) {
+    //         this.password = newPassword;
+    //     } else {
+    //         throw new AccountException("Incorrect password.");
+    //     }
+    // }
+
+    // public boolean isPasswordCorrect(String oldPassword) throws AccountException {
+    //     if (!oldPassword.equals(this.password)) {
+    //         throw new AccountException("Incorrect password.");
+    //     }
+    //     return true;
+    // }
+
+    public void updateAddress(String newAddress) {
         this.setAddress(newAddress);
     }
 
-    public void changePhone(String newPhone) {
+    public void updatePhone(String newPhone) {
         this.setPhone(phone);
     }
 
