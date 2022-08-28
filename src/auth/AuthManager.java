@@ -46,6 +46,7 @@ public class AuthManager {
     public String getLoggedInUserId() {
         return currentAccount.getId();
     }
+    public Account getCurrentAccount() {return currentAccount;}
 
     public boolean isAdmin() {
         return isAdmin;

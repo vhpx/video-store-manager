@@ -32,7 +32,7 @@ public class ItemUtils {
                 item.getTitle() != null ? item.getTitle() : "UNKNOWN",
                 item.getRentalType() != null ? item.getRentalType() : "UNKNOWN",
                 item.getLoanType() != null ? item.getLoanType() : "UNKNOWN",
-                Integer.toString(item.getNumCopy()),
+                Integer.toString(item.getInStock()),
                 Double.toString(item.getRentalFee()),
                 item.getGenre() != null ? item.getGenre() : "UNKNOWN",
         };
