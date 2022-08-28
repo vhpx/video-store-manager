@@ -2,13 +2,13 @@
 
 ## TABLE OF CONTENT
 
-**I. [CONTRIBUTION](#i-contribution)**\
+**I. [CONTRIBUTION INFORMATION](#i-contribution-information)**\
 **II. [PROJECT LINKS](#ii-project-links)**\
 **III. [REFERENCES](#iii-references)**
 
 ___
 
-### I. CONTRIBUTION
+### I. CONTRIBUTION INFORMATION
 
 _While each member participates in all project's stages, this section highlights his/her major contributions._
 
