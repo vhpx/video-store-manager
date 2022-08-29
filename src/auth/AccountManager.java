@@ -68,6 +68,16 @@ public class AccountManager {
         }
     }
 
+    // this method only display information needed when search account
+    public void displayAccountsInfo(ArrayList<Account> accounts) {
+        for (Account account : accounts) {
+            System.out.println(account.getName()
+                        + ", " + account.getId()
+                        + ", " + account.getPhone()
+                        + ", " + account.getAddress());
+        }
+    }
+
     // display all accounts sorted by id
     public void displayAccountsSortedById() {
         ArrayList<Account> accounts = new ArrayList<>(this.getAccounts());
@@ -112,5 +122,18 @@ public class AccountManager {
         if (Objects.equals(account.getRole(), "GUEST") && resolvedTransactions.size() >= 3) {
             account.setRole("REGULAR");
         }
+    }
+
+    public ArrayList<Account> searchAccount(String input) throws AccountException {
+        ArrayList<Account> list = new ArrayList<Account>();
+        for (Account a : this.accounts) {
+            if (input.equals(a.getName()) || input.equals(a.getId())) {
+                list.add(a);
+            }
+        }
+        if (list.size()==0) {
+            throw new AccountException("No result matched");
+        }
+        return list;
     }
 }
