@@ -23,24 +23,16 @@ public class InternalManager {
     }
 
     public void initialize() {
-        // Initialize the account manager
+        // Initialize all internal managers
         accounts.initialize();
-
-        // Initialize the item manager
         items.initialize();
-
-        // Initialize the transaction manager
-        // transactions.initialize();
+        transactions.initialize();
     }
 
     public void stop() {
-        // Stop the account manager
+        // Stop all internal managers
         accounts.stop();
-
-        // Stop the item manager
         items.stop();
-
-        // Stop the transaction manager
-        // transactions.stop();
+        transactions.stop();
     }
 }

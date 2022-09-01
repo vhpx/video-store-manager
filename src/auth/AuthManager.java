@@ -46,7 +46,10 @@ public class AuthManager {
     public String getLoggedInUserId() {
         return currentAccount.getId();
     }
-    public Account getCurrentAccount() {return currentAccount;}
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
 
     public boolean isAdmin() {
         return isAdmin;
@@ -122,7 +125,7 @@ public class AuthManager {
         }
 
         // Check if username is taken
-        if (accountManager.getAccount(newUsername) != null) {
+        if (accountManager.getAccountByUsername(newUsername) != null) {
             System.out.println("Username is already taken");
             return;
         }

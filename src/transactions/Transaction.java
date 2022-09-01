@@ -8,33 +8,31 @@ public class Transaction {
     private Item item;
     private boolean resolved = false;
 
-    public Account getAccount() {
-        return account;
+    public Transaction(Account account, Item item) {
+        this.account = account;
+        this.item = item;
+        this.resolved = false;
     }
 
-    public void setAccount(Account account) {
+    public Transaction(Account account, Item item, boolean resolved) {
         this.account = account;
+        this.item = item;
+        this.resolved = resolved;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     public Item getItem() {
         return item;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
     public boolean isResolved() {
         return resolved;
-    }
-
-    public Transaction(Account account, Item item) {
-        this.account = account;
-        this.item = item;
     }
 
     public void resolve() {
         this.resolved = true;
     }
-
 }

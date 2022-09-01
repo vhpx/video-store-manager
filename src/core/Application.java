@@ -22,20 +22,14 @@ public class Application {
     }
 
     public void initialize() {
-        System.out.println("\nLoading...\n");
-
-        // Initialize the internal manager
+        // Initialize all managers
         internal.initialize();
-
-        // Initialize the auth manager
         auth.initialize();
     }
 
     public static void stop() {
-        // Stop the internal manager
+        // Stop all managers
         internal.stop();
-
-        // Stop the auth manager
         auth.stop();
 
         // Exit the application

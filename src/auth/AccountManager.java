@@ -42,7 +42,15 @@ public class AccountManager {
         return accounts;
     }
 
-    public Account getAccount(String username) {
+    public Account getAccountById(String id) {
+        for (Account account : accounts)
+            if (account.getId().equals(id))
+                return account;
+
+        return null;
+    }
+
+    public Account getAccountByUsername(String username) {
         for (Account account : accounts)
             if (account.getUsername().equals(username))
                 return account;
