@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import items.Item;
 import items.ItemManager;
 
-public class ItemIO {
-    private static ItemManager manager = ItemManager.getInstance();
+public class ItemIO extends ObjectIO<ItemManager> {
+    public ItemIO(ItemManager manager) {
+        super(manager);
+    }
 
-    public static void loadData(String fileName) {
+    public void loadData(String fileName) {
         ArrayList<String> lines = IOHelper.readFile(fileName);
 
         for (String line : lines) {
@@ -19,7 +21,7 @@ public class ItemIO {
         System.out.println("Loaded " + lines.size() + " items from \"" + fileName + "\" file.");
     }
 
-    public static void saveData(String fileName) {
+    public void saveData(String fileName) {
         ArrayList<Item> items = manager.getItems();
         ArrayList<String> lines = new ArrayList<>();
 

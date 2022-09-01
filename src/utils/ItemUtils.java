@@ -1,6 +1,7 @@
 package utils;
 
 import items.Item;
+import items.ItemException;
 
 import java.util.Calendar;
 
@@ -20,9 +21,12 @@ public class ItemUtils {
             String genre = (rentalType.equalsIgnoreCase("GAME")) ? "N/A" : tokens[6];
 
             return new Item(id, title, rentalType, loanType, genre, numCopy, rentalFee);
+        } catch (ItemException e) {
+            System.out.println(e.getMessage());
+            return null;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            return new Item();
+            System.out.println("Error: Invalid item format");
+            return null;
         }
     }
 
@@ -50,7 +54,7 @@ public class ItemUtils {
 
         if (!id.matches(regexPattern))
             return false;
-            
+
         return Integer.parseInt(id.substring(5, 9)) <= currentYear;
     }
 

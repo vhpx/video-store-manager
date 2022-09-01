@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import auth.Account;
 import auth.AccountManager;
 
-public class AccountIO {
-    private static AccountManager manager = AccountManager.getInstance();
+public class AccountIO extends ObjectIO<AccountManager> {
+    public AccountIO(AccountManager manager) {
+        super(manager);
+    }
 
-    public static void loadData(String fileName) {
+    public void loadData(String fileName) {
         ArrayList<String> lines = IOHelper.readFile(fileName);
 
         for (String line : lines) {
@@ -19,7 +21,7 @@ public class AccountIO {
         System.out.println("Loaded " + lines.size() + " accounts from \"" + fileName + "\" file.");
     }
 
-    public static void saveData(String fileName) {
+    public void saveData(String fileName) {
         ArrayList<Account> accounts = manager.getAccounts();
         ArrayList<String> lines = new ArrayList<>();
 

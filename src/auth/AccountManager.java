@@ -28,12 +28,14 @@ public class AccountManager {
 
     public void initialize() {
         // Load the accounts from the local storage
-        AccountIO.loadData(fileName);
+        AccountIO accountIO = new AccountIO(this);
+        accountIO.loadData(fileName);
     }
 
     public void stop() {
         // Save the accounts to the local storage
-        AccountIO.saveData(fileName);
+        AccountIO accountIO = new AccountIO(this);
+        accountIO.saveData(fileName);
     }
 
     public ArrayList<Account> getAccounts() {
@@ -72,9 +74,9 @@ public class AccountManager {
     public void displayAccountsInfo(ArrayList<Account> accounts) {
         for (Account account : accounts) {
             System.out.println(account.getName()
-                        + ", " + account.getId()
-                        + ", " + account.getPhone()
-                        + ", " + account.getAddress());
+                    + ", " + account.getId()
+                    + ", " + account.getPhone()
+                    + ", " + account.getAddress());
         }
     }
 
@@ -110,7 +112,8 @@ public class AccountManager {
     }
 
     public void levelUp(Account account) {
-        if (Objects.equals(account.getRole(), "VIP")) return;
+        if (Objects.equals(account.getRole(), "VIP"))
+            return;
 
         ArrayList<Transaction> resolvedTransactions = transactionManager.getTransactions(account, true);
 
@@ -131,7 +134,7 @@ public class AccountManager {
                 list.add(a);
             }
         }
-        if (list.size()==0) {
+        if (list.size() == 0) {
             throw new AccountException("No result matched");
         }
         return list;
