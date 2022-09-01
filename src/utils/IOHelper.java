@@ -17,11 +17,14 @@ public class IOHelper {
     }
 
     public static String getProjectPath() {
+        // Generate a random file name
+        String fileName = "temp-" + System.currentTimeMillis();
+
         // Create a check file
-        File check = new File("check.txt");
+        File check = new File(fileName);
 
         // Get the project path
-        String path = check.getAbsolutePath().replace("check.txt", "");
+        String path = check.getAbsolutePath().replace(fileName, "");
 
         // Delete the check file
         check.delete();

@@ -1,19 +1,20 @@
 package auth;
 
-public class VIPAccount extends Account{
-    private int rewardedPoint;
+public class VIPAccount extends Account {
+    private int points = 0;
 
-    public VIPAccount(int rewardedPoint) {
-        this.rewardedPoint = rewardedPoint;
+    public VIPAccount(int points) {
+        this.points = points;
     }
 
-    public VIPAccount(String username, String password, int rewardedPoint) {
+    public VIPAccount(String username, String password, int points) {
         super(username, password);
-        this.rewardedPoint = rewardedPoint;
+        this.points = points;
     }
 
-    public VIPAccount(String id, String username, String password, String address, String phone, String name, String role, int rewardedPoint) {
+    public VIPAccount(String id, String username, String password, String address, String phone, String name,
+            String role, int points) {
         super(id, username, password, address, phone, name, "VIP");
-        this.rewardedPoint = rewardedPoint;
+        this.points = points;
     }
 }

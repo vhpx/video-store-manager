@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
+import errors.AccountException;
+
 public class AccountManager {
     private static AccountManager instance = null;
     private final String fileName = "data/accounts.txt";
@@ -28,19 +30,29 @@ public class AccountManager {
 
     public void initialize() {
         // Load the accounts from the local storage
-        AccountIO.loadData(fileName);
+        AccountIO accountIO = new AccountIO(this);
+        accountIO.loadData(fileName);
     }
 
     public void stop() {
         // Save the accounts to the local storage
-        AccountIO.saveData(fileName);
+        AccountIO accountIO = new AccountIO(this);
+        accountIO.saveData(fileName);
     }
 
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
 
-    public Account getAccount(String username) {
+    public Account getAccountById(String id) {
+        for (Account account : accounts)
+            if (account.getId().equals(id))
+                return account;
+
+        return null;
+    }
+
+    public Account getAccountByUsername(String username) {
         for (Account account : accounts)
             if (account.getUsername().equals(username))
                 return account;
@@ -72,9 +84,9 @@ public class AccountManager {
     public void displayAccountsInfo(ArrayList<Account> accounts) {
         for (Account account : accounts) {
             System.out.println(account.getName()
-                        + ", " + account.getId()
-                        + ", " + account.getPhone()
-                        + ", " + account.getAddress());
+                    + ", " + account.getId()
+                    + ", " + account.getPhone()
+                    + ", " + account.getAddress());
         }
     }
 
@@ -110,7 +122,8 @@ public class AccountManager {
     }
 
     public void levelUp(Account account) {
-        if (Objects.equals(account.getRole(), "VIP")) return;
+        if (Objects.equals(account.getRole(), "VIP"))
+            return;
 
         ArrayList<Transaction> resolvedTransactions = transactionManager.getTransactions(account, true);
 
@@ -131,7 +144,7 @@ public class AccountManager {
                 list.add(a);
             }
         }
-        if (list.size()==0) {
+        if (list.size() == 0) {
             throw new AccountException("No result matched");
         }
         return list;

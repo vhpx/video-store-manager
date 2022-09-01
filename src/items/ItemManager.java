@@ -5,8 +5,8 @@ import java.util.Stack;
 import java.util.Comparator;
 
 import auth.Account;
-import auth.AccountException;
-import auth.AccountManager;
+import errors.AccountException;
+import errors.ItemException;
 import utils.IOHelper;
 import utils.ItemIO;
 import utils.Utilities;
@@ -16,7 +16,6 @@ public class ItemManager {
     private final String fileName = "data/items.txt";
 
     private final ArrayList<Item> items = new ArrayList<>();
-    private final AccountManager accountManager = AccountManager.getInstance();
 
     private ItemManager() {
         // Private constructor to prevent instantiation since
@@ -31,12 +30,14 @@ public class ItemManager {
 
     public void initialize() {
         // Load the items from the local storage
-        ItemIO.loadData(fileName);
+        ItemIO itemIO = new ItemIO(this);
+        itemIO.loadData(fileName);
     }
 
     public void stop() {
         // Save the items to the local storage
-        ItemIO.saveData(fileName);
+        ItemIO itemIO = new ItemIO(this);
+        itemIO.saveData(fileName);
     }
 
     public ArrayList<Item> getItems() {
@@ -177,24 +178,24 @@ public class ItemManager {
         System.out.println("3: Increase number of copies");
         System.out.println("4: Modify rental fee");
 
-            System.out.print("Enter the selection: ");
+        System.out.print("Enter the selection: ");
 
-            var sc = IOHelper.getScanner();
-            int choice = sc.nextInt();
+        var sc = IOHelper.getScanner();
+        int choice = sc.nextInt();
 
-            switch (choice) {
-                case 1:
-                    return this.modifyTitle(temp);
-                case 2:
-                    return this.modifyLoanType(temp);
-                case 3:
-                    return this.increaseNumCopy(temp);
-                case 4:
-                    return this.modifyRentalFee(temp);
-                default:
-                    System.out.println("Invalid Selection.");
-                    return false;
-            }
+        switch (choice) {
+            case 1:
+                return this.modifyTitle(temp);
+            case 2:
+                return this.modifyLoanType(temp);
+            case 3:
+                return this.increaseNumCopy(temp);
+            case 4:
+                return this.modifyRentalFee(temp);
+            default:
+                System.out.println("Invalid Selection.");
+                return false;
+        }
     }
 
     public boolean modifyTitle(Item item) {
@@ -362,6 +363,7 @@ public class ItemManager {
             System.out.println(i);
         }
     }
+
     // Display all items sorted by titles or IDs
     public void displayAllSorted() {
         System.out.println("Display all items sorted by titles or IDs.");
@@ -402,6 +404,7 @@ public class ItemManager {
             }
         }
     }
+
     // Display all items that have no copies in stock.
     public void displayAllOutOfStock() {
         System.out.println("Items that currently have no copies in stock.");
@@ -420,7 +423,7 @@ public class ItemManager {
         throw new AccountException("Id does not exist");
     }
 
-    public Item getItem (String id) throws AccountException {
+    public Item getItem(String id) throws AccountException {
         for (Item i : items) {
             if (i.getId().equals(id)) {
                 return i;

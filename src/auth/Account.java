@@ -1,14 +1,15 @@
 package auth;
 
 import items.Item;
-import items.ItemException;
 import items.ItemManager;
 import transactions.Transaction;
-import transactions.TransactionException;
 import transactions.TransactionManager;
-import utils.IOHelper;
 
 import java.util.ArrayList;
+
+import errors.AccountException;
+import errors.ItemException;
+import errors.TransactionException;
 
 public class Account {
     AccountManager accountManager = AccountManager.getInstance();
@@ -45,7 +46,7 @@ public class Account {
     }
 
     public Account(String id, String username, String password, String address, String phone, String name,
-                   String role) {
+            String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -159,7 +160,6 @@ public class Account {
                 + password;
     }
 
-
     public void rent(Item item) throws ItemException, AccountException {
         if (canRent(item)) {
             itemManager.decreaseStock(item);
@@ -172,7 +172,7 @@ public class Account {
         }
     }
 
-    public void returnItem (Item item) throws TransactionException {
+    public void returnItem(Item item) throws TransactionException {
         itemManager.increaseStock(item);
         Transaction transaction = transactionManager.getTransaction(this, item);
         transaction.resolve();
@@ -197,7 +197,8 @@ public class Account {
     }
 
     public boolean canRent(Item item) throws AccountException {
-        if (isRented(item)) throw new AccountException("This account has rented this item");
+        if (isRented(item))
+            throw new AccountException("This account has rented this item");
 
         if (this.getRole().equals("GUEST")) {
             if (this.getCurrentRentals().size() <= 2) {
@@ -227,21 +228,6 @@ public class Account {
         }
     }
 
-    // public void updatePassword(String newPassword, String oldPassword) throws AccountException {
-    //     if (isPasswordCorrect(oldPassword)) {
-    //         this.password = newPassword;
-    //     } else {
-    //         throw new AccountException("Incorrect password.");
-    //     }
-    // }
-
-    // public boolean isPasswordCorrect(String oldPassword) throws AccountException {
-    //     if (!oldPassword.equals(this.password)) {
-    //         throw new AccountException("Incorrect password.");
-    //     }
-    //     return true;
-    // }
-
     public void updateAddress(String newAddress) {
         this.setAddress(newAddress);
     }
@@ -249,6 +235,4 @@ public class Account {
     public void updatePhone(String newPhone) {
         this.setPhone(phone);
     }
-
 }
-
