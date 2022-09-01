@@ -1,13 +1,15 @@
 package auth;
 
 import items.Item;
-import items.ItemException;
 import items.ItemManager;
 import transactions.Transaction;
-import transactions.TransactionException;
 import transactions.TransactionManager;
 
 import java.util.ArrayList;
+
+import errors.AccountException;
+import errors.ItemException;
+import errors.TransactionException;
 
 public class Account {
     AccountManager accountManager = AccountManager.getInstance();

@@ -1,8 +1,8 @@
 package utils;
 
 import auth.Account;
-import auth.AccountException;
 import auth.AccountManager;
+import errors.AccountException;
 import items.Item;
 import items.ItemManager;
 import transactions.Transaction;

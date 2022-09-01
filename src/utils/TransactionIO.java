@@ -2,7 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-import auth.AccountException;
+import errors.AccountException;
 import transactions.Transaction;
 import transactions.TransactionManager;
 

@@ -1,6 +1,7 @@
 package transactions;
 
 import auth.Account;
+import errors.TransactionException;
 import items.Item;
 import utils.TransactionIO;
 

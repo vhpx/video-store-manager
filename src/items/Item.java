@@ -1,5 +1,6 @@
 package items;
 
+import errors.ItemException;
 import utils.ItemUtils;
 
 public class Item {
@@ -26,7 +27,7 @@ public class Item {
     }
 
     public Item(String id, String title, RentalType rentalType, LoanType loanType, Genre genre,
-                int inStock, double rentalFee) throws ItemException {
+            int inStock, double rentalFee) throws ItemException {
         this(id, title, inStock, rentalFee);
         this.rentalType = rentalType;
         this.loanType = loanType;
@@ -34,7 +35,7 @@ public class Item {
     }
 
     public Item(String id, String title, String rentalType, String loanType, String genre,
-                int inStock, double rentalFee) throws ItemException {
+            int inStock, double rentalFee) throws ItemException {
         this(id, title, inStock, rentalFee);
         if (!this.setRentalType(rentalType))
             throw new ItemException("cannot set the rental type of the item");
@@ -210,8 +211,8 @@ public class Item {
         this.inStock++;
     }
 
-    public void increaseStock (int n) throws ItemException {
-        if (n<=0) {
+    public void increaseStock(int n) throws ItemException {
+        if (n <= 0) {
             throw new ItemException("Invalid number of quantity");
         }
         this.inStock += n;
@@ -258,4 +259,3 @@ public class Item {
     }
 
 }
-

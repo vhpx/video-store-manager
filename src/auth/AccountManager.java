@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
+import errors.AccountException;
+
 public class AccountManager {
     private static AccountManager instance = null;
     private final String fileName = "data/accounts.txt";
