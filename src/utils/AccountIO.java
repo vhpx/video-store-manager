@@ -1,35 +1,10 @@
 package utils;
 
-import java.util.ArrayList;
-
 import auth.Account;
 import auth.AccountManager;
 
-public class AccountIO extends ObjectIO<AccountManager> {
-    public AccountIO(AccountManager manager) {
-        super(manager);
-    }
-
-    public void loadData(String fileName) {
-        ArrayList<String> lines = IOHelper.readFile(fileName);
-
-        for (String line : lines) {
-            Account account = AccountUtils.parse(line);
-            manager.addAccount(account);
-        }
-
-        System.out.println("Loaded " + lines.size() + " accounts from \"" + fileName + "\" file.");
-    }
-
-    public void saveData(String fileName) {
-        ArrayList<Account> accounts = manager.getAccounts();
-        ArrayList<String> lines = new ArrayList<>();
-
-        for (Account account : accounts) {
-            lines.add(AccountUtils.serialize(account));
-        }
-
-        IOHelper.createFile(fileName, lines);
-        System.out.println("Saved " + accounts.size() + " accounts to \"" + fileName + "\" file.");
+public class AccountIO extends ObjectIO<Account> {
+    public AccountIO(AccountManager manager, AccountUtils utils) {
+        super(manager, utils, "accounts");
     }
 }

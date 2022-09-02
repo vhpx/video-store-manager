@@ -6,8 +6,8 @@ import java.util.Calendar;
 
 import errors.ItemException;
 
-public class ItemUtils {
-    public static Item parse(String str) {
+public class ItemUtils extends ObjectUtils<Item> {
+    public Item parse(String str) {
         try {
             String[] tokens = str.split(", ");
 
@@ -31,7 +31,7 @@ public class ItemUtils {
         }
     }
 
-    public static String serialize(Item item) {
+    public String serialize(Item item) {
         String[] tokens = {
                 item.getId() != null ? item.getId() : "UNKNOWN",
                 item.getTitle() != null ? item.getTitle() : "UNKNOWN",
