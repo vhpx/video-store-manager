@@ -1,31 +1,16 @@
 package auth;
 
-import java.util.ArrayList;
+import core.Application;
 
 public class AuthManager {
-    private static AuthManager instance = null;
-
-    private static final AccountManager accountManager = AccountManager.getInstance();
-
     private static final String adminUsername = "admin";
     private static final String adminPassword = "admin";
 
     private static Account currentAccount = null;
     private static boolean isAdmin = false;
 
-    private AuthManager() {
-        // Private constructor to prevent instantiation since
-        // this is a singleton class (only one instance)
-    }
-
-    public static AuthManager getInstance() {
-        if (instance == null)
-            instance = new AuthManager();
-        return instance;
-    }
-
     // Initialize the auth manager
-    public void initialize() {
+    public void start() {
         // Reset authentication flags
         currentAccount = null;
         isAdmin = false;
@@ -56,58 +41,51 @@ public class AuthManager {
     }
 
     public static boolean login(String username, String password) {
-        System.out.println("\nLogging in as " + username + "...");
+        try {
+            System.out.println("\nLogging in as " + username + "...");
 
-        // Check if username is admin
-        if (username.equals(adminUsername)) {
-            if (password.equals(adminPassword)) {
-                // Set admin flag
-                isAdmin = true;
-
-                return true;
-            }
-
-            // Invalid admin password
-            return false;
-        }
-
-        // Get accounts from the account manager
-        ArrayList<Account> accounts = accountManager.getAccounts();
-
-        // Check if username is registered
-        for (Account account : accounts) {
-            if (account.getUsername().equals(username)) {
-                // Check if password is correct
-                if (account.getPassword().equals(password)) {
-                    // Set current account
-                    currentAccount = account;
+            // Check if username is admin
+            if (username.equals(adminUsername)) {
+                if (password.equals(adminPassword)) {
+                    // Set admin flag
+                    isAdmin = true;
 
                     return true;
                 }
 
-                // Invalid password
+                // Invalid admin password
                 return false;
             }
-        }
 
-        // Invalid username
-        return false;
+            var app = Application.getInstance();
+            var accountManager = app.getAccountManager();
+            return accountManager.authenticate(username, password);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
     }
 
     public static boolean signup(String username, String password) {
-        System.out.println("Signing up as " + username + "...");
+        try {
+            System.out.println("Signing up as " + username + "...");
 
-        // Create account
-        Account account = new Account(username, password);
-        accountManager.addAccount(account);
+            var app = Application.getInstance();
+            var accountManager = app.getAccountManager();
+            var account = accountManager.getAccountByUsername(username);
 
-        System.out.println("Account created");
-        accountManager.displayAll();
+            if (account != null)
+                // Username already exists
+                return false;
 
-        currentAccount = account;
-        isAdmin = false;
-
-        return true;
+            // Create new account
+            account = accountManager.createAccount(username, password);
+            accountManager.add(account);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
     }
 
     public void logout() {
@@ -125,6 +103,9 @@ public class AuthManager {
         }
 
         // Check if username is taken
+        var app = Application.getInstance();
+        var accountManager = app.getAccountManager();
+
         if (accountManager.getAccountByUsername(newUsername) != null) {
             System.out.println("Username is already taken");
             return;
