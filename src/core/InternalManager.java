@@ -5,34 +5,48 @@ import items.ItemManager;
 import transactions.TransactionManager;
 
 public class InternalManager {
-    private static InternalManager instance = null;
+    // Setup initial flags
+    private boolean initialized = false;
+    private boolean stopped = false;
 
-    public AccountManager accounts = AccountManager.getInstance();
-    public ItemManager items = ItemManager.getInstance();
-    public TransactionManager transactions = TransactionManager.getInstance();
+    // instantiate internal managers with empty constructors
+    public AccountManager accounts = new AccountManager();
+    public ItemManager items = new ItemManager();
+    public TransactionManager transactions = new TransactionManager();
 
-    private InternalManager() {
-        // Private constructor to prevent instantiation since
-        // this is a singleton class (only one instance)
+    /**
+     * Initialize the internal managers with local data.
+     * This method is called when the program starts and only be called once.
+     */
+    public void start() {
+        // Do not initialize if already initialized
+        if (initialized)
+            return;
+
+        // Initialize all managers
+        accounts.start();
+        items.start();
+        transactions.start(accounts, items);
+
+        // Set the initialized flag to true
+        initialized = true;
     }
 
-    public static InternalManager getInstance() {
-        if (instance == null)
-            instance = new InternalManager();
-        return instance;
-    }
-
-    public void initialize() {
-        // Initialize all internal managers
-        accounts.initialize();
-        items.initialize();
-        transactions.initialize();
-    }
-
+    /**
+     * Stop the internal managers and save the data to the local storage.
+     * This method is called when the program stops and only be called once.
+     */
     public void stop() {
-        // Stop all internal managers
+        // Do not stop if already stopped
+        if (stopped)
+            return;
+
+        // Stop all managers
         accounts.stop();
         items.stop();
         transactions.stop();
+
+        // Set the stopped flag to true
+        stopped = true;
     }
 }

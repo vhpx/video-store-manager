@@ -11,24 +11,17 @@ import items.Item;
 import items.ItemManager;
 import utils.IOHelper;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScreenManager {
-    private static ScreenManager instance = null;
-    private final ItemManager itemManager = ItemManager.getInstance();
-    private final AccountManager accountManager = AccountManager.getInstance();
-    private final AuthManager authManager = AuthManager.getInstance();
+    private ItemManager items = null;
+    private AccountManager accounts = null;
+    private AuthManager auth = null;
 
-    private ScreenManager() {
-        // Private constructor to prevent instantiation since
-        // this is a singleton class (only one instance)
-    }
-
-    public static ScreenManager getInstance() {
-        if (instance == null)
-            instance = new ScreenManager();
-        return instance;
+    public ScreenManager(ItemManager items, AccountManager accounts, AuthManager auth) {
+        this.items = items;
+        this.accounts = accounts;
+        this.auth = auth;
     }
 
     public void showAuthScreen() {
@@ -78,7 +71,9 @@ public class ScreenManager {
 
             case 3 -> {
                 System.out.println("\nSaving...\n");
-                Application.stop();
+
+                var app = Application.getInstance();
+                app.stop();
             }
 
             default -> {
@@ -94,10 +89,24 @@ public class ScreenManager {
 
         // Stop the application
         System.out.println("\nSaving...\n");
-        Application.stop();
+
+        var app = Application.getInstance();
+        app.stop();
     }
 
     public void showAccountScreen() throws AccountException, ItemException, TransactionException {
+        if (auth == null) {
+            throw new AccountException("AuthManager is not initialized.");
+        }
+
+        if (accounts == null) {
+            throw new AccountException("AccountManager is not initialized.");
+        }
+
+        if (items == null) {
+            throw new AccountException("ItemManager is not initialized.");
+        }
+
         System.out.println("\nAccount screen\n");
 
         System.out.println("1. Browse all items");
@@ -114,48 +123,53 @@ public class ScreenManager {
         Scanner sc = IOHelper.getScanner();
         int choice = sc.nextInt();
 
-        Account account = authManager.getCurrentAccount();
+        Account account = auth.getCurrentAccount();
 
         switch (choice) {
             case 1 -> {
-                for (Item i : itemManager.getItems()) {
+                for (Item i : items.getAll()) {
                     System.out.println(i);
                 }
             }
+
             case 2 -> {
                 account.showRentals();
             }
+
             case 3 -> {
                 // Rent item
                 System.out.println("Please choose item to rent");
-                itemManager.displayAll();
+                items.displayAll();
                 System.out.print("Enter item's id:");
                 String id = sc.nextLine();
-                Item item = itemManager.getItem(id);
+                Item item = items.getItem(id);
                 account.rent(item);
                 System.out.println("Successfully rent " + item.getTitle());
             }
+
             case 4 -> {
                 // Return item
                 System.out.println("Please choose item to return");
                 account.showRentals();
                 System.out.print("Enter item's id:");
                 String id = sc.nextLine();
-                Item item = itemManager.getItem(account, id);
+                Item item = items.getItem(account, id);
                 account.returnItem(item);
                 System.out.println("Successfully return " + item.getTitle());
             }
+
             case 5 -> {
                 // Update account
                 System.out.println("Please choose which information you want to update");
                 showUpdateAccountScreen();
             }
+
             case 6 -> {
                 // Delete account
                 System.out.print("Enter YES to confirm that you want to delete your account: ");
                 String yourChoice = sc.nextLine();
                 if (yourChoice.equals("YES")) {
-                    accountManager.deleteAccount(account);
+                    accounts.remove(account);
                     System.out.println("Successfully delete your account");
                     // I'm not sure what will happen next
                 } else {
@@ -163,16 +177,21 @@ public class ScreenManager {
                     showAccountScreen();
                 }
             }
+
             case 7 -> {
                 // Search account by id / name
                 System.out.print("Enter id or name of account to want to search: ");
                 String input = sc.nextLine();
-                ArrayList<Account> accounts = accountManager.searchAccount(input);
-                accountManager.displayAccountsInfo(accounts);
+
+                var result = accounts.searchAccount(input);
+                accounts.displayAccountsInfo(result);
             }
+
             case 8 -> {
                 System.out.println("\nSaving...\n");
-                Application.stop();
+
+                var app = Application.getInstance();
+                app.stop();
             }
 
             default -> {
@@ -185,6 +204,10 @@ public class ScreenManager {
     }
 
     public void showUpdateAccountScreen() throws AccountException, ItemException, TransactionException {
+        if (auth == null) {
+            throw new AccountException("AuthManager is not initialized.");
+        }
+
         System.out.println("\nUpdate account screen\n");
 
         System.out.println("1. Update username");
@@ -199,7 +222,7 @@ public class ScreenManager {
         Scanner sc = IOHelper.getScanner();
         int choice = sc.nextInt();
 
-        Account account = authManager.getCurrentAccount();
+        Account account = auth.getCurrentAccount();
 
         switch (choice) {
             case 1 -> {
@@ -207,6 +230,7 @@ public class ScreenManager {
                 String username = sc.next();
                 account.updateUsername(username);
             }
+
             case 2 -> {
                 System.out.print("\nEnter your old password: ");
                 String oldPassword = sc.next();
@@ -214,24 +238,31 @@ public class ScreenManager {
                 String newPassword = sc.next();
                 account.updatePassword(oldPassword, newPassword);
             }
+
             case 3 -> {
                 System.out.print("\nEnter your new phone number: ");
                 String phone = sc.next();
                 account.updatePhone(phone);
             }
+
             case 4 -> {
                 System.out.print("\nEnter your new address: ");
                 String address = sc.next();
                 account.updateAddress(address);
             }
+
             case 5 -> {
                 // back to account screen
                 showAccountScreen();
             }
+
             case 6 -> {
                 System.out.println("\nSaving...\n");
-                Application.stop();
+
+                var app = Application.getInstance();
+                app.stop();
             }
+
             default -> {
                 System.out.println("Invalid choice.");
                 showUpdateAccountScreen();

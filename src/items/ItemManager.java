@@ -5,48 +5,37 @@ import java.util.Stack;
 import java.util.Comparator;
 
 import auth.Account;
+import core.Constant;
+import core.Manager;
 import errors.AccountException;
 import errors.ItemException;
 import utils.IOHelper;
 import utils.ItemIO;
+import utils.ItemUtils;
 import utils.Utilities;
 
-public class ItemManager {
-    private static ItemManager instance = null;
-    private final String fileName = "data/items.txt";
+public class ItemManager extends Manager<Item> {
+    public void start() {
+        // Initalize item I/O helper
+        var itemIO = new ItemIO(this, new ItemUtils());
+        var fileName = Constant.getItemsFileName();
 
-    private final ArrayList<Item> items = new ArrayList<>();
+        // Set the manager's I/O helper and file name to operate on
+        setIO(itemIO, fileName);
 
-    private ItemManager() {
-        // Private constructor to prevent instantiation since
-        // this is a singleton class (only one instance)
-    }
-
-    public static ItemManager getInstance() {
-        if (instance == null)
-            instance = new ItemManager();
-        return instance;
-    }
-
-    public void initialize() {
         // Load the items from the local storage
-        ItemIO itemIO = new ItemIO(this);
-        itemIO.loadData(fileName);
+        load();
     }
 
     public void stop() {
         // Save the items to the local storage
-        ItemIO itemIO = new ItemIO(this);
-        itemIO.saveData(fileName);
-    }
-
-    public ArrayList<Item> getItems() {
-        return items;
+        save();
     }
 
     public String[] getInformation() {
         String[] info = new String[7];
         Stack<String> questionList = new Stack<>();
+
         questionList.push("Please enter id: ");
         questionList.push("Please enter title: ");
         questionList.push(
@@ -144,7 +133,7 @@ public class ItemManager {
             if (!this.isUnique(item.getId().substring(1, 4)))
                 throw new ItemException("ID " + item.getId() + " already exists in the database.");
             else {
-                items.add(item);
+                add(item);
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -156,7 +145,7 @@ public class ItemManager {
             if (!this.isUnique(data[0].substring(1, 4)))
                 throw new ItemException("ID " + data[0].substring(0, 4) + " already exists in the database.");
             else {
-                items.add(new Item(data[0], data[1], data[2], data[3], data[6], Integer.parseInt(data[4]),
+                add(new Item(data[0], data[1], data[2], data[3], data[6], Integer.parseInt(data[4]),
                         Double.parseDouble(data[5])));
             }
         } catch (Exception ex) {
@@ -282,10 +271,12 @@ public class ItemManager {
             System.out.println("Invalid input, number cannot be negative.");
             return false;
         }
+
         if (!item.setInStock(fee)) {
             System.out.println("Cannot set the the rental fee for item");
             return false;
         }
+
         System.out.println("Successfully set the new rental fee for item.");
         System.out.println("The information for the item after being modified is: ");
         System.out.println(item);
@@ -294,22 +285,25 @@ public class ItemManager {
 
     public boolean deleteItem() {
         Item temp = this.getInfoToSearch();
+
         if (temp == null) {
             System.out.println("No item found in the database");
             return false;
         }
-        this.items.remove(temp);
+
+        remove(temp);
         System.out.println("Successfully delete the item out of the database");
         return true;
     }
 
     public boolean isUnique(String input) {
-        if (items.size() == 0)
+        if (size() == 0)
             return true;
-        for (Item i : items) {
+
+        for (Item i : getAll())
             if (i.getId().substring(1, 4).equals(input))
                 return false;
-        }
+
         return true;
     }
 
@@ -344,24 +338,25 @@ public class ItemManager {
     }
 
     public Item searchItem(String input, int choice) {
-        if (items.size() == 0)
+        if (size() == 0)
             return null;
-        for (Item item : items) {
-            if (choice == 1) {
-                if (item.getId().equals(input))
-                    return item;
-            } else {
-                if (item.getTitle().equals(input))
-                    return item;
-            }
-        }
+
+        for (Item i : getAll())
+            if (choice == 1 && i.getId().equals(input))
+                return i;
+            else if (i.getTitle().equals(input))
+                return i;
+
         return null;
     }
 
-    public void displayAll() {
-        for (Item i : items) {
+    public void displayAll(ArrayList<Item> items) {
+        for (Item i : items)
             System.out.println(i);
-        }
+    }
+
+    public void displayAll() {
+        displayAll(getAll());
     }
 
     // Display all items sorted by titles or IDs
@@ -382,22 +377,24 @@ public class ItemManager {
             switch (choice) {
                 case 1 -> {
                     System.out.println("Sort by ID.");
-                    ArrayList<Item> items = new ArrayList<>(this.getItems());
+                    var items = new ArrayList<>(getAll());
+
                     items.sort(Comparator.comparing(Item::getId));
-                    for (Item i : items) {
-                        System.out.println(i);
-                    }
+                    displayAll(items);
+
                     return;
                 }
+
                 case 2 -> {
                     System.out.println("Sort by title.");
-                    ArrayList<Item> items = new ArrayList<>(this.getItems());
+                    var items = new ArrayList<>(getAll());
+
                     items.sort(Comparator.comparing(Item::getTitle));
-                    for (Item i : items) {
-                        System.out.println(i);
-                    }
+                    displayAll(items);
+
                     return;
                 }
+
                 default -> {
                     System.out.println("Invalid Selection.");
                 }
@@ -408,27 +405,24 @@ public class ItemManager {
     // Display all items that have no copies in stock.
     public void displayAllOutOfStock() {
         System.out.println("Items that currently have no copies in stock.");
-        for (Item i : items) {
+        for (Item i : getAll())
             if (i.getInStock() == 0)
                 System.out.println(i);
-        }
     }
 
     public Item getItem(Account account, String id) throws AccountException {
-        for (Item i : account.getCurrentRentals()) {
-            if (i.getId().equals(id)) {
+        for (Item i : account.getCurrentRentals())
+            if (i.getId().equals(id))
                 return i;
-            }
-        }
+
         throw new AccountException("Id does not exist");
     }
 
     public Item getItem(String id) throws AccountException {
-        for (Item i : items) {
-            if (i.getId().equals(id)) {
+        for (Item i : getAll())
+            if (i.getId().equals(id))
                 return i;
-            }
-        }
+
         throw new AccountException("Id does not exist");
     }
 }
