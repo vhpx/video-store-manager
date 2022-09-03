@@ -4,7 +4,7 @@ import auth.Account;
 
 import java.util.Calendar;
 
-public class AccountUtils {
+public class AccountUtils extends ObjectUtils<Account> {
 
     public static boolean isIdValid(String id) {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -19,19 +19,20 @@ public class AccountUtils {
 
         return Integer.parseInt(id.substring(5, 9)) <= currentYear;
     }
-    public static boolean isPhoneValid (String phone) {
+
+    public static boolean isPhoneValid(String phone) {
         String regexPattern = "d{3}-\\d{3}-\\d{4}";
         return phone.matches(regexPattern);
     }
 
-    public static boolean isRoleValid (String role) {
+    public static boolean isRoleValid(String role) {
         return switch (role) {
             case "GUEST", "REGULAR", "VIP" -> true;
             default -> false;
         };
     }
 
-    public static Account parse(String str) {
+    public Account parse(String str) {
         String[] tokens = str.split(", ");
 
         String id = tokens[0];
@@ -47,7 +48,7 @@ public class AccountUtils {
         return new Account(id, username, password, address, phone, name, role);
     }
 
-    public static String serialize(Account account) {
+    public String serialize(Account account) {
         String[] tokens = {
                 account.getId() != null ? account.getId() : "UNKNOWN",
                 account.getUsername() != null ? account.getUsername() : "UNKNOWN",

@@ -1,20 +1,16 @@
 package auth;
 
 import items.Item;
-import items.ItemManager;
 import transactions.Transaction;
-import transactions.TransactionManager;
 
 import java.util.ArrayList;
 
+import core.Application;
 import errors.AccountException;
 import errors.ItemException;
 import errors.TransactionException;
 
 public class Account {
-    AccountManager accountManager = AccountManager.getInstance();
-    TransactionManager transactionManager = TransactionManager.getInstance();
-    ItemManager itemManager = ItemManager.getInstance();
     private String id;
     private String username;
     private String password;
@@ -23,6 +19,7 @@ public class Account {
     private String name;
     private String role;
     private int point = 20;
+
     private final int POINT_RECEIVED = 50;
     private final int POINT_DEDUCTED = 10;
 
@@ -31,14 +28,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String username, String password) {
-        String id = generateId();
-
-        if (id == null) {
-            System.out.println("Error: Could not generate id");
-            return;
-        }
-
+    public Account(String id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -56,21 +46,8 @@ public class Account {
         this.role = role;
     }
 
-    private String generateId() {
-        // IDs have the format:
-        // C-000 to C-999 for customers
-
-        // Check for unused IDs
-        for (int i = 1; i < 1000; i++) {
-            // Pad ID with leading zeros
-            String id = "C" + String.format("%03d", i);
-
-            if (!accountManager.isIdUsed(id))
-                return id;
-        }
-
-        // No IDs available.
-        return null;
+    public boolean authenticate(String password) {
+        return this.password.equals(password);
     }
 
     public String getId() {
@@ -162,22 +139,34 @@ public class Account {
 
     public void rent(Item item) throws ItemException, AccountException {
         if (canRent(item)) {
-            itemManager.decreaseStock(item);
-            this.addRental(item);
+            var app = Application.getInstance();
+            var transactionManager = app.getTransactionManager();
+            var itemManager = app.getItemManager();
+
             Transaction transaction = new Transaction(this, item);
-            transactionManager.addTransaction(transaction);
+
+            transactionManager.add(transaction);
+            itemManager.decreaseStock(item);
+
             this.point -= POINT_DEDUCTED;
+            addRental(item);
         } else {
             throw new AccountException("This account cannot rent this item");
         }
     }
 
     public void returnItem(Item item) throws TransactionException {
-        itemManager.increaseStock(item);
+        var app = Application.getInstance();
+        var transactionManager = app.getTransactionManager();
+        var itemManager = app.getItemManager();
+
         Transaction transaction = transactionManager.getTransaction(this, item);
+
         transaction.resolve();
-        this.removeRental(item);
+        itemManager.increaseStock(item);
+
         this.point += POINT_RECEIVED;
+        removeRental(item);
     }
 
     public void showRentals() {
