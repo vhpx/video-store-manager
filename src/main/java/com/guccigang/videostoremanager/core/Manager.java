@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.guccigang.videostoremanager.utils.ObjectIO;
 
 public class Manager<T> {
-    private ArrayList<T> objects;
+    private final ArrayList<T> objects;
     private ObjectIO<T> objectIO;
 
     public Manager() {

@@ -132,9 +132,7 @@ public class ScreenManager {
                 }
             }
 
-            case 2 -> {
-                account.showRentals();
-            }
+            case 2 -> account.showRentals();
 
             case 3 -> {
                 // Rent item
@@ -251,10 +249,8 @@ public class ScreenManager {
                 account.updateAddress(address);
             }
 
-            case 5 -> {
-                // back to account screen
-                showAccountScreen();
-            }
+            case 5 -> // back to account screen
+                    showAccountScreen();
 
             case 6 -> {
                 System.out.println("\nSaving...\n");

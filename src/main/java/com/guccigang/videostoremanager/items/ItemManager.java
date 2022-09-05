@@ -396,9 +396,7 @@ public class ItemManager extends Manager<Item> {
                     return;
                 }
 
-                default -> {
-                    System.out.println("Invalid Selection.");
-                }
+                default -> System.out.println("Invalid Selection.");
             }
         }
     }
