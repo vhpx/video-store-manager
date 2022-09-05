@@ -1,13 +1,14 @@
 {
     "files.exclude": {
         //* Git
-        ".git": true,
-        ".gitignore": true,
+        // ".git": true,
+        // ".gitignore": true,
         //* IntelliJ IDEA
-        ".idea": true,
-        "video-store-manager.iml": true,
+        // ".idea": true,
+        // "video-store-manager.iml": true,
         //* Java
         "**/*.class": true,
+        "out": true,
         //* Renovate
         "renovate.json": true,
         //* Miscellaneous
