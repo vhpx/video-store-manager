@@ -1,7 +1,7 @@
 package com.guccigang.videostoremanager.controllers;
 
 import com.guccigang.videostoremanager.VSMApplication;
-import com.guccigang.videostoremanager.core.Constant;
+import com.guccigang.videostoremanager.core.Constants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 public class SceneController {
     private static SceneController instance;
-    private String currentScene;
 
     private Stage stage;
     private final HashMap<String, Scene> scenes = new HashMap<>();
@@ -41,9 +40,6 @@ public class SceneController {
         if (scene == null)
             throw new IllegalArgumentException("Scene cannot be null");
 
-        if (scenes.isEmpty())
-            currentScene = name;
-
         scenes.put(name, scene);
     }
 
@@ -64,10 +60,6 @@ public class SceneController {
         return scenes.get(name);
     }
 
-    public Scene getCurrentScene() {
-        return scenes.get(currentScene);
-    }
-
     private Scene getScene(VSMApplication app, String viewName) throws IOException {
         var filePath = viewName + ".fxml";
 
@@ -84,15 +76,17 @@ public class SceneController {
 
     public void initialize(VSMApplication app) throws IOException {
         // Load scenes
-        for (var sceneName : Constant.getSceneNames()) {
+        var scenesToLoad = Constants.getScenesToLoad();
+
+        for (var sceneName : scenesToLoad) {
             var scene = getScene(app, sceneName);
             add(sceneName, scene);
         }
 
-        showScene(Constant.getDefaultSceneName());
+        showScene(Constants.getDefaultSceneName());
     }
 
     public Scene getDefaultScene() {
-        return getSceneByName(Constant.getDefaultSceneName());
+        return getSceneByName(Constants.getDefaultSceneName());
     }
 }

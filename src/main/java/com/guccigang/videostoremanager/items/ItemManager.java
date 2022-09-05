@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import com.guccigang.videostoremanager.auth.Account;
-import com.guccigang.videostoremanager.core.Constant;
+import com.guccigang.videostoremanager.core.Constants;
 import com.guccigang.videostoremanager.core.Manager;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.errors.ItemException;
@@ -19,7 +19,7 @@ public class ItemManager extends Manager<Item> {
     public void start() {
         // Initialize item I/O helper
         var itemIO = new ItemIO(this, new ItemUtils());
-        var fileName = Constant.getItemsFileName();
+        var fileName = Constants.getItemsFileName();
 
         // Set the manager's I/O helper and file name to operate on
         setIO(itemIO, fileName);

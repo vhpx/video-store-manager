@@ -1,6 +1,6 @@
 package com.guccigang.videostoremanager.core;
 
-public class Constant {
+public class Constants {
     private static final String APP_NAME = "Video Store Manager";
 
     public static String getAppName() {
@@ -25,15 +25,15 @@ public class Constant {
         return DATA_PATH + TRANSACTIONS_FILE;
     }
 
-    private static final String[] sceneNames = {
+    private static final String[] scenesToLoad = {
             "loading",
 //            "main",
 //            "login",
 //            "signup",
     };
 
-    public static String[] getSceneNames() {
-        return sceneNames;
+    public static String[] getScenesToLoad() {
+        return scenesToLoad;
     }
 
     public static String getDefaultSceneName() {

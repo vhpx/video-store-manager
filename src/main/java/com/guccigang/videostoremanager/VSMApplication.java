@@ -1,7 +1,7 @@
 package com.guccigang.videostoremanager;
 
 import com.guccigang.videostoremanager.controllers.SceneController;
-import com.guccigang.videostoremanager.core.Constant;
+import com.guccigang.videostoremanager.core.Constants;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +16,7 @@ public class VSMApplication extends Application {
             sceneController.initialize(this);
 
             // Set the title of the stage
-            String appTitle = Constant.getAppName();
+            String appTitle = Constants.getAppName();
             stage.setTitle(appTitle);
 
             // Set the initial scene

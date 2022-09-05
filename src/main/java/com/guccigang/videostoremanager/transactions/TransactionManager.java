@@ -3,7 +3,7 @@ package com.guccigang.videostoremanager.transactions;
 import java.util.ArrayList;
 
 import com.guccigang.videostoremanager.auth.Account;
-import com.guccigang.videostoremanager.core.Constant;
+import com.guccigang.videostoremanager.core.Constants;
 import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.utils.TransactionIO;
 import com.guccigang.videostoremanager.utils.TransactionUtils;
@@ -17,7 +17,7 @@ public class TransactionManager extends Manager<Transaction> {
         // Initialize transaction I/O helper
         var utils = new TransactionUtils(accounts, items);
         var transactionIO = new TransactionIO(this, utils);
-        var fileName = Constant.getTransactionsFileName();
+        var fileName = Constants.getTransactionsFileName();
 
         // Set the manager's I/O helper and file name to operate on
         setIO(transactionIO, fileName);

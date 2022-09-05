@@ -9,14 +9,14 @@ import com.guccigang.videostoremanager.utils.AccountIO;
 import com.guccigang.videostoremanager.utils.AccountUtils;
 
 import com.guccigang.videostoremanager.core.ApplicationCore;
-import com.guccigang.videostoremanager.core.Constant;
+import com.guccigang.videostoremanager.core.Constants;
 import com.guccigang.videostoremanager.core.Manager;
 
 public class AccountManager extends Manager<Account> {
     public void start() {
         // Initialize account I/O helper
         var helper = new AccountIO(this, new AccountUtils());
-        var fileName = Constant.getAccountsFileName();
+        var fileName = Constants.getAccountsFileName();
 
         // Set the manager's I/O helper and file name to operate on
         setIO(helper, fileName);
