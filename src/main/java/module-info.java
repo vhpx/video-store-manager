@@ -8,4 +8,6 @@ module com.guccigang.videostoremanager {
 
     opens com.guccigang.videostoremanager to javafx.fxml;
     exports com.guccigang.videostoremanager;
+    exports com.guccigang.videostoremanager.controllers;
+    opens com.guccigang.videostoremanager.controllers to javafx.fxml;
 }

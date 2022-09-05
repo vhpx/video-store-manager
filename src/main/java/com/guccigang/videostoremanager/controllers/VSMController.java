@@ -1,4 +1,4 @@
-package com.guccigang.videostoremanager;
+package com.guccigang.videostoremanager.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
