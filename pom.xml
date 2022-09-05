@@ -81,7 +81,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.guccigang.videostoremanager/com.guccigang.videostoremanager.HelloApplication
+                                com.guccigang.videostoremanager/com.guccigang.videostoremanager.VSMApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

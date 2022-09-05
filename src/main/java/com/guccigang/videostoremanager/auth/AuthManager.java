@@ -1,6 +1,6 @@
 package com.guccigang.videostoremanager.auth;
 
-import com.guccigang.videostoremanager.core.Application;
+import com.guccigang.videostoremanager.core.ApplicationCore;
 
 public class AuthManager {
     private static final String adminUsername = "admin";
@@ -57,7 +57,7 @@ public class AuthManager {
                 return false;
             }
 
-            var app = Application.getInstance();
+            var app = ApplicationCore.getInstance();
             var accountManager = app.getAccountManager();
             return accountManager.authenticate(username, password);
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class AuthManager {
         try {
             System.out.println("Signing up as " + username + "...");
 
-            var app = Application.getInstance();
+            var app = ApplicationCore.getInstance();
             var accountManager = app.getAccountManager();
             var account = accountManager.getAccountByUsername(username);
 
@@ -103,7 +103,7 @@ public class AuthManager {
         }
 
         // Check if username is taken
-        var app = Application.getInstance();
+        var app = ApplicationCore.getInstance();
         var accountManager = app.getAccountManager();
 
         if (accountManager.getAccountByUsername(newUsername) != null) {

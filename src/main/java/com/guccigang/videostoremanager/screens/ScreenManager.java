@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.guccigang.videostoremanager.auth.Account;
 import com.guccigang.videostoremanager.auth.AccountManager;
-import com.guccigang.videostoremanager.core.Application;
+import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.errors.ItemException;
 import com.guccigang.videostoremanager.items.Item;
@@ -72,7 +72,7 @@ public class ScreenManager {
             case 3 -> {
                 System.out.println("\nSaving...\n");
 
-                var app = Application.getInstance();
+                var app = ApplicationCore.getInstance();
                 app.stop();
             }
 
@@ -90,7 +90,7 @@ public class ScreenManager {
         // Stop the application
         System.out.println("\nSaving...\n");
 
-        var app = Application.getInstance();
+        var app = ApplicationCore.getInstance();
         app.stop();
     }
 
@@ -190,7 +190,7 @@ public class ScreenManager {
             case 8 -> {
                 System.out.println("\nSaving...\n");
 
-                var app = Application.getInstance();
+                var app = ApplicationCore.getInstance();
                 app.stop();
             }
 
@@ -259,7 +259,7 @@ public class ScreenManager {
             case 6 -> {
                 System.out.println("\nSaving...\n");
 
-                var app = Application.getInstance();
+                var app = ApplicationCore.getInstance();
                 app.stop();
             }
 

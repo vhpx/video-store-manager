@@ -6,27 +6,27 @@ import com.guccigang.videostoremanager.items.ItemManager;
 import com.guccigang.videostoremanager.screens.ScreenManager;
 import com.guccigang.videostoremanager.transactions.TransactionManager;
 
-public class Application {
-    private static Application instance = null;
+public class ApplicationCore {
+    private static ApplicationCore instance = null;
 
-    private Application() {
+    private ApplicationCore() {
         // The constructor has been made protected
         // to child classes to prevent object instantiation
         // since only one instance of the class is allowed.
     }
 
-    public static Application getInstance() {
+    public static ApplicationCore getInstance() {
         // The instance is created only if it does not exist
         if (instance == null)
-            instance = new Application();
+            instance = new ApplicationCore();
 
         // Return the existing instance
         return instance;
     }
 
     // instantiate application managers with empty constructors
-    private InternalManager internal = new InternalManager();
-    private AuthManager auth = new AuthManager();
+    private final InternalManager internal = new InternalManager();
+    private final AuthManager auth = new AuthManager();
     private ScreenManager screen = null;
 
     /**

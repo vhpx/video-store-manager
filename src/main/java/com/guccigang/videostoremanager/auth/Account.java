@@ -2,11 +2,10 @@ package com.guccigang.videostoremanager.auth;
 
 import java.util.ArrayList;
 
+import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.transactions.Transaction;
-
-import com.guccigang.videostoremanager.core.Application;
 
 import com.guccigang.videostoremanager.errors.ItemException;
 import com.guccigang.videostoremanager.errors.TransactionException;
@@ -140,7 +139,7 @@ public class Account {
 
     public void rent(Item item) throws ItemException, AccountException {
         if (canRent(item)) {
-            var app = Application.getInstance();
+            var app = ApplicationCore.getInstance();
             var transactionManager = app.getTransactionManager();
             var itemManager = app.getItemManager();
 
@@ -157,7 +156,7 @@ public class Account {
     }
 
     public void returnItem(Item item) throws TransactionException {
-        var app = Application.getInstance();
+        var app = ApplicationCore.getInstance();
         var transactionManager = app.getTransactionManager();
         var itemManager = app.getItemManager();
 

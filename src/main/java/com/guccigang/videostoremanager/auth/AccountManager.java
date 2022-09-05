@@ -8,7 +8,7 @@ import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.utils.AccountIO;
 import com.guccigang.videostoremanager.utils.AccountUtils;
 
-import com.guccigang.videostoremanager.core.Application;
+import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.core.Constant;
 import com.guccigang.videostoremanager.core.Manager;
 
@@ -147,7 +147,7 @@ public class AccountManager extends Manager<Account> {
         if (Objects.equals(account.getRole(), "VIP"))
             return;
 
-        var app = Application.getInstance();
+        var app = ApplicationCore.getInstance();
         var transactionManager = app.getTransactionManager();
         var resolvedAmount = transactionManager.countTransactions(account, true);
 
