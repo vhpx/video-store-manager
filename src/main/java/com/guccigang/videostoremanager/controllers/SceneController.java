@@ -18,7 +18,6 @@ public class SceneController {
     private SceneController() {
         // Singleton
     }
-
     public static SceneController getInstance() {
         if (instance == null)
             instance = new SceneController();
@@ -84,6 +83,11 @@ public class SceneController {
         }
 
         showScene(Constants.getDefaultSceneName());
+    }
+
+    public void closeWindow ()
+    {
+        stage.close();
     }
 
     public Scene getDefaultScene() {

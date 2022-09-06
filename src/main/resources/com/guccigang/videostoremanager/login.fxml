@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="loginPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.VSMController">
+    <items>
+        <ImageView fitHeight="400.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" />
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <Label text="Username" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+                            </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                            <center>
+                                <Label text="Password" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+                            </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                            <center>
+                                <TextField BorderPane.alignment="CENTER">
+                                    <BorderPane.margin>
+                                        <Insets left="10.0" right="10.0" />
+                                    </BorderPane.margin></TextField>
+                            </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <center>
+                                <TextField BorderPane.alignment="CENTER">
+                                    <BorderPane.margin>
+                                        <Insets left="10.0" right="10.0" />
+                                    </BorderPane.margin></TextField>
+                            </center>
+                        </BorderPane>
+                    </children>
+                </GridPane>
+                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                    <children>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                    <top>
+                                        <Button mnemonicParsing="false" onAction="#onClickedExitButton" prefWidth="80.0" text="Exit" BorderPane.alignment="CENTER" />
+                                    </top>
+                                </BorderPane>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <top>
+                                        <Button mnemonicParsing="false" onAction="#onClickedLoginButton" prefWidth="80.0" text="Login" BorderPane.alignment="CENTER" />
+                                    </top>
+                                </BorderPane>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                    <top>
+                                        <Button mnemonicParsing="false" onAction="#onClickedRegisterButton" prefWidth="80.0" text="Register" BorderPane.alignment="CENTER" />
+                                    </top>
+                                </BorderPane>
+                            </children>
+                        </GridPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <Label fx:id="loginStatus" alignment="CENTER" prefHeight="20.0" prefWidth="300.0" text="Login status" BorderPane.alignment="CENTER" />
+                            </center>
+                        </BorderPane>
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+    </items>
+</SplitPane>
