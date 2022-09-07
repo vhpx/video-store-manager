@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -11,44 +12,44 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="454.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.VSMController">
+<AnchorPane prefHeight="454.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountController">
     <children>
         <VBox layoutX="-29.0" layoutY="14.0" prefHeight="397.0" prefWidth="190.0" style="-fx-background-color: #D0D0D0#D0D0D0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label onMousePressed="#browseItem" onMouseReleased="#returnItem" prefWidth="100.0" text="Browse Item ">
-               <VBox.margin>
-                  <Insets left="50.0" top="70.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label prefWidth="100.0" text="Return Item">
+            <Button mnemonicParsing="false" onAction="#browseItem" style="-fx-background-color: #D0D0D0#D0D0D0 #D0D0D0#D0D0D0;" text="Browse Item">
                <font>
                   <Font size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets left="50.0" top="35.0" />
+                  <Insets left="50.0" top="100.0" />
                </VBox.margin>
-            </Label>
-            <Label prefWidth="100.0" text="Library ">
+            </Button>
+            <Button mnemonicParsing="false" onAction="#returnItem" style="-fx-background-color: #D0D0D0#D0D0D0 #D0D0D0#D0D0D0;" text="Return Item">
                <font>
                   <Font size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets left="50.0" top="35.0" />
+                  <Insets left="50.0" top="30.0" />
                </VBox.margin>
-            </Label>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#historyBotton" style="-fx-background-color: #D0D0D0#D0D0D0 #D0D0D0#D0D0D0;" text="History">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="50.0" top="30.0" />
+               </VBox.margin>
+            </Button>
          </children></VBox>
         <Pane prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #E8E8E8;" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <ComboBox fx:id="comboBox" layoutX="389.0" layoutY="83.0" prefHeight="34.0" prefWidth="175.0" style="-fx-background-color: #E8E8E8;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <ComboBox fx:id="comboBox" layoutX="389.0" layoutY="83.0" onAction="#comboBoxChanged" prefHeight="34.0" prefWidth="175.0" style="-fx-background-color: #E8E8E8;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Label alignment="CENTER" layoutX="342.0" layoutY="129.0" prefWidth="150.0" style="-fx-background-color: #E8E8E8;" text="&lt;Hello&gt;&lt;Account's name&gt;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
             <font>
                 <Font size="11.5" />
             </font>
         </Label>
         <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="310.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="280.0" layoutY="120.0" style="-fx-font-family: Arial;" text="Borrowed List" AnchorPane.leftAnchor="225.0" AnchorPane.topAnchor="70.0">
+      <Label layoutX="199.0" layoutY="73.0" style="-fx-font-family: Arial;" text="Borrowed List" AnchorPane.leftAnchor="199.0" AnchorPane.topAnchor="73.0">
          <font>
             <Font size="24.0" />
          </font>
