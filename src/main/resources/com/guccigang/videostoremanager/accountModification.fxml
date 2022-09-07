@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,8 +18,7 @@
             <CheckBox fx:id="name" layoutX="50.0" layoutY="40.0" mnemonicParsing="false" onAction="#changeName" text="Change Name" />
             <CheckBox fx:id="phone" layoutX="50.0" layoutY="80.0" mnemonicParsing="false" onAction="#changePhone" text="Change Contact Details" />
             <CheckBox fx:id="address" layoutX="50.0" layoutY="120.0" mnemonicParsing="false" onAction="#changeAddress" text="Change Home Address" />
-            <Button fx:id="submit" layoutX="272.0" layoutY="315.0" mnemonicParsing="false" onAction="#onSubmitButton" text="Submit" />
-            <VBox fx:id="namePane" layoutX="349.0" layoutY="201.0" prefHeight="150.0" prefWidth="230.0">
+            <VBox fx:id="namePane" layoutX="349.0" layoutY="120.0" prefHeight="150.0" prefWidth="230.0">
                <children>
                   <Label text="Please enter the new details.">
                      <font>
@@ -56,7 +56,7 @@
                   </TextField>
                </children>
             </VBox>
-            <VBox fx:id="phonePane" layoutX="14.0" layoutY="276.0" prefHeight="103.0" prefWidth="230.0">
+            <VBox fx:id="phonePane" layoutX="10.0" layoutY="167.0" prefHeight="103.0" prefWidth="230.0">
                <children>
                   <Label text="Please enter the new details.">
                      <font>
@@ -106,6 +106,20 @@
                   </TextField>
                </children>
             </VBox>
+            <HBox fx:id="buttonPane" layoutX="218.0" layoutY="270.0" prefHeight="100.0" prefWidth="165.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#back" prefWidth="70.0" text="Back">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="submit" alignment="CENTER" mnemonicParsing="false" onAction="#onSubmitButton" prefWidth="70.0" text="Submit">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </Pane>
    </content>

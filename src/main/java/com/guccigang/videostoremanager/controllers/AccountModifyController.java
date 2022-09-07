@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Translate;
@@ -20,6 +21,9 @@ import java.util.ResourceBundle;
 public class AccountModifyController implements Initializable {
 
     TranslateTransition translate;
+
+    private SceneController sceneController;
+
     @FXML
      CheckBox address;
 
@@ -40,6 +44,9 @@ public class AccountModifyController implements Initializable {
     private VBox addressPane;
 
     @FXML
+    private HBox buttonPane;
+
+    @FXML
     private Pane mainPane;
 
     @FXML
@@ -56,14 +63,14 @@ public class AccountModifyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.sceneController = SceneController.getInstance();
         this.namePane.setVisible(false);
         this.phonePane.setVisible(false);
         this.addressPane.setVisible(false);
         this.namePane.layoutYProperty().bind(this.name.layoutYProperty().add(10));
         this.phonePane.layoutYProperty().bind(this.phone.layoutYProperty().add(10));
         this.addressPane.layoutYProperty().bind(this.address.layoutYProperty().add(10));
-        this.submit.layoutXProperty().bind(this.mainPane.prefWidthProperty().divide(2));
-        this.submit.layoutYProperty().bind(this.address.layoutYProperty().add(190));
+        this.buttonPane.layoutYProperty().bind(this.address.layoutYProperty().add(190));
         this.namePane.setLayoutX(50);
         this.phonePane.setLayoutX(50);
         this.addressPane.setLayoutX(50);
@@ -114,7 +121,10 @@ public class AccountModifyController implements Initializable {
     {
 
     }
-
-
+    @FXML
+    public void back(ActionEvent event)
+    {
+        this.sceneController.showScene("account");
+    }
 
 }
