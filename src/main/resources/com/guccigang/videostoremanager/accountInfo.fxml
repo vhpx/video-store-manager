@@ -17,9 +17,9 @@
       <Label fx:id="rankingLabel" layoutX="300.0" layoutY="224.0" text="Ranking: " AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="200.0" />
       <Label fx:id="pointLabel" layoutX="305.0" layoutY="253.0" text="Points: " AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="240.0" />
       <Label fx:id="lastNameLabel" layoutX="300.0" layoutY="83.0" prefWidth="100.0" text="Last Name:  " AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="80.0" />
-      <Button layoutX="444.0" layoutY="271.0" mnemonicParsing="false" onAction="#modifyAccountInfo" style="-fx-background-color: #C0C0C0#C0C0C0 #C0C0C0#C0C0C0;" text="Modify Information" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="280.0" />
+      <Button layoutX="444.0" layoutY="271.0" mnemonicParsing="false" onAction="#modifyAccountInfo" style="-fx-background-color: #C0C0C0#C0C0C0 #C0C0C0#C0C0C0; -fx-border-width: 2; -fx-border-color: #000000; -fx-border-radius: 25px;" text="Modify Information" AnchorPane.leftAnchor="440.0" AnchorPane.topAnchor="280.0" />
       <Label fx:id="phoneLabel" layoutX="295.0" layoutY="124.0" prefWidth="100.0" text="Phone: " AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="120.0" />
       <Label fx:id="addressLabel" layoutX="295.0" layoutY="151.0" prefWidth="100.0" text="Address" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="160.0" />
-      <Button layoutX="449.0" layoutY="325.0" mnemonicParsing="false" onAction="#backToAccountScreen" style="-fx-background-color: #C0C0C0#C0C0C0 #C0C0C0#C0C0C0;" text="Back" />
+      <Button layoutX="449.0" layoutY="325.0" mnemonicParsing="false" onAction="#backToAccountScreen" style="-fx-background-color: #C0C0C0#C0C0C0 #C0C0C0#C0C0C0; -fx-border-color: #000000; -fx-border-radius: 25px; -fx-border-width: 2;" text="Back" AnchorPane.leftAnchor="440.0" AnchorPane.topAnchor="320.0" />
    </children>
 </AnchorPane>
