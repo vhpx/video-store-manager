@@ -9,11 +9,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 public class adminMainController implements Initializable {
-
-
     @FXML
     private Button btnAccount;
 
@@ -27,11 +24,16 @@ public class adminMainController implements Initializable {
     private Button btnSetting;
 
     @FXML
+    private Button btnTransactions;
+
+    @FXML
+    private Button btnSaveChanges;
+
+    @FXML
     private ComboBox<String> comboBox;
 
     @FXML
     private ComboBox<String> comboBox2;
-
 
     @FXML
     private Label lbiStatus;
@@ -49,6 +51,9 @@ public class adminMainController implements Initializable {
     private GridPane pnlSetting;
 
     @FXML
+    private GridPane pnlTransactions;
+
+    @FXML
     private Pane pnlStatus;
 
     @FXML
@@ -58,10 +63,13 @@ public class adminMainController implements Initializable {
     private TextField searchBar2;
 
     @FXML
-    private TableView<String> tableItems;
+    private TableView<?> tableItems;
 
     @FXML
-    private TableView<String> tableUserAccounts;
+    private TableView<?> tableTransactions;
+
+    @FXML
+    private TableView<?> tableUserAccounts;
 
     @FXML
     void search(ActionEvent event) {
@@ -94,9 +102,16 @@ public class adminMainController implements Initializable {
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlSetting.toFront();
         }
+        else if(event.getSource() == btnTransactions) {
+            lbiStatusMini.setText("Menu/Transactions");
+            lbiStatus.setText("Transactions");
+            pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
+            pnlTransactions.toFront();
+        }
         else if(event.getSource() == btnLogOut) {
             // Switch to login screen
         }
     }
+
 }
 
