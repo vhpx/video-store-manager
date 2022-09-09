@@ -11,8 +11,21 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 public class adminMainController implements Initializable {
+
+    @FXML
+    private TextField accountMngSearchBar;
+
+    @FXML
+    private AnchorPane background;
+
     @FXML
     private Button btnAccount;
+
+    @FXML
+    private Button btnAccountMngSearch;
+
+    @FXML
+    private Button btnItemSearch;
 
     @FXML
     private Button btnItems;
@@ -24,16 +37,22 @@ public class adminMainController implements Initializable {
     private Button btnSetting;
 
     @FXML
+    private Button btnTransactionSearch;
+
+    @FXML
     private Button btnTransactions;
 
     @FXML
-    private Button btnSaveChanges;
+    private ComboBox<String> cbAccountMng;
 
     @FXML
-    private ComboBox<String> comboBox;
+    private ComboBox<String> cbItem;
 
     @FXML
-    private ComboBox<String> comboBox2;
+    private ComboBox<String> cbTransactions;
+
+    @FXML
+    private TextField itemSearchBar;
 
     @FXML
     private Label lbiStatus;
@@ -51,16 +70,16 @@ public class adminMainController implements Initializable {
     private GridPane pnlSetting;
 
     @FXML
-    private GridPane pnlTransactions;
-
-    @FXML
     private Pane pnlStatus;
 
     @FXML
-    private TextField searchBar;
+    private GridPane pnlTransactions;
 
     @FXML
-    private TextField searchBar2;
+    private VBox settingBackground;
+
+    @FXML
+    private HBox settingBackground2;
 
     @FXML
     private TableView<?> tableItems;
@@ -72,38 +91,41 @@ public class adminMainController implements Initializable {
     private TableView<?> tableUserAccounts;
 
     @FXML
+    private TextField transactionSearchBar;
+
+    @FXML
     void search(ActionEvent event) {
 
     }
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        comboBox.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
-        comboBox2.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
+        cbItem.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
+        cbAccountMng.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
     }
 
     @FXML
     private void handleClick(ActionEvent event) {
         if(event.getSource() == btnAccount) {
-            lbiStatusMini.setText("Menu/Account");
+            lbiStatusMini.setText("/Menu/Account");
             lbiStatus.setText("Account Management");
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlAccount.toFront();
         }
         else if(event.getSource() == btnItems) {
-            lbiStatusMini.setText("Menu/Items");
+            lbiStatusMini.setText("/Menu/Items");
             lbiStatus.setText("Items Menu");
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlItems.toFront();
         }
         else if(event.getSource() == btnSetting) {
-            lbiStatusMini.setText("Menu/Settings");
-            lbiStatus.setText("Profile");
+            lbiStatusMini.setText("/Menu/Settings");
+            lbiStatus.setText("Settings");
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlSetting.toFront();
         }
         else if(event.getSource() == btnTransactions) {
-            lbiStatusMini.setText("Menu/Transactions");
+            lbiStatusMini.setText("/Menu/Transactions");
             lbiStatus.setText("Transactions");
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlTransactions.toFront();
