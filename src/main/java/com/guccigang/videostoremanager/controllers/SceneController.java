@@ -93,4 +93,10 @@ public class SceneController {
     public Scene getDefaultScene() {
         return getSceneByName(Constants.getDefaultSceneName());
     }
+
+    public Scene getCurrentSceen()
+    {
+        return this.stage.getScene();
+    }
+
 }

@@ -1,0 +1,22 @@
+.buttonLogin{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+    -fx-border-radius: 25px;
+}
+
+.buttonAccount{
+    -fx-font-size: 12;
+    -fx-text-fill: white;
+    -fx-alignment: left;
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.myLabel{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-text-fill: white;
+}
+
+.myBackGround{
+    -fx-background-color: rgba(0,0,0,0);
+}

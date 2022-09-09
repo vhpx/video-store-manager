@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.File;
 
 public class VSMApplication extends Application {
     @Override
@@ -17,14 +20,14 @@ public class VSMApplication extends Application {
             var sceneController = SceneController.getInstance();
             sceneController.link(stage);
             sceneController.initialize(this);
-
+//            sceneController.getStyleSheet();
             // Set the title of the stage
             String appTitle = Constants.getAppName();
             stage.setTitle(appTitle);
-
             // Set the initial scene
             Scene scene = sceneController.getDefaultScene();
             stage.setScene(scene);
+            scene.getStylesheets().add("JVMStyleSheet.css");
             stage.show();
 
             stage.setOnCloseRequest(e -> {
