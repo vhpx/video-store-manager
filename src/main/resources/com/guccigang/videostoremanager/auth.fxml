@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.guccigang.videostoremanager.controllers.LoginController">
+    <AnchorPane fx:id="imagePane">
+        <ImageView fx:id="image" fitHeight="300.0" layoutX="19.0" layoutY="7.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../images/loginImage.png"/>
+            </image>
+        </ImageView>
+    </AnchorPane>
+    <AnchorPane fx:id="loginPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #D3D0CB;"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <children>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0">
+                        <center>
+                            <Label alignment="TOP_LEFT" text="Username" textAlignment="CENTER"
+                                   BorderPane.alignment="CENTER">
+                                <font>
+                                    <Font size="18.0"/>
+                                </font>
+                            </Label>
+                        </center>
+                    </BorderPane>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                        <center>
+                            <Label alignment="TOP_LEFT" text="Password" textAlignment="CENTER"
+                                   BorderPane.alignment="CENTER">
+                                <font>
+                                    <Font size="18.0"/>
+                                </font>
+                            </Label>
+                        </center>
+                    </BorderPane>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                        <center>
+                            <TextField BorderPane.alignment="CENTER">
+                                <BorderPane.margin>
+                                    <Insets left="10.0" right="10.0"/>
+                                </BorderPane.margin>
+                            </TextField>
+                        </center>
+                    </BorderPane>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                                GridPane.rowIndex="1">
+                        <center>
+                            <TextField BorderPane.alignment="CENTER">
+                                <BorderPane.margin>
+                                    <Insets left="10.0" right="10.0"/>
+                                </BorderPane.margin>
+                            </TextField>
+                        </center>
+                    </BorderPane>
+                </children>
+            </GridPane>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                        <top>
+                            <Button mnemonicParsing="false" onAction="#onClickedExitButton"
+                                    prefWidth="80.0" styleClass="buttonLogin"
+                                    stylesheets="@JVMStyleSheet.css" text="Exit"
+                                    BorderPane.alignment="CENTER"/>
+                        </top>
+                    </BorderPane>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0">
+                        <top>
+                            <Button mnemonicParsing="false" onAction="#onClickedLoginButton"
+                                    prefWidth="80.0" styleClass="buttonLogin"
+                                    stylesheets="@JVMStyleSheet.css" text="Login"
+                                    BorderPane.alignment="CENTER"/>
+                        </top>
+                    </BorderPane>
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                        <top>
+                            <Button mnemonicParsing="false" onAction="#onClickedRegisterButton"
+                                    prefWidth="80.0" styleClass="buttonLogin"
+                                    stylesheets="@JVMStyleSheet.css" text="Register"
+                                    BorderPane.alignment="CENTER"/>
+                        </top>
+                    </BorderPane>
+                </GridPane>
+                <BorderPane prefHeight="200.0" prefWidth="200.0"/>
+            </VBox>
+        </GridPane>
+    </AnchorPane>
+</AnchorPane>

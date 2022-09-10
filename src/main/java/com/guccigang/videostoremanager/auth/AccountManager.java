@@ -13,7 +13,7 @@ import com.guccigang.videostoremanager.core.Constants;
 import com.guccigang.videostoremanager.core.Manager;
 
 public class AccountManager extends Manager<Account> {
-    public void start() {
+    public void initialize() {
         // Initialize account I/O helper
         var helper = new AccountIO(this, new AccountUtils());
         var fileName = Constants.getAccountsFileName();

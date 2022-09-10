@@ -131,6 +131,8 @@
 
 package com.guccigang.videostoremanager.controllers;
 
+import com.guccigang.videostoremanager.core.ApplicationCore;
+import com.guccigang.videostoremanager.scenes.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -143,13 +145,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import org.controlsfx.control.action.AnnotatedCheckAction;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AccountModifyController implements Initializable {
-    private SceneController sceneController;
+    private SceneManager sceneController;
 
     @FXML
     private Circle circle;
@@ -212,8 +214,7 @@ public class AccountModifyController implements Initializable {
         alert.setTitle("Exit");
         alert.setHeaderText("Your are about to log out your account.");
         alert.setContentText("Are you sure that your want to log out?");
-        if (alert.showAndWait().get() == ButtonType.OK)
-        {
+        if (alert.showAndWait().orElseThrow() == ButtonType.OK) {
             this.editInfoPane.setVisible(false);
             this.displayPane.setVisible(true);
             this.sceneController.showScene("login");
@@ -233,8 +234,8 @@ public class AccountModifyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sceneController = SceneController.getInstance();
-        Image image = new Image(getClass().getResourceAsStream("/com/guccigang/image/images.png"));
+        sceneController = ApplicationCore.getInstance().getSceneManager();
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/images.png")));
         circle.setFill(new ImagePattern(image));
         this.editInfoPane.setVisible(false);
         this.displayPane.setVisible(true);

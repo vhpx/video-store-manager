@@ -10,7 +10,7 @@ public class AuthManager {
     private static boolean isAdmin = false;
 
     // Initialize the auth manager
-    public void start() {
+    public void initialize() {
         // Reset authentication flags
         currentAccount = null;
         isAdmin = false;

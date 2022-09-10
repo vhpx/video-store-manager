@@ -19,7 +19,7 @@
          <center>
             <ImageView fitHeight="100.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../image/rectangleLogo.png" />
+                  <Image url="@../images/rectangleLogo.png" />
                </image>
             </ImageView>
          </center>

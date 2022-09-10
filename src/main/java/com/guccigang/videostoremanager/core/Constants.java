@@ -1,5 +1,7 @@
 package com.guccigang.videostoremanager.core;
 
+import com.guccigang.videostoremanager.scenes.ScenePackage;
+
 public class Constants {
     private static final String APP_NAME = "Video Store Manager";
 
@@ -25,19 +27,24 @@ public class Constants {
         return DATA_PATH + TRANSACTIONS_FILE;
     }
 
-    private static final String[] scenesToLoad = {
-            "login",
-            "account",
-            "signup",
-            "accountInfo",
-            "adminMain",
+    private static final ScenePackage[] scenesToLoad = {
+            // Authentication
+            new ScenePackage("auth"),
+            new ScenePackage("signup"), // TODO: Merge with auth
+
+            // Customer View
+            new ScenePackage("user-dashboard"),
+            new ScenePackage("account-info"),
+
+            // Admin View
+            new ScenePackage("admin-dashboard"),
     };
 
-    public static String[] getScenesToLoad() {
+    public static ScenePackage[] getScenesToLoad() {
         return scenesToLoad;
     }
 
-    public static String getDefaultSceneName() {
-        return "login";
+    public static String getDefaultScene() {
+        return "auth";
     }
 }

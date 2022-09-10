@@ -16,7 +16,7 @@ import com.guccigang.videostoremanager.utils.Utilities;
 import java.util.Comparator;
 
 public class ItemManager extends Manager<Item> {
-    public void start() {
+    public void initialize() {
         // Initialize item I/O helper
         var itemIO = new ItemIO(this, new ItemUtils());
         var fileName = Constants.getItemsFileName();

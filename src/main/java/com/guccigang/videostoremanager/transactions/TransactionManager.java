@@ -13,7 +13,7 @@ import com.guccigang.videostoremanager.errors.TransactionException;
 import com.guccigang.videostoremanager.items.ItemManager;
 
 public class TransactionManager extends Manager<Transaction> {
-    public void start(AccountManager accounts, ItemManager items) {
+    public void initialize(AccountManager accounts, ItemManager items) {
         // Initialize transaction I/O helper
         var utils = new TransactionUtils(accounts, items);
         var transactionIO = new TransactionIO(this, utils);

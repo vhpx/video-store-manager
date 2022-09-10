@@ -18,15 +18,15 @@ public class InternalManager {
      * Initialize the internal managers with local data.
      * This method is called when the program starts and only be called once.
      */
-    public void start() {
+    public void initialize() {
         // Do not initialize if already initialized
         if (initialized)
             return;
 
         // Initialize all managers
-        accounts.start();
-        items.start();
-        transactions.start(accounts, items);
+        accounts.initialize();
+        items.initialize();
+        transactions.initialize(accounts, items);
 
         // Set the initialized flag to true
         initialized = true;

@@ -1,10 +1,14 @@
 package com.guccigang.videostoremanager.core;
 
+import com.guccigang.videostoremanager.VSMApplication;
 import com.guccigang.videostoremanager.auth.AccountManager;
 import com.guccigang.videostoremanager.auth.AuthManager;
 import com.guccigang.videostoremanager.items.ItemManager;
-import com.guccigang.videostoremanager.screens.ScreenManager;
+import com.guccigang.videostoremanager.scenes.SceneManager;
 import com.guccigang.videostoremanager.transactions.TransactionManager;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ApplicationCore {
     private static ApplicationCore instance = null;
@@ -17,31 +21,31 @@ public class ApplicationCore {
 
     public static ApplicationCore getInstance() {
         // The instance is created only if it does not exist
-        if (instance == null)
-            instance = new ApplicationCore();
+        if (instance == null) instance = new ApplicationCore();
 
         // Return the existing instance
         return instance;
     }
 
-    // instantiate application managers with empty constructors
+    // instantiate application managers
     private final InternalManager internal = new InternalManager();
     private final AuthManager auth = new AuthManager();
-    private ScreenManager screen = null;
+    private final SceneManager scenes = new SceneManager();
 
     /**
      * Initialize the application managers with local data.
      */
-    public void start() {
-        // Link managers
-        var itemManager = internal.items;
-        var accountManager = internal.accounts;
-
-        screen = new ScreenManager(itemManager, accountManager, auth);
-
+    public void initialize() throws IOException {
         // Initialize all managers
-        internal.start();
-        auth.start();
+        internal.initialize();
+        auth.initialize();
+        scenes.initialize();
+    }
+
+    public void link(VSMApplication app, Stage stage) {
+        // Link the application and the stage
+        // to the scene manager
+        scenes.link(app, stage);
     }
 
     /**
@@ -53,34 +57,33 @@ public class ApplicationCore {
         auth.stop();
 
         // Exit the application
-        exit();
+        exitApplication();
     }
 
     public void execute() {
         // While user is not logged in, show the login screen
-        while (!auth.isLoggedIn()) {
-            screen.showAuthScreen();
+        if (!auth.isLoggedIn()) {
+            scenes.showScene(Constants.getDefaultScene());
+        } else if (auth.isAdmin()) {
+            // If user is admin, show the admin screen
+            scenes.showScene("admin-dashboard");
+        } else {
+            // If user is not admin, show the user screen
+            scenes.showScene("user-dashboard");
         }
-
-        // Once user is logged in, show the main screen
-        screen.showMainMenu();
     }
 
-    private void exit() {
+    private void exitApplication() {
         System.out.println("\nApplication stopped.\n");
-        System.exit(0);
+        scenes.closeWindow();
     }
 
-    public InternalManager getInternal() {
-        return internal;
-    }
-
-    public AuthManager getAuth() {
+    public AuthManager getAuthManager() {
         return auth;
     }
 
-    public ScreenManager getScreen() {
-        return screen;
+    public SceneManager getSceneManager() {
+        return scenes;
     }
 
     public AccountManager getAccountManager() {

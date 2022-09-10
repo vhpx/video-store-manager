@@ -1,6 +1,5 @@
 package com.guccigang.videostoremanager.controllers;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class adminMainController implements Initializable {
+public class AdminDashboardController implements Initializable {
 
     @FXML
     private TextField accountMngSearchBar;
