@@ -193,7 +193,7 @@ public class AccountModifyController implements Initializable {
     private AnchorPane displayPane;
 
     @FXML
-    private Button saveButton;
+    private Button saveButton = new Button();
     @FXML
     void backToDashboard(ActionEvent event) {
         this.editInfoPane.setVisible(false);
