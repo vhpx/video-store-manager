@@ -29,7 +29,7 @@ public class Constants {
             "login",
             "account",
             "signup",
-            "accountInfo"
+            "accountInfo",
             "adminMain",
     };
 
