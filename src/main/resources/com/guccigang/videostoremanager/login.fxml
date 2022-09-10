@@ -15,25 +15,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.LoginController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+
+<AnchorPane fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.LoginController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="imagePane">
          <children>
-            <ImageView fitHeight="300.0" layoutX="19.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fx:id="image" fitHeight="300.0" layoutX="19.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@../image/loginImage.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #D3D0CB;" GridPane.columnIndex="1">
+      <AnchorPane fx:id="loginPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #D3D0CB;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
@@ -74,7 +68,8 @@
                                  </font>
                                  <graphic>
                                     <FontAwesomeIconView glyphName="LOCK" />
-                                 </graphic></Label>
+                                 </graphic>
+                              </Label>
                            </center>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -111,17 +106,17 @@
                            <children>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                                  <top>
-                                    <Button mnemonicParsing="false" onAction="#onClickedExitButton" prefWidth="80.0" styleClass="buttonLogin" stylesheets="@controllers/JVMStyleSheet.css" text="Exit" BorderPane.alignment="CENTER" />
+                                    <Button mnemonicParsing="false" onAction="#onClickedExitButton" prefWidth="80.0" styleClass="buttonLogin" stylesheets="@JVMStyleSheet.css" text="Exit" BorderPane.alignment="CENTER" />
                                  </top>
                               </BorderPane>
                               <BorderPane prefHeight="200.0" prefWidth="200.0">
                                  <top>
-                                    <Button mnemonicParsing="false" onAction="#onClickedLoginButton" prefWidth="80.0" styleClass="buttonLogin" stylesheets="@controllers/JVMStyleSheet.css" text="Login" BorderPane.alignment="CENTER" />
+                                    <Button mnemonicParsing="false" onAction="#onClickedLoginButton" prefWidth="80.0" styleClass="buttonLogin" stylesheets="@JVMStyleSheet.css" text="Login" BorderPane.alignment="CENTER" />
                                  </top>
                               </BorderPane>
                               <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <top>
-                                    <Button mnemonicParsing="false" onAction="#onClickedRegisterButton" prefWidth="80.0" styleClass="buttonLogin" stylesheets="@controllers/JVMStyleSheet.css" text="Register" BorderPane.alignment="CENTER" />
+                                    <Button mnemonicParsing="false" onAction="#onClickedRegisterButton" prefWidth="80.0" styleClass="buttonLogin" stylesheets="@JVMStyleSheet.css" text="Register" BorderPane.alignment="CENTER" />
                                  </top>
                               </BorderPane>
                            </children>
@@ -137,4 +132,4 @@
          </children>
       </AnchorPane>
    </children>
-</GridPane>
+</AnchorPane>

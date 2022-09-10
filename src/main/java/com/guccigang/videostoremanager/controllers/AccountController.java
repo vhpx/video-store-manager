@@ -4,12 +4,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +19,13 @@ public class AccountController implements Initializable {
     private Label addressLabel;
 
     @FXML
-    private Label firstNameLabel;
+    Label firstNameLabel;
+
+    @FXML
+    private AnchorPane accountPane;
+
+    @FXML
+    private Button logout;
 
     @FXML
     private Label lastNameLabel;
@@ -37,9 +41,6 @@ public class AccountController implements Initializable {
 
     private SceneController sceneController = SceneController.getInstance();
 
-    @FXML
-    public ImageView profileImage = new ImageView();
-
     private ObservableList<String> list = FXCollections.observableArrayList(
             "Account Profile",
             "Setting",
@@ -47,12 +48,10 @@ public class AccountController implements Initializable {
     );
     @FXML
     ComboBox<String> comboBox = new ComboBox<>();
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.comboBox.setItems(list);
-        this.profileImage.setImage(new Image(getClass().getResourceAsStream("/com/guccigang/image/images.png"))) ;
+
     }
     @FXML
     private void comboBoxChanged(ActionEvent event) throws IOException {

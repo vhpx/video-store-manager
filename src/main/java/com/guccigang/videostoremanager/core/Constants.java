@@ -29,8 +29,8 @@ public class Constants {
             "login",
             "account",
             "signup",
-            "accountInfo",
-            "accountModification"
+            "accountInfo"
+            //"accountModification"
     };
 
     public static String[] getScenesToLoad() {

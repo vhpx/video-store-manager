@@ -7,14 +7,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="529.0" prefWidth="701.0" style="-fx-background-color: #E2C044;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountController">
+<AnchorPane fx:id="accountPane" prefHeight="529.0" prefWidth="701.0" style="-fx-background-color: #D3D0CB;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountController">
     <children>
         <VBox layoutX="6.0" prefWidth="215.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,15 +31,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </ImageView>
-            <Label alignment="CENTER" prefWidth="215.0" text="Account Menu" textFill="WHITE">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#browseItem" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@controllers/JVMStyleSheet.css" text="Browse Item">
+            <Button mnemonicParsing="false" onAction="#browseItem" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@JVMStyleSheet.css" text="Browse Item">
                <font>
                   <Font size="18.0" />
                </font>
@@ -42,10 +39,10 @@
                   <Insets top="30.0" />
                </VBox.margin>
                <graphic>
-                  <FontAwesomeIconView glyphName="SEARCH" selectionEnd="0" selectionStart="0" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" selectionEnd="0" selectionStart="0" text="" />
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#returnItem" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@controllers/JVMStyleSheet.css" text="Return Item">
+            <Button mnemonicParsing="false" onAction="#returnItem" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@JVMStyleSheet.css" text="Return Item">
                <font>
                   <Font size="18.0" />
                </font>
@@ -53,10 +50,10 @@
                   <Insets top="20.0" />
                </VBox.margin>
                <graphic>
-                  <FontAwesomeIconView glyphName="BOOK" text="" />
+                  <FontAwesomeIconView fill="WHITE" selectionEnd="0" selectionStart="0" text="" />
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#historyBotton" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@controllers/JVMStyleSheet.css" text="History">
+            <Button mnemonicParsing="false" onAction="#historyBotton" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@JVMStyleSheet.css" text="History">
                <font>
                   <Font size="18.0" />
                </font>
@@ -64,29 +61,95 @@
                   <Insets top="20.0" />
                </VBox.margin>
                <graphic>
-                  <FontAwesomeIconView glyphName="HISTORY" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="HISTORY" text="" />
                </graphic>
+            </Button>
+            <Button layoutX="10.0" layoutY="241.0" mnemonicParsing="false" onAction="#historyBotton" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@JVMStyleSheet.css" text="Setting">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="HISTORY" text="" />
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <Button fx:id="logout" mnemonicParsing="false" onAction="#historyBotton" prefHeight="50.0" prefWidth="215.0" styleClass="buttonAccount" stylesheets="@JVMStyleSheet.css" text="Log out" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="HISTORY" text="" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </Button>
          </children></VBox>
-        <Pane prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: D3D0CB;" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <ComboBox fx:id="comboBox" layoutX="389.0" layoutY="-1.0" onAction="#comboBoxChanged" prefHeight="35.0" prefWidth="201.0" styleClass="myBackGround" stylesheets="@controllers/JVMStyleSheet.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Label alignment="CENTER" layoutX="342.0" layoutY="129.0" prefWidth="150.0" style="-fx-background-color: D3D0CB;" text="&lt;Hello&gt;&lt;Account's name&gt;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-            <font>
-                <Font size="11.5" />
-            </font>
-        </Label>
-        <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="310.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="199.0" layoutY="73.0" text="Borrowed List" AnchorPane.leftAnchor="225.0" AnchorPane.topAnchor="73.0">
+        <Pane prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #393E41 #393E41;" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="199.0" layoutY="73.0" text="Borrowed List" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="73.0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <TableView layoutX="199.0" layoutY="151.0" prefHeight="290.0" prefWidth="427.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="175.0">
-        <columns>
-          <TableColumn prefWidth="261.0" text="Title" />
-          <TableColumn prefWidth="101.0" text="Rental Type" />
-            <TableColumn prefWidth="103.0" text="Genre" />
-        </columns>
-      </TableView>
+      <ComboBox fx:id="comboBox" layoutX="487.0" layoutY="83.0" onAction="#comboBoxChanged" prefHeight="35.0" prefWidth="175.0" styleClass="myLayout" stylesheets="@JVMStyleSheet.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label alignment="CENTER" layoutX="514.0" layoutY="11.0" prefWidth="150.0" style="-fx-background-color: #393E41 #393E41;" text="&lt;Hello&gt;&lt;Account's name&gt;" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font size="11.5" />
+         </font>
+      </Label>
+      <GridPane layoutX="251.0" layoutY="230.0" prefHeight="262.0" prefWidth="418.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="175.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="271.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView prefHeight="193.0" prefWidth="316.0" GridPane.rowIndex="1">
+              <columns>
+                  <TableColumn prefWidth="244.5" text="Title" />
+                  <TableColumn prefWidth="83.50003051757812" text="Rental Type" />
+                <TableColumn prefWidth="108.0" text="Genre" />
+              </columns>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </TableView>
+            <HBox prefHeight="49.0" prefWidth="418.0" GridPane.hgrow="ALWAYS">
+               <children>
+                  <FontAwesomeIconView glyphName="SEARCH" size="24" text="">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <TextField prefHeight="30.0" prefWidth="165.0" style="-fx-border-color: #393E41 #393E41;" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <ComboBox prefHeight="30.0" prefWidth="127.0">
+                     <HBox.margin>
+                        <Insets right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: #E2C044;" text="Sort">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
     </children>
 </AnchorPane>
