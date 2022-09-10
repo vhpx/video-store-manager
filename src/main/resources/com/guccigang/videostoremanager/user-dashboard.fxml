@@ -172,7 +172,7 @@
          </HBox>
       </children>
    </GridPane>
-   <Pane layoutX="215.0" layoutY="35.0" prefHeight="100.0" prefWidth="486.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="65.0" />
+   <Pane layoutX="215.0" layoutY="35.0" prefHeight="60.0" prefWidth="486.0" style="-fx-background-color: #393E41;" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="65.0" />
     <Label fx:id="optionLabel" layoutX="199.0" layoutY="73.0" styleClass="myLabelInAccountScene" stylesheets="@CSS/JVMStyleSheet.css" text="Borrowed List" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="73.0">
         <font>
             <Font size="36.0" />
