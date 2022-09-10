@@ -27,6 +27,7 @@ public class Constants {
 
     private static final String[] scenesToLoad = {
             "loading",
+            "adminMain",
 //            "main",
 //            "login",
 //            "signup",
@@ -37,6 +38,6 @@ public class Constants {
     }
 
     public static String getDefaultSceneName() {
-        return "loading";
+        return "adminMain";
     }
 }

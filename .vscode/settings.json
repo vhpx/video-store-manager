@@ -13,5 +13,8 @@
         "renovate.json": true,
         //* Miscellaneous
         "LICENSE": true
-    }
+    },
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "main"
+    ]
 }
