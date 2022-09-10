@@ -38,10 +38,6 @@
     -fx-background-color: #393E41;
 }
 
-.divider{
-    -fx-background-color: #E2C044;
-}
-
 .sidebar {
     -fx-background-color: #393E41;
     -fx-background-radius: 0;
@@ -120,20 +116,4 @@
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius: 2em;
 
-}
-
-/* chart properties */
-
-.chart {
-    -fx-padding: 10px;
-    -fx-background-color: transparent;
-    -fx-legend-visible: false;
-}
-.chart-plot-background {
-    -fx-background-color:transparent;
-}
-
-.chart-pie {
-    -fx-border-color: derive(-fx-pie-color, 1%);
-    -fx-border-width: 0px;
 }

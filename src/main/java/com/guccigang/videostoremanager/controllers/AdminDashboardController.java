@@ -117,12 +117,6 @@ public class AdminDashboardController implements Initializable {
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlItems.toFront();
         }
-        else if(event.getSource() == btnSetting) {
-            lbiStatusMini.setText("/Menu/Settings");
-            lbiStatus.setText("Settings");
-            pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
-            pnlSetting.toFront();
-        }
         else if(event.getSource() == btnTransactions) {
             lbiStatusMini.setText("/Menu/Transactions");
             lbiStatus.setText("Transactions");
@@ -133,6 +127,5 @@ public class AdminDashboardController implements Initializable {
             // Switch to login screen
         }
     }
-
 }
 
