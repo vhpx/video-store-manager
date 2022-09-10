@@ -8,13 +8,21 @@
 .buttonAccount{
     -fx-font-size: 18;
     -fx-text-fill: white;
-    -fx-alignment: left;
     -fx-background-color: rgba(0,0,0,0);
 }
 
 .myLayout{
     -fx-background-color: rgba(0,0,0,0);
 }
+
+.myLabelInAccountScene{
+    -fx-text-fill: white;
+    -fx-alignment: left;
+    -fx-font-size: 36;
+    -fx-font-weight: regular;
+}
+
+
 
 .myBackGround{
     -fx-background-color: rgba(0,0,0,0);

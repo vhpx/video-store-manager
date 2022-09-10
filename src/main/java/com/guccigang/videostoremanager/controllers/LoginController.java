@@ -7,69 +7,47 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
-    @FXML
-    private AnchorPane loginPane;
-
-    @FXML
-    private AnchorPane imagePane = new AnchorPane();
-
-    @FXML
-    private ImageView image = new ImageView();
-
-    @FXML
-    private AnchorPane parentPane = new AnchorPane();
+public class LoginController{
     private final SceneManager manager = ApplicationCore.getInstance().getSceneManager();
 
     @FXML
-    protected void onClickedRegisterButton(ActionEvent e) throws IOException {
-        manager.showScene("signup");
-    }
+    private TextField nameLabel;
 
     @FXML
-    protected void onClickedLoginButton(ActionEvent e) throws IOException {
-        manager.showScene("account");
-    }
+    private TextField passLabel;
 
     @FXML
-    protected void onClickedBackButton(ActionEvent e) throws IOException {
-        manager.showScene("login");
-    }
+    private VBox sigupPane;
 
     @FXML
-    protected void onClickedExitButton(ActionEvent e) {
+    void exit(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit");
         alert.setHeaderText("Your are about to exit the program.");
         alert.setContentText("Are you sure that your want to exit the program?");
-
         if (alert.showAndWait().orElseThrow() == ButtonType.OK) manager.closeWindow();
     }
 
     @FXML
-    protected void onClickedExitSignupButton(ActionEvent e) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit");
-        alert.setHeaderText("Your are about to exit the program.");
-        alert.setContentText("Are you sure that your want to exit the program?");
-
-        if (alert.showAndWait().orElseThrow() == ButtonType.OK) manager.closeWindow();
+    void login(ActionEvent event) {
+        manager.showScene("user-dashboard");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.image.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/loginImage.png"))));
-        this.image.fitHeightProperty().bind(this.parentPane.heightProperty());
-        this.imagePane.prefWidthProperty().bind(this.image.fitWidthProperty());
+    @FXML
+    void signup(ActionEvent event) {
 
     }
+
+
 }

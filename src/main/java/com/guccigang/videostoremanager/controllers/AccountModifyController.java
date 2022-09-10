@@ -136,10 +136,7 @@ import com.guccigang.videostoremanager.scenes.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -196,6 +193,8 @@ public class AccountModifyController implements Initializable {
     private AnchorPane displayPane;
 
     @FXML
+    private Button saveButton;
+    @FXML
     void backToDashboard(ActionEvent event) {
         this.editInfoPane.setVisible(false);
         this.displayPane.setVisible(true);
@@ -239,5 +238,6 @@ public class AccountModifyController implements Initializable {
         circle.setFill(new ImagePattern(image));
         this.editInfoPane.setVisible(false);
         this.displayPane.setVisible(true);
+        this.saveButton.layoutXProperty().bind(displayPane.prefWidthProperty().divide(2).add(190).subtract(50));
     }
 }

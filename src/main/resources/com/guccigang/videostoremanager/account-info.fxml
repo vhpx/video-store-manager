@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -17,21 +16,47 @@
 
 <AnchorPane prefHeight="478.0" prefWidth="670.0" style="-fx-background-color: #393E41;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountModifyController">
    <children>
-      <AnchorPane fx:id="displayPane" prefHeight="200.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="displayPane" prefHeight="200.0" prefWidth="480.0" style="-fx-background-color: #D3D0CB#D3D0CB;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="fnameLabel" prefWidth="100.0" text="First Name : " textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0" />
-            <Label fx:id="rankingLabel" text="Ranking: " textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
-            <Label fx:id="pointLabel" text="Points: " textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0" />
-            <Label fx:id="lnameLabel" prefWidth="100.0" text="Last Name:  " textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="80.0" />
-            <Label fx:id="phoneLabel" prefWidth="100.0" text="Phone: " textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0" />
-            <Label fx:id="addressLabel" prefWidth="100.0" text="Address" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="160.0" />
+            <Label fx:id="fnameLabel" prefWidth="100.0" text="First Name : " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="rankingLabel" text="Ranking: " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="pointLabel" text="Points: " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="lnameLabel" prefWidth="100.0" text="Last Name:  " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="80.0">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="phoneLabel" prefWidth="100.0" text="Phone: " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="addressLabel" prefWidth="100.0" text="Address" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="160.0">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Button layoutX="190.0" layoutY="393.0" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="100.0" style="-fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 25px; -fx-background-color: rgba(0,0,0,0);" text="Save">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
-      <VBox layoutX="33.0" layoutY="20.0" prefHeight="200.0" prefWidth="190.0" style="-fx-background-color: #587B7F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="33.0" layoutY="20.0" prefHeight="200.0" prefWidth="190.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="47.0" prefWidth="189.0">
                <children>
-                  <Circle fx:id="circle" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeMiterLimit="9.0" strokeType="INSIDE" />
+                  <Circle fx:id="circle" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeMiterLimit="9.0" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets right="7.0" />
+                     </HBox.margin></Circle>
                   <GridPane HBox.hgrow="ALWAYS">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -41,8 +66,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="33.0" prefWidth="145.0" text="Welcome back," GridPane.hgrow="ALWAYS" />
-                        <Label prefHeight="17.0" prefWidth="145.0" style="-fx-font-weight: bold;" text="&lt;Name&gt;" GridPane.rowIndex="1">
+                        <Label prefHeight="33.0" prefWidth="145.0" text="Welcome back," textFill="WHITE" GridPane.hgrow="ALWAYS" />
+                        <Label prefHeight="17.0" prefWidth="145.0" style="-fx-font-weight: bold;" text="&lt;Name&gt;" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -51,64 +76,51 @@
                   </GridPane>
                </children>
             </HBox>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#backToDashboard" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Dashboard ">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#backToDashboard" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Dashboard " textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView glyphName="LIST" />
                </graphic>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editProfile" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Edit Profile">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editProfile" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Edit Profile" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView glyphName="LIST" text="" />
                </graphic>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#setting" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Setting">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView glyphName="LIST" text="" />
-               </graphic>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Button>
-            <Pane prefHeight="200.0" prefWidth="200.0" />
+            <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Log out">
                <font>
                   <Font size="18.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView glyphName="GEAR" text="" />
                </graphic>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <Button layoutX="408.0" layoutY="417.0" mnemonicParsing="false" onAction="#save" style="-fx-border-color: #FFFFFF; -fx-border-width: 2; -fx-border-radius: 25px;" styleClass="myLayout" stylesheets="@JVMStyleSheet.css" text="Save" textFill="WHITE" />
       <VBox fx:id="editInfoPane" layoutX="210.0" layoutY="76.0" prefHeight="347.0" prefWidth="447.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Label text="Profile Edit" textFill="WHITE">
+            <Label text="Profile Edit">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label text="Email address" textFill="WHITE">
+            <Label text="Email address">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" text="" />
                </graphic>
                <VBox.margin>
                   <Insets top="30.0" />
@@ -119,7 +131,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Full Name" textFill="WHITE">
+            <Label text="Full Name">
                <font>
                   <Font size="16.0" />
                </font>
@@ -127,7 +139,6 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" text="" />
                </graphic>
             </Label>
             <HBox prefHeight="25.0" prefWidth="200.0">
@@ -147,12 +158,11 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </HBox>
-            <Label text="Address" textFill="WHITE">
+            <Label text="Address">
                <font>
                   <Font size="16.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" text="" />
                </graphic>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -163,7 +173,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Phone" textFill="WHITE">
+            <Label text="Phone">
                <font>
                   <Font size="16.0" />
                </font>
@@ -171,7 +181,6 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" text="" />
                </graphic>
             </Label>
             <TextField fx:id="phoneField">
