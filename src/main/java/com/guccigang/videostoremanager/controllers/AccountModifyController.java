@@ -198,13 +198,19 @@ public class AccountModifyController implements Initializable {
     void backToDashboard(ActionEvent event) {
         this.editInfoPane.setVisible(false);
         this.displayPane.setVisible(true);
-        this.sceneController.showScene("account");
+        this.sceneController.showScene("user-dashboard");
     }
 
     @FXML
     void editProfile(ActionEvent event) {
         this.editInfoPane.setVisible(true);
         this.displayPane.setVisible(false);
+    }
+
+    @FXML
+    void profile(ActionEvent event) {
+        this.editInfoPane.setVisible(false);
+        this.displayPane.setVisible(true);
     }
 
     @FXML
@@ -238,6 +244,5 @@ public class AccountModifyController implements Initializable {
         circle.setFill(new ImagePattern(image));
         this.editInfoPane.setVisible(false);
         this.displayPane.setVisible(true);
-        this.saveButton.layoutXProperty().bind(displayPane.prefWidthProperty().divide(2).add(190).subtract(50));
     }
 }

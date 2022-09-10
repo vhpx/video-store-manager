@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -16,6 +18,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="accountPane" prefHeight="529.0" prefWidth="701.0" style="-fx-background-color: #D3D0CB;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountController">
@@ -31,50 +34,125 @@
             <Image url="@Images/Dashboard_transparent.png" />
          </image>
       </ImageView>
-        <Button mnemonicParsing="false" onAction="#browseItem" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" styleClass="buttonAccount" stylesheets="@CSS/JVMStyleSheet.css" text="Browse Item">
-            <font>
-                <Font size="18.0" />
-            </font>
-            <VBox.margin>
-                <Insets top="30.0" />
-            </VBox.margin>
-        </Button>
-        <Button mnemonicParsing="false" onAction="#returnItem" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" styleClass="buttonAccount" stylesheets="@CSS/JVMStyleSheet.css" text="Return Item">
+        <Button mnemonicParsing="false" onAction="#browseItem" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" text="Browse Item">
             <font>
                 <Font size="18.0" />
             </font>
             <VBox.margin>
                 <Insets top="20.0" />
             </VBox.margin>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/search-alt-free-icon-font%20(1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <stylesheets>
+            <URL value="@CSS/JVMStyleSheet.css" />
+            <URL value="@CSS/adminMain.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="buttonAccount" />
+            <String fx:value="button1" />
+         </styleClass>
         </Button>
-      <Button mnemonicParsing="false" onAction="#borrowedList" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" styleClass="buttonAccount" stylesheets="@CSS/JVMStyleSheet.css" text="Borrowed List">
+        <Button mnemonicParsing="false" onAction="#returnItem" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" text="Return Item">
+            <font>
+                <Font size="18.0" />
+            </font>
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/refresh.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <stylesheets>
+            <URL value="@CSS/JVMStyleSheet.css" />
+            <URL value="@CSS/adminMain.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="buttonAccount" />
+            <String fx:value="button1" />
+         </styleClass>
+        </Button>
+      <Button mnemonicParsing="false" onAction="#borrowedList" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" text="Borrowed List">
          <font>
             <Font size="18.0" />
          </font>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets top="10.0" />
          </VBox.margin>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/clipboard-list-check-free-icon-font%20(2).png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <stylesheets>
+            <URL value="@CSS/JVMStyleSheet.css" />
+            <URL value="@CSS/adminMain.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="buttonAccount" />
+            <String fx:value="button1" />
+         </styleClass>
       </Button>
-        <Button mnemonicParsing="false" onAction="#historyButton" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" styleClass="buttonAccount" stylesheets="@CSS/JVMStyleSheet.css" text="History">
+        <Button mnemonicParsing="false" onAction="#historyButton" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" text="History">
             <font>
                 <Font size="18.0" />
             </font>
             <VBox.margin>
-                <Insets top="20.0" />
+                <Insets top="10.0" />
             </VBox.margin>
+         <graphic>
+            <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/time-past-free-icon-font%20(1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <stylesheets>
+            <URL value="@CSS/JVMStyleSheet.css" />
+            <URL value="@CSS/adminMain.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="buttonAccount" />
+            <String fx:value="button1" />
+         </styleClass>
         </Button>
         <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-        <Button mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" styleClass="buttonAccount" stylesheets="@CSS/JVMStyleSheet.css" text="Log out" VBox.vgrow="ALWAYS">
+        <Button mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="215.0" style="-fx-alignment: left;" text="Log out" VBox.vgrow="ALWAYS">
             <font>
                 <Font size="18.0" />
             </font>
             <VBox.margin>
                 <Insets bottom="10.0" />
             </VBox.margin>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/exit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <stylesheets>
+            <URL value="@CSS/JVMStyleSheet.css" />
+            <URL value="@CSS/adminMain.css" />
+         </stylesheets>
+         <styleClass>
+            <String fx:value="buttonAccount" />
+            <String fx:value="button1" />
+         </styleClass>
         </Button>
     </VBox>
     <Pane prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #D3D0CB;" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <ComboBox fx:id="comboBox" layoutX="487.0" layoutY="83.0" onAction="#comboBoxChanged" prefHeight="35.0" prefWidth="175.0" styleClass="myLayout" stylesheets="@CSS/JVMStyleSheet.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <ComboBox fx:id="comboBox" layoutX="487.0" layoutY="83.0" onAction="#comboBoxChanged" onMouseEntered="#mouseEnterHello" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #D3D0CB;" styleClass="choice-box" stylesheets="@CSS/JVMStyleSheet.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     <Label fx:id="greetingLabel" alignment="CENTER" layoutX="514.0" layoutY="11.0" prefWidth="150.0" style="-fx-background-color: #D3D0CB;" text="&lt;Hello&gt;&lt;Account's name&gt;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
         <font>
             <Font size="11.5" />
@@ -178,4 +256,5 @@
             <Font size="36.0" />
         </font>
     </Label>
+   <Circle fx:id="circleImage" fill="DODGERBLUE" layoutX="520.0" layoutY="45.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="5.0" />
 </AnchorPane>

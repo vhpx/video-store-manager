@@ -4,7 +4,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,7 +17,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="478.0" prefWidth="670.0" style="-fx-background-color: #393E41;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountModifyController">
+<AnchorPane prefHeight="478.0" prefWidth="670.0" style="-fx-background-color: #D3D0CB;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountModifyController">
    <children>
       <AnchorPane fx:id="displayPane" prefHeight="200.0" prefWidth="480.0" style="-fx-background-color: #D3D0CB#D3D0CB;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -42,11 +45,6 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Button layoutX="190.0" layoutY="393.0" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="100.0" style="-fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 25px; -fx-background-color: rgba(0,0,0,0);" text="Save">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
       <VBox layoutX="33.0" layoutY="20.0" prefHeight="200.0" prefWidth="190.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -76,7 +74,12 @@
                   </GridPane>
                </children>
             </HBox>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#backToDashboard" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Dashboard " textFill="WHITE">
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/profile.png" />
+               </image>
+            </ImageView>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#backToDashboard" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Dashboard " textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -85,8 +88,27 @@
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/list.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editProfile" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Edit Profile" textFill="WHITE">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#profile" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Profile" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/users.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editProfile" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Edit Profile" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -95,9 +117,16 @@
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/settings-sliders.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="47.0" prefWidth="188.0" style="-fx-background-color: rgba(0,0,0,0);" text="Log out">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Log out">
                <font>
                   <Font size="18.0" />
                </font>
@@ -106,6 +135,13 @@
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/exit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </VBox>
@@ -125,6 +161,13 @@
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/envelope.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
             <TextField fx:id="emailField">
                <VBox.margin>
@@ -139,6 +182,13 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <graphic>
+               </graphic>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/portrait.png" />
+                     </image>
+                  </ImageView>
                </graphic>
             </Label>
             <HBox prefHeight="25.0" prefWidth="200.0">
@@ -167,6 +217,13 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/home-location-alt.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
             <TextField fx:id="addressField">
                <VBox.margin>
@@ -182,12 +239,31 @@
                </VBox.margin>
                <graphic>
                </graphic>
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/circle-phone-flip.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
             <TextField fx:id="phoneField">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
+            <BorderPane>
+               <center>
+                  <Button mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="100.0" style="-fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 25px; -fx-background-color: rgba(0,0,0,0);" styleClass="button3" stylesheets="@CSS/adminMain.css" text="Save">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets top="20.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </center>
+            </BorderPane>
          </children>
       </VBox>
    </children>

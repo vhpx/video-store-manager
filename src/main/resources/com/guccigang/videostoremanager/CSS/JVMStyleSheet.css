@@ -23,6 +23,10 @@
 }
 
 
+.combo-box.choice-box
+{
+    -fx-background-color: #D3D0CB;
+}
 
 .myBackGround{
     -fx-background-color: rgba(0,0,0,0);
