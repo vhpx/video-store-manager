@@ -30,7 +30,7 @@ public class Constants {
             "account",
             "signup",
             "accountInfo"
-            //"accountModification"
+            "adminMain",
     };
 
     public static String[] getScenesToLoad() {
