@@ -26,11 +26,11 @@ public class Constants {
     }
 
     private static final String[] scenesToLoad = {
-            "loading",
+            "login",
+            "account",
+            "signup",
+            "accountInfo"
             "adminMain",
-//            "main",
-//            "login",
-//            "signup",
     };
 
     public static String[] getScenesToLoad() {
@@ -38,6 +38,6 @@ public class Constants {
     }
 
     public static String getDefaultSceneName() {
-        return "adminMain";
+        return "login";
     }
 }
