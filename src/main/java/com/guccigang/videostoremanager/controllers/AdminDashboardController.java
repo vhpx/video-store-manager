@@ -100,6 +100,7 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         cbItem.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
+        cbItem.buttonCellProperty(FXCollections.);
         cbAccountMng.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
     }
 
@@ -117,12 +118,6 @@ public class AdminDashboardController implements Initializable {
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlItems.toFront();
         }
-        else if(event.getSource() == btnSetting) {
-            lbiStatusMini.setText("/Menu/Settings");
-            lbiStatus.setText("Settings");
-            pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
-            pnlSetting.toFront();
-        }
         else if(event.getSource() == btnTransactions) {
             lbiStatusMini.setText("/Menu/Transactions");
             lbiStatus.setText("Transactions");
@@ -133,6 +128,5 @@ public class AdminDashboardController implements Initializable {
             // Switch to login screen
         }
     }
-
 }
 
