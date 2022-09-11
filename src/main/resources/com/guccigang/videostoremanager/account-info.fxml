@@ -254,7 +254,7 @@
             </TextField>
             <BorderPane>
                <center>
-                  <Button mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="100.0" style="-fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 25px; -fx-background-color: rgba(0,0,0,0);" styleClass="button3" stylesheets="@CSS/adminMain.css" text="Save">
+                  <Button mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="100.0" styleClass="buttonProile" stylesheets="@CSS/JVMStyleSheet.css" text="Save">
                      <font>
                         <Font size="18.0" />
                      </font>

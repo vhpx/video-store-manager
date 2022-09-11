@@ -216,13 +216,13 @@ public class AccountModifyController implements Initializable {
     @FXML
     void logout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit");
+        alert.setTitle("Log out!");
         alert.setHeaderText("Your are about to log out your account.");
         alert.setContentText("Are you sure that your want to log out?");
         if (alert.showAndWait().orElseThrow() == ButtonType.OK) {
             this.editInfoPane.setVisible(false);
             this.displayPane.setVisible(true);
-            this.sceneController.showScene("login");
+            this.sceneController.showScene("auth");
         }
 
     }

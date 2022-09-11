@@ -2,8 +2,27 @@
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-color: #000000;
     -fx-border-width: 2;
+    -fx-border-radius: 15px;
+}
+.buttonLogin:hover{
+    -fx-border-width: 2;
+    -fx-border-radius: 15px;
+    -fx-background-color: #e7cb66;
+}
+
+.buttonProile{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
     -fx-border-radius: 25px;
 }
+.buttonProile:hover{
+    -fx-background-color: #efeeec;
+
+}
+
+
+
 
 .buttonAccount{
     -fx-font-size: 18;
@@ -22,12 +41,35 @@
     -fx-font-weight: regular;
 }
 
+.combo-box:hover
+{
+    -fx-background-color: rgba(0,0,0,0);
+}
+.combo-box:hover
+{
+    -fx-background-color: #efeeec;
+}
 
 .combo-box.choice-box
 {
     -fx-background-color: #D3D0CB;
 }
 
+.combo-box.choice-box:hover
+{
+    -fx-background-color: #efeeec;
+}
+
+
 .myBackGround{
     -fx-background-color: rgba(0,0,0,0);
+}
+
+.buttonYellow{
+    -fx-background-color: #E2C044;
+    -fx-border-color: black;
+}
+
+.buttonYellow:hover{
+    -fx-background-color: #e7cb66;
 }

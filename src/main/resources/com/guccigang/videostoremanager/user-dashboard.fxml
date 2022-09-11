@@ -152,8 +152,12 @@
         </Button>
     </VBox>
     <Pane prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #D3D0CB;" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <ComboBox fx:id="comboBox" layoutX="487.0" layoutY="83.0" onAction="#comboBoxChanged" onMouseEntered="#mouseEnterHello" prefHeight="35.0" prefWidth="175.0" style="-fx-background-color: #D3D0CB;" styleClass="choice-box" stylesheets="@CSS/JVMStyleSheet.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <Label fx:id="greetingLabel" alignment="CENTER" layoutX="514.0" layoutY="11.0" prefWidth="150.0" style="-fx-background-color: #D3D0CB;" text="&lt;Hello&gt;&lt;Account's name&gt;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+    <ComboBox fx:id="comboBox" layoutX="487.0" layoutY="83.0" onAction="#comboBoxChanged" prefHeight="35.0" prefWidth="160.0" stylesheets="@CSS/JVMStyleSheet.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <styleClass>
+         <String fx:value="choice-box" />
+         <String fx:value="combo-box" />
+      </styleClass></ComboBox>
+    <Label fx:id="greetingLabel" alignment="CENTER" layoutX="514.0" layoutY="11.0" prefWidth="150.0" style="-fx-background-color: rgba(0,0,0,0);" text="&lt;Hello&gt;&lt;Account's name&gt;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
         <font>
             <Font size="11.5" />
         </font>
@@ -180,7 +184,7 @@
          </columnResizePolicy>
         </TableView>
         <HBox prefHeight="49.0" prefWidth="418.0" GridPane.hgrow="ALWAYS">
-         <Button mnemonicParsing="false" prefHeight="30.0" style="-fx-border-color: #000000; -fx-background-color: #E2C044;" text="View in detail">
+         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="View in detail">
             <HBox.margin>
                <Insets right="5.0" top="10.0" />
             </HBox.margin>
@@ -190,12 +194,12 @@
                     <Insets right="5.0" top="10.0" />
                 </HBox.margin>
             </TextField>
-            <ComboBox fx:id="sortComboBox" prefHeight="30.0" prefWidth="120.0" promptText="Sort" style="-fx-border-color: #000000;">
+            <ComboBox fx:id="sortComboBox" prefHeight="30.0" prefWidth="120.0" promptText="Sort" styleClass="combo-box" stylesheets="@CSS/JVMStyleSheet.css">
                 <HBox.margin>
                     <Insets right="5.0" top="10.0" />
                 </HBox.margin>
             </ComboBox>
-            <Button mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #E2C044; -fx-border-color: #000000;" text="Sort">
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="Sort">
                 <HBox.margin>
                     <Insets top="10.0" />
                 </HBox.margin>
@@ -226,7 +230,7 @@
          </TableView>
          <HBox prefHeight="49.0" prefWidth="418.0" GridPane.hgrow="ALWAYS">
             <children>
-               <Button mnemonicParsing="false" prefHeight="30.0" style="-fx-border-color: #000000; -fx-background-color: #E2C044;" text="View in detail">
+               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="View in detail">
                   <HBox.margin>
                      <Insets right="5.0" top="10.0" />
                   </HBox.margin>
@@ -241,7 +245,7 @@
                      <Insets right="5.0" top="10.0" />
                   </HBox.margin>
                </ComboBox>
-               <Button mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #E2C044; -fx-border-color: #000000;" text="Sort">
+               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="Sort">
                   <HBox.margin>
                      <Insets top="10.0" />
                   </HBox.margin>

@@ -69,18 +69,19 @@ public class AccountController implements Initializable {
 
         if (this.comboBox.getValue().equals("Account Profile")) {
             this.manager.showScene("account-info");
+            this.comboBox.getSelectionModel().clearSelection();
         }
     }
     @FXML
     void logout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit");
+        alert.setTitle("Log out");
         alert.setHeaderText("Your are about to log out the program.");
         alert.setContentText("Are you sure that your want to log out the program?");
         if (alert.showAndWait().orElseThrow() == ButtonType.OK)
         {
-            this.app.stop();
             this.manager.showScene("auth");
+            //this.app.stop();
         }
     }
 
@@ -105,9 +106,7 @@ public class AccountController implements Initializable {
     void returnItem(ActionEvent event) {
 
     }
-    @FXML
-    void mouseEnterHello(ActionEvent event) {
-    }
+
 
 
 }
