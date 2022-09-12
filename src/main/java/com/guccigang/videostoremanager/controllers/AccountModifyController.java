@@ -190,6 +190,9 @@ public class AccountModifyController implements Initializable {
     private Label rankingLabel;
 
     @FXML
+    private Label optionLabel;
+
+    @FXML
     private AnchorPane displayPane;
 
     @FXML
@@ -205,12 +208,14 @@ public class AccountModifyController implements Initializable {
     void editProfile(ActionEvent event) {
         this.editInfoPane.setVisible(true);
         this.displayPane.setVisible(false);
+        this.optionLabel.setText("/Edit Profile");
     }
 
     @FXML
     void profile(ActionEvent event) {
         this.editInfoPane.setVisible(false);
         this.displayPane.setVisible(true);
+        this.optionLabel.setText("/Profile");
     }
 
     @FXML

@@ -34,14 +34,20 @@ public class AccountController implements Initializable {
     @FXML
     Circle circleImage;
     @FXML
-    GridPane borrwedList;
+    GridPane borrowedList;
 
     @FXML
     GridPane transaction;
 
+    @FXML
+    GridPane browsePane;
+
 
     @FXML
     Label optionLabel;
+
+    @FXML
+    Label statusMini;
 
     @FXML
     Label greetingLabel;
@@ -59,8 +65,9 @@ public class AccountController implements Initializable {
         this.comboBox.setItems(list);
         this.sortComboBox.setItems(sortlist);
         this.historyComboBox.setItems(sortlist);
-        this.borrwedList.setVisible(true);
+        this.borrowedList.setVisible(true);
         this.transaction.setVisible(false);
+        this.browsePane.setVisible(false);
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/images.png")));
         circleImage.setFill(new ImagePattern(image));
     }
@@ -87,23 +94,37 @@ public class AccountController implements Initializable {
 
     @FXML
     void browseItem(ActionEvent event) {
-
+        this.browsePane.setVisible(true);
+        this.borrowedList.setVisible(false);
+        this.transaction.setVisible(false);
+        this.optionLabel.setText("Borrow Item");
+        this.statusMini.setText("Dashboard/ Borrow Item");
     }
+
     @FXML
     void borrowedList(ActionEvent event) {
+        this.browsePane.setVisible(false);
+        this.borrowedList.setVisible(true);
         this.transaction.setVisible(false);
-        this.borrwedList.setVisible(true);
         this.optionLabel.setText("Borrowed List");
+        this.statusMini.setText("Dashboard/ Borrowed List");
     }
     @FXML
     void historyButton(ActionEvent event) {
+        this.browsePane.setVisible(false);
+        this.borrowedList.setVisible(false);
         this.transaction.setVisible(true);
-        this.borrwedList.setVisible(false);
         this.optionLabel.setText("History");
+        this.statusMini.setText("Dashboard/ History");
     }
 
     @FXML
     void returnItem(ActionEvent event) {
+
+    }
+
+    @FXML
+    void borrowItem(ActionEvent event) {
 
     }
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -17,9 +19,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="478.0" prefWidth="670.0" style="-fx-background-color: #D3D0CB;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountModifyController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountModifyController">
    <children>
-      <AnchorPane fx:id="displayPane" prefHeight="200.0" prefWidth="480.0" style="-fx-background-color: #D3D0CB#D3D0CB;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="displayPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
          <children>
             <Label fx:id="fnameLabel" prefWidth="100.0" text="First Name : " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0">
                <font>
@@ -47,7 +49,7 @@
                </font></Label>
          </children>
       </AnchorPane>
-      <VBox layoutX="33.0" layoutY="20.0" prefHeight="200.0" prefWidth="190.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="33.0" layoutY="20.0" prefWidth="250.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="47.0" prefWidth="189.0">
                <children>
@@ -74,12 +76,12 @@
                   </GridPane>
                </children>
             </HBox>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="76.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Icons/profile.png" />
                </image>
             </ImageView>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#backToDashboard" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Dashboard " textFill="WHITE">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#backToDashboard" prefHeight="57.0" prefWidth="263.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Dashboard " textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -96,7 +98,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#profile" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Profile" textFill="WHITE">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#profile" prefHeight="62.0" prefWidth="260.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Profile" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -108,7 +110,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editProfile" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Edit Profile" textFill="WHITE">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#editProfile" prefHeight="61.0" prefWidth="263.0" text="Edit Profile" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -124,6 +126,14 @@
                      </image>
                   </ImageView>
                </graphic>
+               <stylesheets>
+                  <URL value="@CSS/adminMain.css" />
+                  <URL value="@CSS/JVMStyleSheet.css" />
+               </stylesheets>
+               <styleClass>
+                  <String fx:value="button1" />
+                  <String fx:value="buttonAccount" />
+               </styleClass>
             </Button>
             <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Log out">
@@ -145,7 +155,7 @@
             </Button>
          </children>
       </VBox>
-      <VBox fx:id="editInfoPane" layoutX="210.0" layoutY="76.0" prefHeight="347.0" prefWidth="447.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="20.0">
+      <VBox fx:id="editInfoPane" layoutX="210.0" layoutY="76.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="115.0">
          <children>
             <Label text="Profile Edit">
                <font>
@@ -266,5 +276,15 @@
             </BorderPane>
          </children>
       </VBox>
+      <Pane fx:id="pnlStatus" layoutX="272.0" layoutY="20.0" prefHeight="100.0" style="-fx-background-color: #D3D0CB;" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="statusMini" layoutX="14.0" layoutY="14.0" text="/Profile" />
+         </children>
+      </Pane>
+      <Label fx:id="optionLabel" layoutX="209.0" layoutY="83.0" styleClass="myLabelInAccountScene" stylesheets="@CSS/JVMStyleSheet.css" text="Profile" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -6,7 +6,7 @@
 }
 .buttonLogin:hover{
     -fx-border-width: 2;
-    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
     -fx-background-color: #e7cb66;
 }
 
@@ -18,12 +18,9 @@
 }
 .buttonProile:hover{
     -fx-background-color: #efeeec;
+    -fx-background-radius: 25px;
 
 }
-
-
-
-
 .buttonAccount{
     -fx-font-size: 18;
     -fx-text-fill: white;
@@ -35,10 +32,10 @@
 }
 
 .myLabelInAccountScene{
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: left;
-    -fx-font-size: 36;
-    -fx-font-weight: regular;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
 }
 
 .combo-box:hover
@@ -67,9 +64,10 @@
 
 .buttonYellow{
     -fx-background-color: #E2C044;
-    -fx-border-color: black;
+    -fx-background-radius: 10;
 }
 
 .buttonYellow:hover{
     -fx-background-color: #e7cb66;
+    -fx-background-radius: 10;
 }
