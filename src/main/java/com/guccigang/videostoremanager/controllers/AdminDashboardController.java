@@ -100,6 +100,7 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         cbItem.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
+        cbItem.buttonCellProperty(FXCollections.);
         cbAccountMng.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
     }
 
