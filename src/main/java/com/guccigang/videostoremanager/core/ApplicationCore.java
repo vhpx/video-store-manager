@@ -55,7 +55,10 @@ public class ApplicationCore {
         // Stop all managers
         internal.stop();
         auth.stop();
-
+        // Exit the application
+    }
+    public void exit() {
+        // Stop all managers
         // Exit the application
         exitApplication();
     }
