@@ -256,6 +256,7 @@
                         <TableColumn prefWidth="115.0" text="List of Rentals" />
                         <TableColumn prefWidth="115.0" text="Password" />
                         <TableColumn prefWidth="115.0" text="Username" />
+                        <TableColumn prefWidth="115.0" text="Rank" />
                         <TableColumn prefWidth="115.0" text="Points" />
                      </columns>
                      <columnResizePolicy>
@@ -272,7 +273,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <TextField fx:id="accountMngSearchBar" prefHeight="30.0" prefWidth="198.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="accountMngSearchBar" prefHeight="30.0" prefWidth="387.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
