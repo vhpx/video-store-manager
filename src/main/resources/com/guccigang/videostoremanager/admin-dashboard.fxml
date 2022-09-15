@@ -19,9 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0"
-   xmlns="http://javafx.com/javafx/18"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AdminDashboardController">
+<AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AdminDashboardController">
    <children>
       <VBox layoutX="-1.0" prefHeight="0.0" prefWidth="250.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -126,29 +124,33 @@
       </VBox>
       <StackPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="115.0">
          <children>
-            <GridPane fx:id="pnlTransactions" style="-fx-background-radius: 10;">
+            <GridPane fx:id="pnlAccount" style="-fx-background-radius: 10;">
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="239.66665649414062" minHeight="10.0" prefHeight="40.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="239.66665649414062" minHeight="10.0" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
                   <RowConstraints minHeight="10.0" prefHeight="353.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TableView fx:id="tableTransactions" style="-fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <TableView fx:id="tableUserAccounts" style="-fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <columns>
-                        <TableColumn prefWidth="115.0" text="Account ID" />
-                        <TableColumn prefWidth="115.0" text="Account Name" />
-                        <TableColumn prefWidth="115.0" text="Item ID" />
-                        <TableColumn prefWidth="115.0" text="Item Name" />
-                        <TableColumn prefWidth="115.0" text="Status" />
+                        <TableColumn fx:id="accID" prefWidth="115.0" text="ID" />
+                        <TableColumn fx:id="accName" prefWidth="115.0" text="Name" />
+                        <TableColumn fx:id="accAddress" prefWidth="115.0" text="Address" />
+                        <TableColumn fx:id="accPhone" prefWidth="115.0" text="Phone" />
+                        <TableColumn fx:id="accListOfRentals" prefWidth="115.0" text="List of Rentals" />
+                        <TableColumn fx:id="accPassword" prefWidth="115.0" text="Password" />
+                        <TableColumn fx:id="accUsername" prefWidth="115.0" text="Username" />
+                        <TableColumn fx:id="accRank" prefWidth="115.0" text="Rank" />
+                        <TableColumn fx:id="accPoints" prefWidth="115.0" text="Points" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox prefHeight="0.0" prefWidth="809.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
+                  <HBox prefHeight="0.0" prefWidth="809.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -158,17 +160,17 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <TextField fx:id="transactionSearchBar" prefHeight="30.0" prefWidth="386.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="accountMngSearchBar" prefHeight="30.0" prefWidth="387.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <ComboBox fx:id="cbTransactions" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10;">
+                        <ComboBox fx:id="cbAccountMng" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10;">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <Button fx:id="btnTransactionSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Search">
+                        <Button fx:id="btnAccountMngSearch" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" text="Search">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </HBox.margin>
@@ -189,13 +191,13 @@
                <children>
                   <TableView fx:id="tableItems" style="-fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <columns>
-                        <TableColumn prefWidth="115.0" text="ID" />
-                        <TableColumn prefWidth="115.0" text="Title" />
-                        <TableColumn prefWidth="115.0" text="Genre" />
-                        <TableColumn prefWidth="115.0" text="Loan Type" />
-                        <TableColumn prefWidth="115.0" text="Rental Type" />
-                        <TableColumn prefWidth="115.0" text="Rental Fees" />
-                        <TableColumn prefWidth="115.0" text="In Stock" />
+                        <TableColumn fx:id="itemID" prefWidth="115.0" text="ID" />
+                        <TableColumn fx:id="itemTitle" prefWidth="115.0" text="Title" />
+                        <TableColumn fx:id="itemGenre" prefWidth="115.0" text="Genre" />
+                        <TableColumn fx:id="itemLoanType" prefWidth="115.0" text="Loan Type" />
+                        <TableColumn fx:id="itemRentalType" prefWidth="115.0" text="Rental Type" />
+                        <TableColumn fx:id="itemRentalFees" prefWidth="115.0" text="Rental Fees" />
+                        <TableColumn fx:id="itemStockStatus" prefWidth="115.0" text="In Stock" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -230,33 +232,29 @@
                   </HBox>
                </children>
             </GridPane>
-            <GridPane fx:id="pnlAccount" style="-fx-background-radius: 10;">
+            <GridPane fx:id="pnlTransactions" style="-fx-background-radius: 10;">
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="239.66665649414062" minHeight="10.0" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
+                  <RowConstraints maxHeight="239.66665649414062" minHeight="10.0" prefHeight="40.0" vgrow="NEVER" />
                   <RowConstraints minHeight="10.0" prefHeight="353.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TableView fx:id="tableUserAccounts" style="-fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <TableView fx:id="tableTransactions" style="-fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <columns>
-                        <TableColumn prefWidth="115.0" text="ID" />
-                        <TableColumn prefWidth="115.0" text="Name" />
-                        <TableColumn prefWidth="115.0" text="Address" />
-                        <TableColumn prefWidth="115.0" text="Phone" />
-                        <TableColumn prefWidth="115.0" text="List of Rentals" />
-                        <TableColumn prefWidth="115.0" text="Password" />
-                        <TableColumn prefWidth="115.0" text="Username" />
-                        <TableColumn prefWidth="115.0" text="Rank" />
-                        <TableColumn prefWidth="115.0" text="Points" />
+                        <TableColumn fx:id="transAccID" prefWidth="115.0" text="Account ID" />
+                        <TableColumn fx:id="transAccName" prefWidth="115.0" text="Account Name" />
+                        <TableColumn fx:id="transItemID" prefWidth="115.0" text="Item ID" />
+                        <TableColumn fx:id="transItemName" prefWidth="115.0" text="Item Name" />
+                        <TableColumn fx:id="transStatus" prefWidth="115.0" text="Status" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox prefHeight="0.0" prefWidth="809.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                  <HBox prefHeight="0.0" prefWidth="809.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -266,17 +264,17 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <TextField fx:id="accountMngSearchBar" prefHeight="30.0" prefWidth="387.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="transactionSearchBar" prefHeight="30.0" prefWidth="386.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <ComboBox fx:id="cbAccountMng" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10;">
+                        <ComboBox fx:id="cbTransactions" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10;">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <Button fx:id="btnAccountMngSearch" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" text="Search">
+                        <Button fx:id="btnTransactionSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Search">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </HBox.margin>

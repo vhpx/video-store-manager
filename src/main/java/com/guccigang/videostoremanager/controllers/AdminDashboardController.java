@@ -81,6 +81,10 @@ public class AdminDashboardController implements Initializable {
     private HBox settingBackground2;
 
     @FXML
+    private TextField transactionSearchBar;
+
+    // Table View
+    @FXML
     private TableView<?> tableItems;
 
     @FXML
@@ -89,8 +93,72 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private TableView<?> tableUserAccounts;
 
+    // Table Columns
+    // Account Management
     @FXML
-    private TextField transactionSearchBar;
+    private TableColumn<?, ?> accAddress;
+
+    @FXML
+    private TableColumn<?, ?> accID;
+
+    @FXML
+    private TableColumn<?, ?> accListOfRentals;
+
+    @FXML
+    private TableColumn<?, ?> accName;
+
+    @FXML
+    private TableColumn<?, ?> accPassword;
+
+    @FXML
+    private TableColumn<?, ?> accPhone;
+
+    @FXML
+    private TableColumn<?, ?> accPoints;
+
+    @FXML
+    private TableColumn<?, ?> accRank;
+
+    @FXML
+    private TableColumn<?, ?> accUsername;
+
+    // Items
+    @FXML
+    private TableColumn<?, ?> itemGenre;
+
+    @FXML
+    private TableColumn<?, ?> itemID;
+
+    @FXML
+    private TableColumn<?, ?> itemLoanType;
+
+    @FXML
+    private TableColumn<?, ?> itemRentalFees;
+
+    @FXML
+    private TableColumn<?, ?> itemRentalType;
+
+    @FXML
+    private TableColumn<?, ?> itemStockStatus;
+
+    @FXML
+    private TableColumn<?, ?> itemTitle;
+
+    // Transactions
+    @FXML
+    private TableColumn<?, ?> transAccID;
+
+    @FXML
+    private TableColumn<?, ?> transAccName;
+
+    @FXML
+    private TableColumn<?, ?> transItemID;
+
+    @FXML
+    private TableColumn<?, ?> transItemName;
+
+    @FXML
+    private TableColumn<?, ?> transStatus;
 
     @FXML
     void search(ActionEvent event) {
