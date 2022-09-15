@@ -30,7 +30,7 @@ public class Constants {
     private static final ScenePackage[] scenesToLoad = {
             // Authentication
             new ScenePackage("auth"),
-            new ScenePackage("signup"), // TODO: Merge with auth
+            //new ScenePackage("signup"), // TODO: Merge with auth
 
             // Customer View
             new ScenePackage("user-dashboard"),

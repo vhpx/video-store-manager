@@ -1,0 +1,73 @@
+.buttonLogin{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+    -fx-border-radius: 15px;
+}
+.buttonLogin:hover{
+    -fx-border-width: 2;
+    -fx-background-radius: 15px;
+    -fx-background-color: #e7cb66;
+}
+
+.buttonProile{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+    -fx-border-radius: 25px;
+}
+.buttonProile:hover{
+    -fx-background-color: #efeeec;
+    -fx-background-radius: 25px;
+
+}
+.buttonAccount{
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.myLayout{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.myLabelInAccountScene{
+    -fx-text-fill: black;
+    -fx-alignment: left;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.combo-box:hover
+{
+    -fx-background-color: rgba(0,0,0,0);
+}
+.combo-box:hover
+{
+    -fx-background-color: #efeeec;
+}
+
+.combo-box.choice-box
+{
+    -fx-background-color: #D3D0CB;
+}
+
+.combo-box.choice-box:hover
+{
+    -fx-background-color: #efeeec;
+}
+
+
+.myBackGround{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.buttonYellow{
+    -fx-background-color: #E2C044;
+    -fx-background-radius: 10;
+}
+
+.buttonYellow:hover{
+    -fx-background-color: #e7cb66;
+    -fx-background-radius: 10;
+}
