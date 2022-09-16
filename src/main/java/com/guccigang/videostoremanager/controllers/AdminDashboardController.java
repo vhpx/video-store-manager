@@ -1,12 +1,17 @@
 package com.guccigang.videostoremanager.controllers;
 
+import com.guccigang.videostoremanager.auth.Account;
 import com.guccigang.videostoremanager.core.ApplicationCore;
+import com.guccigang.videostoremanager.items.Item;
+import com.guccigang.videostoremanager.transactions.Transaction;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -84,46 +89,36 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private TextField transactionSearchBar;
 
-    // Table View
     @FXML
-    private TableView<?> tableItems;
+    private TableView<Item> tableItems;
 
     @FXML
-    private TableView<?> tableTransactions;
+    private TableView<Transaction> tableTransactions;
 
     @FXML
-    private TableView<?> tableUserAccounts;
-
-    // Table Columns
-    // Account Management
-    @FXML
-    private TableColumn<?, ?> accAddress;
+    private TableView<Account> accountsTable = new TableView<>();
 
     @FXML
-    private TableColumn<?, ?> accID;
+    private final TableColumn<Account, String> accountId = new TableColumn<>("ID");
 
     @FXML
-    private TableColumn<?, ?> accListOfRentals;
+    private final TableColumn<Account, String> accountAddress = new TableColumn<>("Address");
 
     @FXML
-    private TableColumn<?, ?> accName;
+    private final TableColumn<Account, String> accountUsername = new TableColumn<>("Username");
 
     @FXML
-    private TableColumn<?, ?> accPassword;
+    private final TableColumn<Account, String> accountPassword = new TableColumn<>("Password");
 
     @FXML
-    private TableColumn<?, ?> accPhone;
+    private final TableColumn<Account, String> accountPhone = new TableColumn<>("Phone");
 
     @FXML
-    private TableColumn<?, ?> accPoints;
+    private final TableColumn<Account, Integer> accountPoints = new TableColumn<>("Points");
 
     @FXML
-    private TableColumn<?, ?> accRank;
+    private final TableColumn<Account, String> accountRole = new TableColumn<>("Role");
 
-    @FXML
-    private TableColumn<?, ?> accUsername;
-
-    // Items
     @FXML
     private TableColumn<?, ?> itemGenre;
 
@@ -170,6 +165,29 @@ public class AdminDashboardController implements Initializable {
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         cbItem.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
         cbAccountMng.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
+
+        // Set cell value factories
+        accountId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        accountAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        accountUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        accountPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
+        accountPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        accountPoints.setCellValueFactory(new PropertyValueFactory<>("points"));
+        accountRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        // Display all accounts
+        accountsTable.setItems(getAccounts());
+
+        // Add columns to table
+        accountsTable.getColumns().addAll(accountId, accountAddress, accountUsername, accountPassword, accountPhone, accountPoints, accountRole);
+    }
+
+    private ObservableList<Account> getAccounts() {
+        var appCore = ApplicationCore.getInstance();
+        var accountManager = appCore.getAccountManager();
+        var accounts = accountManager.getAll();
+
+        return FXCollections.observableArrayList(accounts);
     }
 
     @FXML

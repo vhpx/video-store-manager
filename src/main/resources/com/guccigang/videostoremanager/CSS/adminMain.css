@@ -82,7 +82,6 @@
     -fx-alignment: center-left;
     -fx-border-color: #1E2019;
     -fx-text-fill: #000000;
-    -fx-alignment: CENTER_LEFT;
 }
 
 .table-row-cell:selected {

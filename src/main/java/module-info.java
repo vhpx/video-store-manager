@@ -7,9 +7,11 @@ module com.guccigang.videostoremanager {
     requires org.kordamp.bootstrapfx.core;
 
     opens com.guccigang.videostoremanager to javafx.fxml;
+    opens com.guccigang.videostoremanager.controllers to javafx.fxml;
+    opens com.guccigang.videostoremanager.scenes to javafx.fxml;
+    opens com.guccigang.videostoremanager.auth to javafx.base;
+
     exports com.guccigang.videostoremanager;
     exports com.guccigang.videostoremanager.controllers;
-    opens com.guccigang.videostoremanager.controllers to javafx.fxml;
     exports com.guccigang.videostoremanager.scenes;
-    opens com.guccigang.videostoremanager.scenes to javafx.fxml;
 }

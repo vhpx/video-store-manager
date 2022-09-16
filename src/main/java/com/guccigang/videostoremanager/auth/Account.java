@@ -18,7 +18,7 @@ public class Account {
     private String phone;
     private String name;
     private String role;
-    private int point = 20;
+    private int points = 20;
 
     private final int POINT_RECEIVED = 50;
     private final int POINT_DEDUCTED = 10;
@@ -106,6 +106,14 @@ public class Account {
         this.role = role;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    protected void setPoints(int points) {
+        this.points = points;
+    }
+
     public ArrayList<Item> getCurrentRentals() {
         return currentRentals;
     }
@@ -115,11 +123,11 @@ public class Account {
     }
 
     protected int getPoint() {
-        return point;
+        return points;
     }
 
-    protected void setPoint(int point) {
-        this.point = point;
+    protected void setPoint(int points) {
+        this.points = points;
     }
 
     public void addRental(Item rental) {
@@ -148,7 +156,7 @@ public class Account {
             transactionManager.add(transaction);
             itemManager.decreaseStock(item);
 
-            this.point -= POINT_DEDUCTED;
+            this.points -= POINT_DEDUCTED;
             addRental(item);
         } else {
             throw new AccountException("This account cannot rent this item");
@@ -165,7 +173,7 @@ public class Account {
         transaction.resolve();
         itemManager.increaseStock(item);
 
-        this.point += POINT_RECEIVED;
+        this.points += POINT_RECEIVED;
         removeRental(item);
     }
 
@@ -198,7 +206,7 @@ public class Account {
             }
         }
 
-        if (this.point < POINT_DEDUCTED) {
+        if (this.points < POINT_DEDUCTED) {
             throw new AccountException("This account has not enough points");
         }
 
