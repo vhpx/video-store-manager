@@ -90,7 +90,7 @@ public class AdminDashboardController implements Initializable {
     private TextField transactionSearchBar;
 
     @FXML
-    private TableView<Item> tableItems;
+    private TableView<Item> tableItems = new TableView<>();
 
     @FXML
     private TableView<Transaction> tableTransactions;
@@ -123,7 +123,7 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<?, ?> itemGenre;
 
     @FXML
-    private TableColumn<?, ?> itemID;
+    private TableColumn<Item, String> itemID = new TableColumn<>("ID");;
 
     @FXML
     private TableColumn<?, ?> itemLoanType;
@@ -138,7 +138,7 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<?, ?> itemStockStatus;
 
     @FXML
-    private TableColumn<?, ?> itemTitle;
+    private TableColumn<Item, String> itemTitle= new TableColumn<>("Title");
 
     // Transactions
     @FXML
@@ -175,11 +175,17 @@ public class AdminDashboardController implements Initializable {
         accountPoints.setCellValueFactory(new PropertyValueFactory<>("points"));
         accountRole.setCellValueFactory(new PropertyValueFactory<>("role"));
 
+        itemTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        itemID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         // Display all accounts
         accountsTable.setItems(getAccounts());
 
+        tableItems.setItems(getItems());
+
         // Add columns to table
         accountsTable.getColumns().addAll(accountId, accountAddress, accountUsername, accountPassword, accountPhone, accountPoints, accountRole);
+        tableItems.getColumns().addAll(itemTitle,itemID);
     }
 
     private ObservableList<Account> getAccounts() {
@@ -188,6 +194,14 @@ public class AdminDashboardController implements Initializable {
         var accounts = accountManager.getAll();
 
         return FXCollections.observableArrayList(accounts);
+    }
+
+    private ObservableList<Item> getItems() {
+        var appCore = ApplicationCore.getInstance();
+        var itemManager = appCore.getItemManager();
+        var items = itemManager.getAll();
+
+        return FXCollections.observableArrayList(items);
     }
 
     @FXML
