@@ -44,7 +44,9 @@ public class ScreenManager {
                 System.out.print("\nEnter your password: ");
                 String password = sc.next();
 
-                boolean success = AuthManager.signup(username, password);
+                var app = ApplicationCore.getInstance();
+                var auth = app.getAuthManager();
+                boolean success = auth.signup(username, password);
 
                 if (success) {
                     System.out.println("Signup successful!");
@@ -60,7 +62,9 @@ public class ScreenManager {
                 System.out.print("\nEnter your password: ");
                 String password = sc.next();
 
-                boolean success = AuthManager.login(username, password);
+                var app = ApplicationCore.getInstance();
+                var auth = app.getAuthManager();
+                boolean success = auth.login(username, password);
 
                 if (success) {
                     System.out.println("Login successful!");

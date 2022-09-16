@@ -7,10 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -21,16 +19,11 @@ import java.util.ResourceBundle;
 
 
 public class AccountController implements Initializable {
-
-
-    private final ApplicationCore app = ApplicationCore.getInstance();
-
-    private final SceneManager manager = ApplicationCore.getInstance().getSceneManager();
-
     private final ObservableList<String> list = FXCollections.observableArrayList("Account Profile");
-    private final ObservableList<String> sortlist = FXCollections.observableArrayList("Alphabet",
-                                                                                        "Rental Type",
-                                                                                        "Genre");
+    private final ObservableList<String> sortOptions = FXCollections.observableArrayList("Alphabet",
+            "Rental Type",
+            "Genre");
+
     @FXML
     Circle circleImage;
     @FXML
@@ -41,7 +34,6 @@ public class AccountController implements Initializable {
 
     @FXML
     GridPane browsePane;
-
 
     @FXML
     Label optionLabel;
@@ -59,37 +51,59 @@ public class AccountController implements Initializable {
     @FXML
     ComboBox<String> historyComboBox = new ComboBox<>();
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.comboBox.setItems(list);
-        this.sortComboBox.setItems(sortlist);
-        this.historyComboBox.setItems(sortlist);
+        this.sortComboBox.setItems(sortOptions);
+        this.historyComboBox.setItems(sortOptions);
         this.borrowedList.setVisible(true);
         this.transaction.setVisible(false);
         this.browsePane.setVisible(false);
+
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/images.png")));
         circleImage.setFill(new ImagePattern(image));
+
+        var app = ApplicationCore.getInstance();
+        var auth = app.getAuthManager();
+
+        if (auth.isLoggedIn()) {
+            var username = auth.isAdmin() ? "admin" : auth.getCurrentAccount().getUsername();
+            this.greetingLabel.setText("Hello, " + username + "!");
+        }
     }
+
     @FXML
     private void comboBoxChanged() {
-
         if (this.comboBox.getValue().equals("Account Profile")) {
-            this.manager.showScene("account-info");
+            var app = ApplicationCore.getInstance();
+            var manager = app.getSceneManager();
+
+            manager.showScene("account-info");
             this.comboBox.getSelectionModel().clearSelection();
         }
     }
+
     @FXML
-    void logout(ActionEvent event) {
+    void logout() {
+        if (showLogoutConfirmation()) {
+            var app = ApplicationCore.getInstance();
+            var auth = app.getAuthManager();
+
+            // Log out the user
+            auth.logout();
+
+            // Show the auth screen
+            var manager = app.getSceneManager();
+            manager.showScene("auth");
+        }
+    }
+
+    static boolean showLogoutConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Log out");
         alert.setHeaderText("Your are about to log out the program.");
         alert.setContentText("Are you sure that your want to log out the program?");
-        if (alert.showAndWait().orElseThrow() == ButtonType.OK)
-        {
-            this.manager.showScene("auth");
-            //this.app.stop();
-        }
+        return alert.showAndWait().orElseThrow() == ButtonType.OK;
     }
 
     @FXML
@@ -109,6 +123,7 @@ public class AccountController implements Initializable {
         this.optionLabel.setText("Borrowed List");
         this.statusMini.setText("Dashboard/ Borrowed List");
     }
+
     @FXML
     void historyButton(ActionEvent event) {
         this.browsePane.setVisible(false);
@@ -127,7 +142,4 @@ public class AccountController implements Initializable {
     void borrowItem(ActionEvent event) {
 
     }
-
-
-
 }

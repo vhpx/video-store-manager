@@ -14,22 +14,10 @@ public class AuthManager {
         // Reset authentication flags
         currentAccount = null;
         isAdmin = false;
-
-        // Load the logged-in user id from the database
-        // loadLoggedInUser();
-    }
-
-    public void stop() {
-        // Save the logged-in user id to the database
-        // saveLoggedInUser();
     }
 
     public boolean isLoggedIn() {
         return currentAccount != null || isAdmin;
-    }
-
-    public String getLoggedInUserId() {
-        return currentAccount.getId();
     }
 
     public Account getCurrentAccount() {
@@ -40,7 +28,7 @@ public class AuthManager {
         return isAdmin;
     }
 
-    public static boolean login(String username, String password) {
+    public boolean login(String username, String password) {
         try {
             System.out.println("\nLogging in as " + username + "...");
 
@@ -49,7 +37,6 @@ public class AuthManager {
                 if (password.equals(adminPassword)) {
                     // Set admin flag
                     isAdmin = true;
-
                     return true;
                 }
 
@@ -59,16 +46,31 @@ public class AuthManager {
 
             var app = ApplicationCore.getInstance();
             var accountManager = app.getAccountManager();
-            return accountManager.authenticate(username, password);
+            var authenticated = accountManager.authenticate(username, password);
+
+            if (authenticated) {
+                // Set the current account
+                currentAccount = accountManager.getAccountByUsername(username);
+                return true;
+            }
+
+            // Invalid username or password
+            return false;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return false;
         }
     }
 
-    public static boolean signup(String username, String password) {
+    public boolean signup(String username, String password) {
         try {
             System.out.println("Signing up as " + username + "...");
+
+            // Check if username is admin
+            if (username.equals(adminUsername)) {
+                // Invalid username
+                return false;
+            }
 
             var app = ApplicationCore.getInstance();
             var accountManager = app.getAccountManager();
@@ -81,6 +83,10 @@ public class AuthManager {
             // Create new account
             account = accountManager.createAccount(username, password);
             accountManager.add(account);
+
+            // Set the current account
+            currentAccount = account;
+
             return true;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

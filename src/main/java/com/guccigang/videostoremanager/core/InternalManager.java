@@ -23,10 +23,16 @@ public class InternalManager {
         if (initialized)
             return;
 
+        // Announce current status
+        System.out.println("Initializing internal managers...\n");
+
         // Initialize all managers
         accounts.initialize();
         items.initialize();
         transactions.initialize(accounts, items);
+
+        // Announce current status
+        System.out.println("\nInternal managers initialized.\n");
 
         // Set the initialized flag to true
         initialized = true;

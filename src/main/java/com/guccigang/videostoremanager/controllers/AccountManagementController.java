@@ -147,7 +147,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AccountModifyController implements Initializable {
+public class AccountManagementController implements Initializable {
     private SceneManager sceneController;
 
     @FXML

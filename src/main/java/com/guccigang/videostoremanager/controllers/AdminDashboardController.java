@@ -1,5 +1,6 @@
 package com.guccigang.videostoremanager.controllers;
 
+import com.guccigang.videostoremanager.core.ApplicationCore;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -173,26 +174,33 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void handleClick(ActionEvent event) {
-        if(event.getSource() == btnAccount) {
+        if (event.getSource() == btnAccount) {
             lbiStatusMini.setText("/Menu/Account");
             lbiStatus.setText("Account Management");
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlAccount.toFront();
-        }
-        else if(event.getSource() == btnItems) {
+        } else if (event.getSource() == btnItems) {
             lbiStatusMini.setText("/Menu/Items");
             lbiStatus.setText("Items Menu");
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlItems.toFront();
-        }
-        else if(event.getSource() == btnTransactions) {
+        } else if (event.getSource() == btnTransactions) {
             lbiStatusMini.setText("/Menu/Transactions");
             lbiStatus.setText("Transactions");
             pnlStatus.setBackground(new Background(new BackgroundFill(Color.rgb(201, 198, 193), CornerRadii.EMPTY, Insets.EMPTY)));
             pnlTransactions.toFront();
-        }
-        else if(event.getSource() == btnLogOut) {
-            // Switch to login screen
+        } else if (event.getSource() == btnLogOut) {
+            if (AccountController.showLogoutConfirmation()) {
+                var app = ApplicationCore.getInstance();
+                var auth = app.getAuthManager();
+
+                // Log the user out
+                auth.logout();
+
+                // Show the auth screen
+                var manager = app.getSceneManager();
+                manager.showScene("auth");
+            }
         }
     }
 }

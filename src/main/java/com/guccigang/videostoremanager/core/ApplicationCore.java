@@ -52,11 +52,13 @@ public class ApplicationCore {
      * Stop the application managers and save the data to the local storage.
      */
     public void stop() {
-        // Stop all managers
+        // Stop all internal managers
         internal.stop();
-        auth.stop();
+
         // Exit the application
+        exit();
     }
+
     public void exit() {
         // Stop all managers
         // Exit the application
@@ -64,16 +66,9 @@ public class ApplicationCore {
     }
 
     public void execute() {
-        // While user is not logged in, show the login screen
-        if (!auth.isLoggedIn()) {
-            scenes.showScene(Constants.getDefaultScene());
-        } else if (auth.isAdmin()) {
-            // If user is admin, show the admin screen
-            scenes.showScene("admin-dashboard");
-        } else {
-            // If user is not admin, show the user screen
-            scenes.showScene("user-dashboard");
-        }
+        // By default, the application will display the default scene
+        // defined in the Constants class.
+        scenes.showScene(Constants.getDefaultScene());
     }
 
     private void exitApplication() {

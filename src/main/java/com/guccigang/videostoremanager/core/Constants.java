@@ -30,7 +30,6 @@ public class Constants {
     private static final ScenePackage[] scenesToLoad = {
             // Authentication
             new ScenePackage("auth"),
-            //new ScenePackage("signup"), // TODO: Merge with auth
 
             // Customer View
             new ScenePackage("user-dashboard"),
@@ -44,7 +43,8 @@ public class Constants {
         return scenesToLoad;
     }
 
-    public static String getDefaultScene() {
-        return "auth";
+    public static ScenePackage getDefaultScene() {
+        // Return the first scene in the list
+        return scenesToLoad[0];
     }
 }

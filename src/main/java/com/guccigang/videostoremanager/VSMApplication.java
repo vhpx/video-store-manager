@@ -22,7 +22,7 @@ public class VSMApplication extends Application {
         } catch (Exception e) {
             System.out.println("There was an error loading the main scene.");
             System.out.println("Error: " + e.getMessage());
-            e.printStackTrace(); //hjhjhj
+            e.printStackTrace();
         }
     }
 

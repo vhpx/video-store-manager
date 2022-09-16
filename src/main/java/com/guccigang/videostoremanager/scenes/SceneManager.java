@@ -1,6 +1,7 @@
 package com.guccigang.videostoremanager.scenes;
 
 import com.guccigang.videostoremanager.VSMApplication;
+import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.core.Constants;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,9 +43,63 @@ public class SceneManager {
         scenes.put(name, scene);
     }
 
-    public void showScene(String name) {
+    public void showScene(ScenePackage pkg) {
+        // Check if the stage has been linked
         if (stage == null) throw new IllegalStateException("SceneController has not been linked to a stage.");
-        var scene = getSceneByName(name);
+
+        // Check if the scene package is null
+        if (pkg == null) throw new IllegalArgumentException("Scene package cannot be null.");
+
+        // Check if the scene package has a name
+        if (pkg.getSceneName() == null || pkg.getSceneName().isEmpty())
+            throw new IllegalArgumentException("Scene package name cannot be null or empty.");
+
+        // Check if the scene package has a path
+        if (pkg.getSceneFileName() == null || pkg.getSceneFileName().isEmpty())
+            throw new IllegalArgumentException("Scene package path cannot be null or empty.");
+
+        // Check if the scene has already been loaded
+        if (scenes.containsKey(pkg.getSceneName())) {
+            var scene = getSceneByName(pkg.getSceneName());
+            stage.setScene(scene);
+            return;
+        }
+
+        // Load the scene
+        var scene = loadScene(pkg);
+        stage.setScene(scene);
+    }
+
+    public void showScene(String name) {
+        // Check if the stage has been linked
+        if (stage == null) throw new IllegalStateException("SceneController has not been linked to a stage.");
+
+        // Check if the scene name is null
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("Scene name cannot be null or empty.");
+
+        // Check if the scene has already been loaded
+        if (scenes.containsKey(name)) {
+            var scene = getSceneByName(name);
+            stage.setScene(scene);
+            return;
+        }
+
+        // Get the scene package
+        var packages = Constants.getScenesToLoad();
+        ScenePackage scenePkg = null;
+
+        for (ScenePackage pkg : packages) {
+            if (pkg.getSceneName().equals(name)) {
+                scenePkg = pkg;
+                break;
+            }
+        }
+
+        // Throw an exception if the scene package was not found
+        if (scenePkg == null) throw new IllegalArgumentException("Scene package not found.");
+
+        // Load the scene
+        var scene = loadScene(scenePkg);
         stage.setScene(scene);
     }
 
@@ -99,25 +154,9 @@ public class SceneManager {
         String appTitle = Constants.getAppName();
         stage.setTitle(appTitle);
 
-        // Load scenes
-        for (var scenePkg : Constants.getScenesToLoad()) {
-            // Get the scene's metadata
-            String sceneName = scenePkg.getSceneName();
-            String viewPath = scenePkg.getSceneFileName();
-            String cssPath = scenePkg.getCssFileName();
-
-            // Get the scene
-            var scene = getScene(viewPath);
-
-            // Get the scene's CSS if the CSS path is not null or empty
-            var css = (cssPath == null || cssPath.isEmpty()) ? null : getCSS(cssPath);
-
-            // If the scene has a css file, add it to the scene
-            if (css != null) scene.getStylesheets().add(css);
-
-            // Add the scene to the scene controller
-            add(sceneName, scene);
-        }
+        // Load the default scene
+        var defaultPkg = Constants.getDefaultScene();
+        loadScene(defaultPkg);
 
         // Load exit confirmation dialog
         stage.setOnCloseRequest(e -> {
@@ -126,8 +165,54 @@ public class SceneManager {
         });
 
         // Show the default scene
-        showScene(Constants.getDefaultScene());
+        showScene(defaultPkg);
         stage.show();
+    }
+
+    private Scene loadScene(ScenePackage pkg) {
+        // Check if the scene package is null
+        if (pkg == null) throw new IllegalArgumentException("Scene package cannot be null.");
+
+        // Check if the scene package has a name
+        if (pkg.getSceneName() == null || pkg.getSceneName().isEmpty())
+            throw new IllegalArgumentException("Scene package name cannot be null or empty.");
+
+        // Check if the scene package has a path
+        if (pkg.getSceneFileName() == null || pkg.getSceneFileName().isEmpty())
+            throw new IllegalArgumentException("Scene package path cannot be null or empty.");
+
+        // Check if the scene has already been loaded
+        if (scenes.containsKey(pkg.getSceneName())) {
+            var scene = getSceneByName(pkg.getSceneName());
+            stage.setScene(scene);
+            return scene;
+        }
+
+        // Get scene metadata from the scene package
+        String sceneName = pkg.getSceneName();
+        String viewPath = pkg.getSceneFileName();
+        String cssPath = pkg.getCssFileName();
+
+        // Get the scene from the view path
+        Scene scene;
+        try {
+            scene = getScene(viewPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // Get the scene's CSS if the CSS path is not null or empty
+        var css = (cssPath == null || cssPath.isEmpty()) ? null : getCSS(cssPath);
+
+        // If the scene has a css file, add it to the scene
+        if (css != null) scene.getStylesheets().add(css);
+
+        // Add the scene to the scene controller
+        add(sceneName, scene);
+
+        // Return the scene
+        return scene;
     }
 
     @FXML
@@ -141,9 +226,13 @@ public class SceneManager {
         alert.setContentText("Are you sure that your want to exit the program?");
 
         // Show the dialog and wait for the user's response
-        if (alert.showAndWait().orElseThrow() == ButtonType.OK)
-            // If the user clicked OK, close the stage
-            stage.close();
+        if (alert.showAndWait().orElseThrow() == ButtonType.OK) {
+            // If the user clicked OK, save the data and exit the program
+            System.out.println("Exiting program...\n");
+
+            var app = ApplicationCore.getInstance();
+            app.stop();
+        }
     }
 
     public void closeWindow() {
