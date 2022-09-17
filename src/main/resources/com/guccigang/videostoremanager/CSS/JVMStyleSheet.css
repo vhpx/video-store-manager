@@ -33,7 +33,7 @@
 
 .myLabelInAccountScene{
     -fx-text-fill: black;
-    -fx-alignment: left;
+    -fx-alignment: center-left;
     -fx-font-size: 24;
     -fx-font-weight: bold;
 }

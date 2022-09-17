@@ -42,6 +42,7 @@ public class InternalManager {
      * Stop the internal managers and save the data to the local storage.
      * This method is called when the program stops and only be called once.
      */
+
     public void stop() {
         // Do not stop if already stopped
         if (stopped)

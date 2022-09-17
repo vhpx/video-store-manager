@@ -237,4 +237,17 @@ public class Item extends Entity {
         TWO_DAYS_LOAN,
         ONE_WEEK_LOAN
     }
+
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "title='" + title + '\'' +
+                ", rentalType=" + rentalType +
+                ", loanType=" + loanType +
+                ", genre=" + genre +
+                ", stock=" + stock +
+                ", rentalFee=" + rentalFee +
+                '}';
+    }
 }

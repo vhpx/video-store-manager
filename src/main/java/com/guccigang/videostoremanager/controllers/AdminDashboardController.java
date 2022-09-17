@@ -121,23 +121,23 @@ public class AdminDashboardController implements Initializable {
     private final TableColumn<Account, String> accountRole = new TableColumn<>("Role");
 
     @FXML
-    private TableColumn<?, ?> itemGenre;
+    private TableColumn<Item, Item.Genre> itemGenre = new TableColumn<>("Genre");
 
     @FXML
     private final TableColumn<Item, String> itemID = new TableColumn<>("ID");
     ;
 
     @FXML
-    private TableColumn<?, ?> itemLoanType;
+    private TableColumn<Item, Item.LoanType> itemLoanType = new TableColumn<>("Loan Type");
 
     @FXML
-    private TableColumn<?, ?> itemRentalFees;
+    private TableColumn<Item, Double> itemRentalFees = new TableColumn<>("Fee");
 
     @FXML
-    private TableColumn<?, ?> itemRentalType;
+    private TableColumn<Item, Item.RentalType> itemRentalType = new TableColumn<>("Rental Type");
 
     @FXML
-    private TableColumn<?, ?> itemStockStatus;
+    private TableColumn<Item, Integer> itemStockStatus = new TableColumn<>("Number of Copy");
 
     @FXML
     private final TableColumn<Item, String> itemTitle = new TableColumn<>("Title");
@@ -167,6 +167,15 @@ public class AdminDashboardController implements Initializable {
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         cbItem.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
         cbAccountMng.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
+        displayTransaction();
+        displayAccounts();
+        displayItems();
+
+    }
+
+
+    private void displayAccounts()
+    {
 
         // Set cell value factories for account table
         accountId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -177,10 +186,29 @@ public class AdminDashboardController implements Initializable {
         accountPoints.setCellValueFactory(new PropertyValueFactory<>("points"));
         accountRole.setCellValueFactory(new PropertyValueFactory<>("role"));
 
+        // Display all accounts
+        accountsTable.setItems(getAccounts());
+        accountsTable.getColumns().addAll(accountId, accountAddress, accountUsername, accountPassword, accountPhone, accountPoints, accountRole);
+    }
+
+    private void displayItems()
+    {
         // Set cell value factories for item table
         itemTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         itemID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        itemRentalFees.setCellValueFactory(new PropertyValueFactory<>("rentalFee"));
+        itemStockStatus.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        itemRentalType.setCellValueFactory(new PropertyValueFactory<>("rentalType"));
+        itemLoanType.setCellValueFactory(new PropertyValueFactory<>("loanType"));
+        itemGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
 
+        itemsTable.setItems(getItems());
+        itemsTable.getColumns().addAll(itemTitle, itemID,itemGenre,itemRentalType,itemLoanType,itemStockStatus);
+
+    }
+
+    private void displayTransaction()
+    {
         // Set cell value factories for transaction table
         transAccID.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getAccount().getId()));
         transAccName.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getAccount().getUsername()));
@@ -188,16 +216,13 @@ public class AdminDashboardController implements Initializable {
         transItemName.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getItem().getTitle()));
         transStatus.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().isResolved() ? "Returned" : "Borrowing"));
 
-        // Display all accounts
-        accountsTable.setItems(getAccounts());
-        itemsTable.setItems(getItems());
         transactionsTable.setItems(getTransactions());
-
-        // Add columns to table
-        accountsTable.getColumns().addAll(accountId, accountAddress, accountUsername, accountPassword, accountPhone, accountPoints, accountRole);
-        itemsTable.getColumns().addAll(itemTitle, itemID);
         transactionsTable.getColumns().addAll(transAccID, transAccName, transItemID, transItemName, transStatus);
     }
+
+
+
+
 
     private ObservableList<Account> getAccounts() {
         var appCore = ApplicationCore.getInstance();

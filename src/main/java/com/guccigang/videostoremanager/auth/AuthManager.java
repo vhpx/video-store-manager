@@ -96,7 +96,6 @@ public class AuthManager {
 
     public void logout() {
         System.out.println("Logging out");
-
         currentAccount = null;
         isAdmin = false;
     }

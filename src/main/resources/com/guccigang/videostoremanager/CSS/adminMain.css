@@ -2,7 +2,7 @@
 {
     -fx-background-color : #393E41;
     -fx-text-fill : #D3D0CB;
-    -fx-alignment: left;
+    -fx-alignment: center-left;
     -fx-padding: 15px;
 }
 .button1:hover
@@ -18,7 +18,7 @@
 {
     -fx-background-color : #E2C044;
     -fx-text-fill : #1E2019;
-    -fx-alignment: left;
+    -fx-alignment: center-left;
     -fx-padding: 15px;
 }
 .button2:hover
@@ -51,7 +51,7 @@
 
 .searchBar {
     -fx-background-color: white;
-    -fx-border-style: rounded;
+    -fx-background-radius: 5px;
 }
 
 .background {
