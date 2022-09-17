@@ -196,7 +196,7 @@ public class AdminDashboardController implements Initializable {
         // Add columns to table
         accountsTable.getColumns().addAll(accountId, accountAddress, accountUsername, accountPassword, accountPhone, accountPoints, accountRole);
         itemsTable.getColumns().addAll(itemTitle, itemID);
-        transactionsTable.getColumns().addAll(transAccID);
+        transactionsTable.getColumns().addAll(transAccID, transAccName, transItemID, transItemName, transStatus);
     }
 
     private ObservableList<Account> getAccounts() {

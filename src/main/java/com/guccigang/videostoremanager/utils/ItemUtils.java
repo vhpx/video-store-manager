@@ -11,13 +11,19 @@ public class ItemUtils extends ObjectUtils<Item> {
 
             String id = tokens[0];
             String title = tokens[1];
-            String rentalType = tokens[2];
-            String loanType = tokens[3];
+
+            String rawRentalType = tokens[2];
+            Item.RentalType rentalType = parseRentalType(rawRentalType);
+
+            String rawLoanType = tokens[3];
+            Item.LoanType loanType = parseLoanType(rawLoanType);
 
             int numCopy = Integer.parseInt(tokens[4]);
             double rentalFee = Double.parseDouble(tokens[5]);
 
-            String genre = (rentalType.equalsIgnoreCase("GAME")) ? "N/A" : tokens[6];
+            String rawGenre = tokens[6];
+            String filteredGenre = (rawRentalType.equalsIgnoreCase("GAME")) ? "N/A" : rawGenre;
+            Item.Genre genre = parseGenre(filteredGenre);
 
             return new Item(id, title, rentalType, loanType, genre, numCopy, rentalFee);
         } catch (Exception e) {
@@ -32,7 +38,7 @@ public class ItemUtils extends ObjectUtils<Item> {
                 item.getTitle() != null ? item.getTitle() : "UNKNOWN",
                 item.getRentalType() != null ? item.getRentalType() : "UNKNOWN",
                 item.getLoanType() != null ? item.getLoanType() : "UNKNOWN",
-                Integer.toString(item.getInStock()),
+                Integer.toString(item.getStock()),
                 Double.toString(item.getRentalFee()),
                 item.getGenre() != null ? item.getGenre() : "UNKNOWN",
         };
@@ -52,6 +58,10 @@ public class ItemUtils extends ObjectUtils<Item> {
             return false;
 
         return Integer.parseInt(id.substring(5, 9)) <= currentYear;
+    }
+
+    public static boolean isValidTitle(String title) {
+        return title != null && title.length() > 0;
     }
 
     public static Item.RentalType parseRentalType(String rentalType) {

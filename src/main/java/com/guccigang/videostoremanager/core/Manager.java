@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import com.guccigang.videostoremanager.utils.ObjectIO;
 
-public class Manager<T> {
-    private final ArrayList<T> objects;
-    private ObjectIO<T> objectIO;
+public class Manager<M extends Entity> {
+    private final ArrayList<M> objects;
+    private ObjectIO<M> objectIO;
 
     public Manager() {
         this.objects = new ArrayList<>();
     }
 
-    public void setIO(ObjectIO<T> objectIO, String fileName) {
+    public void setIO(ObjectIO<M> objectIO, String fileName) {
         this.objectIO = objectIO;
         this.objectIO.setFileName(fileName);
     }
@@ -31,19 +31,27 @@ public class Manager<T> {
         objectIO.load();
     }
 
-    public void add(T object) {
+    public M get(String id) {
+        for (var object : objects)
+            if (object.getId().equals(id))
+                return object;
+
+        return null;
+    }
+
+    public void add(M object) {
         objects.add(object);
     }
 
-    public void remove(T object) {
+    public void remove(M object) {
         objects.remove(object);
     }
 
-    public ArrayList<T> getAll() {
+    public ArrayList<M> getAll() {
         return objects;
     }
 
-    public ArrayList<T> getCopy() {
+    public ArrayList<M> getCopy() {
         return new ArrayList<>(objects);
     }
 

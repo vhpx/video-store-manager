@@ -2,9 +2,10 @@ package com.guccigang.videostoremanager.utils;
 
 import java.util.ArrayList;
 
+import com.guccigang.videostoremanager.core.Entity;
 import com.guccigang.videostoremanager.core.Manager;
 
-public class ObjectIO<O> {
+public class ObjectIO<O extends Entity> {
     private final Manager<O> manager;
     private final ObjectUtils<O> utils;
 
@@ -24,10 +25,6 @@ public class ObjectIO<O> {
         this.manager = manager;
         this.utils = utils;
         this.objectsType = objectsType;
-    }
-
-    public String getFileName() {
-        return fileName;
     }
 
     public void setFileName(String fileName) {

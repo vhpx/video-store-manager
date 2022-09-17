@@ -5,31 +5,20 @@ import java.util.Calendar;
 import com.guccigang.videostoremanager.auth.Account;
 
 public class AccountUtils extends ObjectUtils<Account> {
-
-    public static boolean isIdValid(String id) {
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        int maxLength = 9;
-
-        if (id.length() != maxLength)
-            return false;
-        String regexPattern = "C\\d{3}";
-
-        if (!id.matches(regexPattern))
+    public static boolean isValidId(String id) {
+        // The id is "C001" to "C999"
+        if (id.length() != 4)
             return false;
 
-        return Integer.parseInt(id.substring(5, 9)) <= currentYear;
-    }
+        if (id.charAt(0) != 'C')
+            return false;
 
-    public static boolean isPhoneValid(String phone) {
-        String regexPattern = "d{3}-\\d{3}-\\d{4}";
-        return phone.matches(regexPattern);
-    }
-
-    public static boolean isRoleValid(String role) {
-        return switch (role) {
-            case "GUEST", "REGULAR", "VIP" -> true;
-            default -> false;
-        };
+        try {
+            int num = Integer.parseInt(id.substring(1));
+            return num >= 1 && num <= 999;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public Account parse(String str) {
@@ -43,9 +32,9 @@ public class AccountUtils extends ObjectUtils<Account> {
         String phone = tokens[5];
         String role = tokens[6];
 
-        // int rentedItems = Integer.parseInt(tokens[7]);
+        int rentedItems = Integer.parseInt(tokens[7]);
 
-        return new Account(id, username, password, address, phone, name, role);
+        return new Account(id, username, password, address, phone, name, role, 0);
     }
 
     public String serialize(Account account) {
@@ -57,7 +46,8 @@ public class AccountUtils extends ObjectUtils<Account> {
                 account.getAddress() != null ? account.getAddress() : "UNKNOWN",
                 account.getPhone() != null ? account.getPhone() : "UNKNOWN",
                 account.getRole() != null ? account.getRole() : "UNKNOWN",
-                "0" // Integer.toString(account.getRentedItems())
+                account.getRentedItems().isEmpty() ? "0" : Integer.toString(account.getRentedItems().size()),
+                Integer.toString(account.getPoints())
         };
 
         return String.join(", ", tokens);

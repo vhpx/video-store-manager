@@ -1,93 +1,87 @@
 package com.guccigang.videostoremanager.items;
 
+import com.guccigang.videostoremanager.core.Entity;
 import com.guccigang.videostoremanager.errors.ItemException;
 import com.guccigang.videostoremanager.utils.ItemUtils;
 
-public class Item {
-    private String id;
+public class Item extends Entity {
     private String title;
     private RentalType rentalType;
     private LoanType loanType;
-    private int inStock;
-    private double rentalFee;
     private Genre genre;
-
-    public Item() {
-    }
-
-    private Item(String id, String title, int inStock, double rentalFee) throws ItemException {
-        if (!setId(id))
-            throw new ItemException("cannot set item id " + id);
-        if (!setTitle(title))
-            throw new ItemException("cannot set item title");
-        if (!setInStock(inStock))
-            throw new ItemException("cannot set item number of copy");
-        if (!setRentalFee(rentalFee))
-            throw new ItemException("cannot set item rental fee");
-    }
+    private int stock;
+    private double rentalFee;
 
     public Item(String id, String title, RentalType rentalType, LoanType loanType, Genre genre,
-            int inStock, double rentalFee) throws ItemException {
-        this(id, title, inStock, rentalFee);
+                int stock, double rentalFee) {
+        super(id);
+        this.title = title;
         this.rentalType = rentalType;
         this.loanType = loanType;
-        this.genre = (rentalType == RentalType.GAME) ? Genre.NOT_APPLICABLE : genre;
+        this.genre = genre;
+        this.stock = stock;
+        this.rentalFee = rentalFee;
     }
 
-    public Item(String id, String title, String rentalType, String loanType, String genre,
-            int inStock, double rentalFee) throws ItemException {
-        this(id, title, inStock, rentalFee);
-        if (!this.setRentalType(rentalType))
-            throw new ItemException("cannot set the rental type of the item");
-        if (!this.setLoanType(loanType))
-            throw new ItemException("cannot set the loan type of the item");
-        if (!this.setGenre(genre))
-            throw new ItemException("cannot set the genre of the item");
-    }
+    public void setId(String id) throws Exception {
+        if (!ItemUtils.isValidId(id))
+            throw new ItemException("Invalid item id: " + id);
 
-    protected boolean setId(String id) {
-
-        if (ItemUtils.isValidId(id)) {
-            this.id = id;
-            return true;
-        }
-
-        return false;
+        super.setId(id);
     }
 
     protected boolean setTitle(String title) {
-        if (title.length() == 0)
+        if (!ItemUtils.isValidTitle(title))
             return false;
+
         this.title = title;
         return true;
     }
 
     protected boolean setRentalType(RentalType rentalType) {
+        if (rentalType == null)
+            return false;
+
         this.rentalType = rentalType;
+        return true;
+    }
+
+    protected boolean setGenre(Genre genre) {
+        if (genre == null)
+            return false;
+
+        this.genre = (rentalType == RentalType.GAME) ? Genre.NOT_APPLICABLE : genre;
         return true;
     }
 
     protected boolean setRentalType(String rentalType) {
         RentalType type = ItemUtils.parseRentalType(rentalType);
+
         if (type == null)
             return false;
 
         switch (type) {
-            case RECORD:
+            case RECORD -> {
                 this.rentalType = RentalType.RECORD;
                 return true;
-            case DVD:
+            }
+            case DVD -> {
                 this.rentalType = RentalType.DVD;
                 return true;
-            case GAME:
+            }
+            case GAME -> {
                 this.rentalType = RentalType.GAME;
                 return true;
-            default:
-                return false;
+            }
         }
+
+        return false;
     }
 
     protected boolean setLoanType(LoanType loanType) {
+        if (loanType == null)
+            return false;
+
         this.loanType = loanType;
         return true;
     }
@@ -108,55 +102,52 @@ public class Item {
         }
     }
 
-    protected boolean setGenre(Genre genre) {
-        this.genre = genre;
+    protected boolean setGenre(String genre) {
+        Genre type = ItemUtils.parseGenre(genre);
+
+        if (type == null)
+            return false;
+
+        switch (type) {
+            case ACTION -> {
+                this.genre = Genre.ACTION;
+                return true;
+            }
+            case HORROR -> {
+                this.genre = Genre.HORROR;
+                return true;
+            }
+            case DRAMA -> {
+                this.genre = Genre.DRAMA;
+                return true;
+            }
+            case COMEDY -> {
+                this.genre = Genre.COMEDY;
+                return true;
+            }
+            case NOT_APPLICABLE -> {
+                this.genre = Genre.NOT_APPLICABLE;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected boolean setStock(int stock) {
+        if (stock < 0)
+            return false;
+
+        this.stock = stock;
         return true;
     }
 
-    protected boolean setGenre(String genre) {
-        Genre type = ItemUtils.parseGenre(genre);
-        if (type == null)
-            return false;
-        switch (type) {
-            case ACTION:
-                this.genre = Genre.ACTION;
-                return true;
-            case HORROR:
-                this.genre = Genre.HORROR;
-                return true;
-            case DRAMA:
-                this.genre = Genre.DRAMA;
-                return true;
-            case COMEDY:
-                this.genre = Genre.COMEDY;
-                return true;
-            case NOT_APPLICABLE:
-                this.genre = Genre.NOT_APPLICABLE;
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    protected boolean setInStock(int inStock) {
-        if (inStock >= 0) {
-            this.inStock = inStock;
-            return true;
-        }
-        return false;
-
-    }
-
     protected boolean setRentalFee(double rentalFee) {
-        if (rentalFee >= 0) {
-            this.rentalFee = rentalFee;
-            return true;
-        }
-        return false;
-    }
+        if (rentalFee < 0)
+            return false;
 
-    public String getId() {
-        return id;
+        this.rentalFee = rentalFee;
+        return true;
     }
 
     public String getTitle() {
@@ -173,8 +164,8 @@ public class Item {
 
     public String getLoanType() {
         return switch (this.loanType) {
-            case ONE_WEEK_LOAN -> "ONE_WEEK";
             case TWO_DAYS_LOAN -> "TWO_DAY";
+            case ONE_WEEK_LOAN -> "ONE_WEEK";
         };
     }
 
@@ -188,55 +179,44 @@ public class Item {
         };
     }
 
-    public int getInStock() {
-        return inStock;
+    public int getStock() {
+        return stock;
     }
 
     public double getRentalFee() {
         return rentalFee;
     }
 
-    public void decreaseStock(int n) throws ItemException {
-        if (isEmpty()) {
-            throw new ItemException("This item is not in stock");
-        }
-
-        if (this.getInStock() < n) {
-            throw new ItemException("This product does not have enough quantity");
-        }
-        this.inStock -= n;
+    private boolean isOutOfStock() {
+        return this.stock == 0;
     }
 
     public void increaseStock() {
-        this.inStock++;
-    }
-
-    public void increaseStock(int n) throws ItemException {
-        if (n <= 0) {
-            throw new ItemException("Invalid number of quantity");
-        }
-        this.inStock += n;
+        this.stock++;
     }
 
     public void decreaseStock() throws ItemException {
-        if (isEmpty()) {
+        if (isOutOfStock())
             throw new ItemException("This item is not in stock");
-        }
-        this.inStock--;
+
+        this.stock--;
     }
 
-    // ------other feature function-------
-    protected boolean isEmpty() {
-        return this.getInStock() == 0;
+    public void increaseStock(int n) throws ItemException {
+        if (n <= 0)
+            throw new ItemException("Cannot increase stock by a negative number");
+
+        this.stock += n;
     }
 
-    @Override
-    public String toString() {
-        String genre = (this.getGenre().length() == 0) ? "" : ", " + this.getGenre();
-        return this.getId() + ", " + this.getTitle() + ", " + this.getRentalType() + ", " +
-                this.getLoanType() + ", " +
-                this.getInStock() + ", " +
-                this.getRentalFee() + genre;
+    public void decreaseStock(int n) throws ItemException {
+        if (isOutOfStock())
+            throw new ItemException("Item is out of stock");
+
+        if (n > this.stock)
+            throw new ItemException("Cannot decrease stock by a number greater than the current stock");
+
+        this.stock -= n;
     }
 
     public enum Genre {
@@ -257,5 +237,4 @@ public class Item {
         TWO_DAYS_LOAN,
         ONE_WEEK_LOAN
     }
-
 }

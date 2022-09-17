@@ -4,15 +4,16 @@ import java.util.ArrayList;
 
 import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.core.Constants;
+import com.guccigang.videostoremanager.core.Entity;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.transactions.Transaction;
 
 import com.guccigang.videostoremanager.errors.ItemException;
 import com.guccigang.videostoremanager.errors.TransactionException;
+import com.guccigang.videostoremanager.utils.AccountUtils;
 
-public class Account {
-    private String id;
+public class Account extends Entity {
     private String username;
     private String password;
     private String address;
@@ -21,36 +22,34 @@ public class Account {
     private String role;
     private int points = 0;
 
-    private ArrayList<Item> currentRentals;
+    private ArrayList<Item> rentedItems = new ArrayList<Item>();
 
     public Account(String id, String username, String password) {
-        this.id = id;
+        super(id);
         this.username = username;
         this.password = password;
         this.role = "GUEST";
     }
 
     public Account(String id, String username, String password, String address, String phone, String name,
-                   String role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
+                   String role, int points) {
+        this(id, username, password);
         this.address = address;
         this.phone = phone;
         this.name = name;
         this.role = role;
+        this.points = points;
     }
 
     public boolean authenticate(String password) {
         return this.password.equals(password);
     }
 
-    public String getId() {
-        return id;
-    }
+    public void setId(String id) throws Exception {
+        if (!AccountUtils.isValidId(id))
+            throw new AccountException("Invalid item id: " + id);
 
-    protected void setId(String id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public String getUsername() {
@@ -109,27 +108,20 @@ public class Account {
         this.points = points;
     }
 
-    public ArrayList<Item> getCurrentRentals() {
-        return currentRentals;
+    public ArrayList<Item> getRentedItems() {
+        return rentedItems;
     }
 
-    protected void setCurrentRentals(ArrayList<Item> currentRentals) {
-        this.currentRentals = currentRentals;
+    protected void setRentedItems(ArrayList<Item> rentedItems) {
+        this.rentedItems = rentedItems;
     }
 
     public void addRental(Item rental) {
-        this.currentRentals.add(rental);
+        this.rentedItems.add(rental);
     }
 
     public void removeRental(Item rental) {
-        this.currentRentals.remove(rental);
-    }
-
-    @Override
-    public String toString() {
-        String quantity = (currentRentals != null) ? String.valueOf(currentRentals.size()) : "0";
-        return id + ", " + name + ", " + address + ", " + phone + ", " + quantity + ", " + role + ", " + username + ", "
-                + password;
+        this.rentedItems.remove(rental);
     }
 
     public void rent(Item item) throws ItemException, AccountException {
@@ -164,15 +156,9 @@ public class Account {
         removeRental(item);
     }
 
-    public void showRentals() {
-        for (Item i : currentRentals) {
-            System.out.println(i.toString());
-        }
-    }
-
     public boolean isRented(Item item) {
         // Check if this item was already rented by this account
-        for (Item i : currentRentals) {
+        for (Item i : rentedItems) {
             if (i.equals(item)) {
                 return true;
             }
@@ -185,7 +171,7 @@ public class Account {
             throw new AccountException("This account has rented this item");
 
         if (this.getRole().equals("GUEST")) {
-            if (this.getCurrentRentals().size() <= 2) {
+            if (this.getRentedItems().size() <= 2) {
                 throw new AccountException("Guest account can rent maximum 2 items");
             }
             if (item.getLoanType().equals("TWO_DAY")) {
@@ -198,10 +184,6 @@ public class Account {
         }
 
         return true;
-    }
-
-    public void updateUsername(String newUsername) {
-        this.username = newUsername;
     }
 
     public void updatePassword(String oldPassword, String newPassword) throws AccountException {

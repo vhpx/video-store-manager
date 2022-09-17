@@ -90,29 +90,7 @@ public class AccountManager extends Manager<Account> {
         }
     }
 
-    public void displayAll() {
-        for (Account account : getAll()) {
-            System.out.println(account.toString());
-        }
-    }
-
-    public void displayAccounts(ArrayList<Account> accounts) {
-        for (Account account : accounts) {
-            System.out.println(account.toString());
-        }
-    }
-
-    // this method only display information needed when search account
-    public void displayAccountsInfo(ArrayList<Account> accounts) {
-        for (Account account : accounts) {
-            System.out.println(account.getName()
-                    + ", " + account.getId()
-                    + ", " + account.getPhone()
-                    + ", " + account.getAddress());
-        }
-    }
-
-    // display a group of account according to role
+    // Get all accounts with a given role
     public ArrayList<Account> getAll(String role) {
         var accounts = new ArrayList<Account>();
 
@@ -124,10 +102,9 @@ public class AccountManager extends Manager<Account> {
     }
 
     boolean isIdUsed(String id) {
-        for (Account account : getAll()) {
+        for (Account account : getAll())
             if (account.getId().equals(id))
                 return true;
-        }
         return false;
     }
 
@@ -149,16 +126,13 @@ public class AccountManager extends Manager<Account> {
         }
     }
 
-    public ArrayList<Account> searchAccount(String input) throws AccountException {
-        var list = new ArrayList<Account>();
-        for (Account a : getAll()) {
-            if (input.equals(a.getName()) || input.equals(a.getId())) {
-                list.add(a);
-            }
-        }
-        if (list.size() == 0) {
-            throw new AccountException("No result matched");
-        }
-        return list;
+    public ArrayList<Account> searchAccount(String input) {
+        var result = new ArrayList<Account>();
+
+        for (Account a : getAll())
+            if (input.equals(a.getName()) || input.equals(a.getId()))
+                result.add(a);
+
+        return result;
     }
 }

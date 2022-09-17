@@ -145,5 +145,4 @@ public class AuthManager {
         currentAccount.setPassword(newPassword);
         System.out.println("Password changed");
     }
-
 }

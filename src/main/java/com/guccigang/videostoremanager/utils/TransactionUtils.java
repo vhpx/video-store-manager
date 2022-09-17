@@ -23,7 +23,7 @@ public class TransactionUtils extends ObjectUtils<Transaction> {
             Account account = accountManager.getAccountById(accountId);
 
             String itemId = tokens[1];
-            Item item = itemManager.getItem(itemId);
+            Item item = itemManager.get(itemId);
 
             boolean resolved = Boolean.parseBoolean(tokens[2]);
 
