@@ -1,4 +1,4 @@
-C001, vhpx, 123123, huuphuocdeptrai, tn83nguyentrai, 123-456-7890, VIP, 0
+C001, vhpx, 123123, huuphuocdeptrai, tn83nguyentrai, 123-456-7890, VIP, -10
 C002, npat273, 321321, Nguyen Pham Anh Thu, 123 Main St., 123-456-7890, VIP, 0
 C003, krusk, 121212, Nguyen Ngoc Luong, 123 Main St., 123-456-7890, VIP, 0
 C004, touletou, 212121, Le Cam Tu, 123 Main St., 123-456-7890, VIP, 0

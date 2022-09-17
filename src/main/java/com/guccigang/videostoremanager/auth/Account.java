@@ -182,9 +182,9 @@ public class Account extends Entity {
             }
         }
 
-        if (this.points < Constants.getPointDeducted()) {
-            throw new AccountException("This account has not enough points");
-        }
+//        if (this.points < Constants.getPointDeducted()) {
+//            throw new AccountException("This account has not enough points");
+//        }
 
         return true;
     }
