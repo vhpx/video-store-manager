@@ -27,6 +27,17 @@ public class Constants {
         return DATA_PATH + TRANSACTIONS_FILE;
     }
 
+    private static final int POINT_RECEIVED = 50;
+    private static final int POINT_DEDUCTED = 10;
+
+    public static int getPointReceived() {
+        return POINT_RECEIVED;
+    }
+
+    public static int getPointDeducted() {
+        return POINT_DEDUCTED;
+    }
+
     private static final ScenePackage[] scenesToLoad = {
             // Authentication
             new ScenePackage("auth"),

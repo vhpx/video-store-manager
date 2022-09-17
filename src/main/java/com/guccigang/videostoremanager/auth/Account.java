@@ -3,6 +3,7 @@ package com.guccigang.videostoremanager.auth;
 import java.util.ArrayList;
 
 import com.guccigang.videostoremanager.core.ApplicationCore;
+import com.guccigang.videostoremanager.core.Constants;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.transactions.Transaction;
@@ -18,15 +19,9 @@ public class Account {
     private String phone;
     private String name;
     private String role;
-    private int points = 20;
-
-    private final int POINT_RECEIVED = 50;
-    private final int POINT_DEDUCTED = 10;
+    private int points = 0;
 
     private ArrayList<Item> currentRentals;
-
-    public Account() {
-    }
 
     public Account(String id, String username, String password) {
         this.id = id;
@@ -36,7 +31,7 @@ public class Account {
     }
 
     public Account(String id, String username, String password, String address, String phone, String name,
-            String role) {
+                   String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -122,14 +117,6 @@ public class Account {
         this.currentRentals = currentRentals;
     }
 
-    protected int getPoint() {
-        return points;
-    }
-
-    protected void setPoint(int points) {
-        this.points = points;
-    }
-
     public void addRental(Item rental) {
         this.currentRentals.add(rental);
     }
@@ -156,7 +143,7 @@ public class Account {
             transactionManager.add(transaction);
             itemManager.decreaseStock(item);
 
-            this.points -= POINT_DEDUCTED;
+            this.points -= Constants.getPointDeducted();
             addRental(item);
         } else {
             throw new AccountException("This account cannot rent this item");
@@ -173,7 +160,7 @@ public class Account {
         transaction.resolve();
         itemManager.increaseStock(item);
 
-        this.points += POINT_RECEIVED;
+        this.points += Constants.getPointReceived();
         removeRental(item);
     }
 
@@ -184,7 +171,7 @@ public class Account {
     }
 
     public boolean isRented(Item item) {
-        // check if this item was already rented by this account
+        // Check if this item was already rented by this account
         for (Item i : currentRentals) {
             if (i.equals(item)) {
                 return true;
@@ -206,7 +193,7 @@ public class Account {
             }
         }
 
-        if (this.points < POINT_DEDUCTED) {
+        if (this.points < Constants.getPointDeducted()) {
             throw new AccountException("This account has not enough points");
         }
 
@@ -223,13 +210,5 @@ public class Account {
         } else {
             throw new AccountException("Incorrect password.");
         }
-    }
-
-    public void updateAddress(String newAddress) {
-        this.setAddress(newAddress);
-    }
-
-    public void updatePhone(String newPhone) {
-        this.setPhone(phone);
     }
 }
