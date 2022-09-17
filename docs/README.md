@@ -38,6 +38,7 @@ ___
 
  - [GITHUB REPOSITORY](https://github.com/vhpx/video-store-manager)
  - [VIDEO DEMONSTRATION](https://github.com/vhpx/video-store-manager) (Work-in-progress)
+ - [UML DIAGRAM](https://drive.google.com/file/d/1AKf6qyC_p8tz5zStkNBLcmO3s7_CshXv/view?usp=sharing)
 
 ___
 
