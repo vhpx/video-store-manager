@@ -39,6 +39,9 @@ public class AccountController implements Initializable {
     GridPane transaction;
 
     @FXML
+    GridPane borrowedPane;
+
+    @FXML
     AnchorPane accountPane;
     @FXML
     GridPane browsePane;
@@ -51,13 +54,22 @@ public class AccountController implements Initializable {
 
     @FXML
     Label greetingLabel;
-    @FXML
-    ComboBox<String> sortComboBox = new ComboBox<>();
+
     @FXML
     ComboBox<String> comboBox = new ComboBox<>();
 
     @FXML
-    ComboBox<String> historyComboBox = new ComboBox<>();
+    TableView<Item> borrowedTable   = new TableView<>();
+    @FXML
+    private final TableColumn<Item, String> listTitle = new TableColumn<>("Title");
+    @FXML
+    private final TableColumn<Item, String> listGenre = new TableColumn<>("Genre");
+    @FXML
+    private final TableColumn<Item, String> listRentalType = new TableColumn<>("Rental Type");
+    @FXML
+    private final TableColumn<Item, String>  listLoanType = new TableColumn<>("Loan Type");
+
+
 
 
     @FXML
@@ -98,10 +110,14 @@ public class AccountController implements Initializable {
     @FXML
     private final TableColumn <Item, Item> itemAction = new TableColumn<>("Action");
 
+    @FXML
+    private final TableColumn <Item, Item> borrowedListAction = new TableColumn<>("Action");
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.comboBox.setItems(list);
-        this.transaction.setVisible(true);
+        this.borrowedPane.setVisible(true);
+        this.transaction.setVisible(false);
         this.browsePane.setVisible(false);
 
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/images.png")));
@@ -116,12 +132,13 @@ public class AccountController implements Initializable {
         }
         displayItemTable();
         displayHistoryTable();
+        displayBorrowedListTable();
     }
 
     private ObservableList<Transaction> getTransactions() {
         var appCore = ApplicationCore.getInstance();
         var transactionManager = appCore.getTransactionManager();
-        var transactions = transactionManager.getTransactions(appCore.getAuthManager().getCurrentAccount());
+        var transactions = transactionManager.getTransactions(appCore.getAuthManager().getCurrentAccount(),true);
 
         return FXCollections.observableArrayList(transactions);
     }
@@ -132,6 +149,60 @@ public class AccountController implements Initializable {
 
         return FXCollections.observableArrayList(items);
     }
+    private ObservableList<Item> getBorrowedItem() {
+        var appCore = ApplicationCore.getInstance();
+        var account = appCore.getAuthManager().getCurrentAccount();
+        var items = account.getRentedItems();
+
+        return FXCollections.observableArrayList(items);
+    }
+    private void displayBorrowedListTable()
+    {
+        //set the column value for the item table
+        listTitle.setCellValueFactory(item -> new ReadOnlyStringWrapper(item.getValue().getTitle()));
+        listGenre.setCellValueFactory(item -> new ReadOnlyStringWrapper(item.getValue().getGenre()));
+        listRentalType.setCellValueFactory(item -> new ReadOnlyStringWrapper(item.getValue().getRentalType()));
+        listLoanType.setCellValueFactory(item -> new ReadOnlyStringWrapper(item.getValue().getLoanType()));
+        borrowedListAction.setCellValueFactory(
+                param -> new ReadOnlyObjectWrapper<>(param.getValue())
+        );
+        borrowedListAction.setCellFactory(param -> new TableCell<Item, Item>() {
+            private final Button returnButton = new Button("Return");
+
+            @Override
+            protected void updateItem(Item item, boolean empty) {
+                //rentButton.getStyleClass().add("buttonYellow");
+                super.updateItem(item, empty);
+
+                if (item == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(returnButton);
+                returnButton.setOnAction(
+                        event -> {
+                            try {
+                                var authManager = ApplicationCore.getInstance().getAuthManager();
+                                var account = authManager.getCurrentAccount();
+                                Item currentItem =  getTableView().getItems().get(getIndex());
+                                account.returnItem(currentItem);
+                                account.displayRental();
+                            } catch (TransactionException e) {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Return Error");
+                                alert.setHeaderText(e.getMessage());
+                                alert.setContentText("Sorry for the inconvenience.");
+                            }
+                        }
+                );
+            }
+        });
+        borrowedTable.setItems(getBorrowedItem());
+        borrowedTable.getColumns().addAll(listTitle,listGenre,listRentalType ,listLoanType,borrowedListAction);
+    }
+
+
+
     private void displayItemTable()
     {
         //set the column value for the item table
@@ -196,47 +267,10 @@ public class AccountController implements Initializable {
         historyRentalType.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getItem().getRentalType()));
         historyLoanType.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getItem().getLoanType()));
         historyItemStatus.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().isResolved() ? "Returned" : "Borrowing"));
-        historyItemStatus.setSortType(TableColumn.SortType.ASCENDING);
-        historyAction.setCellValueFactory(
-                param -> new ReadOnlyObjectWrapper<>(param.getValue())
-        );
-        historyAction.setCellFactory(param -> new TableCell<Transaction, Transaction>() {
-            private final Button returnButton = new Button("Return");
-
-
-            protected void updateItem(Item item, boolean empty) {
-                returnButton.getStyleClass().add("buttonYellow");
-                //super.updateItem(item, empty);
-
-                if (item == null ||historyItemStatus.equals("Returned")) {
-                    setGraphic(null);
-                    return;
-                }
-                setGraphic(returnButton);
-                returnButton.setOnAction(
-                        event -> {
-                            try {
-                                var authManager = ApplicationCore.getInstance().getAuthManager();
-                                var account = authManager.getCurrentAccount();
-                                Transaction transact =  getTableView().getItems().get(getIndex());
-                                Item currentItem = transact.getItem();
-                                account.returnItem(currentItem);
-                            } catch (TransactionException e) {
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("Borrow Error");
-                                alert.setHeaderText(e.getMessage());
-                                alert.setContentText("Sorry for the inconvenience.");
-                            }
-
-                        }
-                );
-            }
-        });
-        //display the historyTable
+//
         historyTable.setItems(getTransactions());
-        historyTable.getColumns().addAll(hisotryTitle, historyGenre, historyRentalType, historyLoanType, historyItemStatus,historyAction);
-        historyTable.getSortOrder().add(historyItemStatus);
-        historyTable.sort();
+        historyTable.getColumns().addAll(hisotryTitle, historyGenre, historyRentalType, historyLoanType, historyItemStatus);
+
 
     }
 
@@ -280,28 +314,31 @@ public class AccountController implements Initializable {
 
     @FXML
     void browseItem(ActionEvent event) {
+        this.borrowedPane.setVisible(false);
         this.browsePane.setVisible(true);
         this.transaction.setVisible(false);
         this.optionLabel.setText("Borrow Item");
         this.statusMini.setText("Dashboard/ Borrow Item");
     }
 
+    @FXML
+    void borrowedButton(ActionEvent event) {
+        this.borrowedPane.setVisible(true);
+        this.browsePane.setVisible(false);
+        this.transaction.setVisible(false);
+        this.optionLabel.setText("Current Borrowed List");
+        this.statusMini.setText("Dashboard/ Current Borrowed List");
+    }
+
 
     @FXML
     void historyButton(ActionEvent event) {
+        this.borrowedPane.setVisible(false);
         this.browsePane.setVisible(false);
         this.transaction.setVisible(true);
         this.optionLabel.setText("Renting History");
         this.statusMini.setText("Dashboard/ Renting History");
     }
 
-    @FXML
-    void returnItem(ActionEvent event) {
 
-    }
-
-    @FXML
-    void borrowItem(ActionEvent event) {
-
-    }
 }

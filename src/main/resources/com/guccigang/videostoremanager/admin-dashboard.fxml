@@ -2,9 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -146,16 +144,16 @@
                                 <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </TextField>
-                        <ComboBox fx:id="cbAccountMng" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10;">
-                            <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </HBox.margin>
-                        </ComboBox>
                         <Button fx:id="btnAccountMngSearch" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" text="Search">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" top="5.0" />
+                                <Insets right="5.0" top="5.0" />
                             </HBox.margin>
                         </Button>
+                  <Button fx:id="btnTransactionSearch11" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Create">
+                     <HBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
                     </children>
                 </HBox>
             </GridPane>
@@ -189,14 +187,14 @@
                                     <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                 </HBox.margin>
                             </TextField>
-                            <ComboBox fx:id="cbItem" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10;">
+                     <Button fx:id="btnTransactionSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Search">
+                        <HBox.margin>
+                           <Insets right="5.0" top="5.0" />
+                        </HBox.margin>
+                     </Button>
+                            <Button fx:id="btnItemSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Create">
                                 <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                </HBox.margin>
-                            </ComboBox>
-                            <Button fx:id="btnItemSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Sort Items">
-                                <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" top="5.0" />
+                                    <Insets bottom="5.0" top="5.0" />
                                 </HBox.margin>
                             </Button>
                         </children>
@@ -233,16 +231,11 @@
                                     <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                 </HBox.margin>
                             </TextField>
-                            <ComboBox fx:id="cbTransactions" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10;">
-                                <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                </HBox.margin>
-                            </ComboBox>
-                            <Button fx:id="btnTransactionSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Search">
-                                <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" top="5.0" />
-                                </HBox.margin>
-                            </Button>
+                     <Button fx:id="btnTransactionSearch1" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Search">
+                        <HBox.margin>
+                           <Insets right="5.0" top="5.0" />
+                        </HBox.margin>
+                     </Button>
                         </children>
                     </HBox>
                 </children>

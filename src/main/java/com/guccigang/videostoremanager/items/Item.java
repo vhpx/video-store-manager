@@ -219,6 +219,57 @@ public class Item extends Entity {
         this.stock -= n;
     }
 
+    public void updateTitle(String newTitle) throws ItemException
+    {
+        if (newTitle.length() == 0)
+            throw new ItemException("Title cannot be empty");
+
+        this.title = newTitle;
+    }
+    public void updateGenre(String newGenre) throws ItemException
+    {
+        if (newGenre.length() == 0)
+            throw new ItemException("Title cannot be empty");
+        if (!setGenre(newGenre))
+            throw new ItemException("Invalid input for Genre");
+
+        setGenre(newGenre);
+    }
+    public void updateRentalType(String newRentalType) throws ItemException
+    {
+        if (newRentalType.length() == 0)
+        throw new ItemException("Title cannot be empty");
+        if (!setRentalType(newRentalType))
+            throw new ItemException("Invalid input for Rental Type");
+
+        setRentalType(newRentalType);
+    }
+    public void updateFee(double newFee) throws ItemException
+    {
+        if (setRentalFee(newFee))
+            return;
+        throw new ItemException("Invalid input for Rental Fee");
+    }
+
+    public void updateLoanType(String newLoanType) throws ItemException
+    {
+        if (newLoanType.length() == 0)
+            throw new ItemException("Title cannot be empty");
+        if (!setLoanType(newLoanType))
+            throw new ItemException("Invalid input for Loan Type");
+        setLoanType(newLoanType);
+    }
+
+    public void updateCopy(int newNoCoppy) throws ItemException
+    {
+        if (setStock(newNoCoppy))
+            return;
+        throw new ItemException("Invalid input for number of copy");
+    }
+
+
+
+
     public enum Genre {
         ACTION,
         HORROR,
