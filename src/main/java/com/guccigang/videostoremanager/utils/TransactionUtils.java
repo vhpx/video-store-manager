@@ -20,12 +20,16 @@ public class TransactionUtils extends ObjectUtils<Transaction> {
             String[] tokens = str.split(", ");
 
             String accountId = tokens[0];
-            Account account = accountManager.getAccountById(accountId);
-
             String itemId = tokens[1];
+            boolean resolved = Boolean.parseBoolean(tokens[2]);
+
+            // Get the account and item from the managers
+            Account account = accountManager.getAccountById(accountId);
             Item item = itemManager.get(itemId);
 
-            boolean resolved = Boolean.parseBoolean(tokens[2]);
+            // Link rented item to account if it's not returned (resolved)
+            if (!resolved)
+                account.addRental(item);
 
             return new Transaction(account, item, resolved);
         } catch (Exception e) {

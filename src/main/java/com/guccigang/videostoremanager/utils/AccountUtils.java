@@ -32,8 +32,6 @@ public class AccountUtils extends ObjectUtils<Account> {
         String phone = tokens[5];
         String role = tokens[6];
 
-        int rentedItems = Integer.parseInt(tokens[7]);
-
         return new Account(id, username, password, address, phone, name, role, 0);
     }
 
@@ -46,7 +44,6 @@ public class AccountUtils extends ObjectUtils<Account> {
                 account.getAddress() != null ? account.getAddress() : "UNKNOWN",
                 account.getPhone() != null ? account.getPhone() : "UNKNOWN",
                 account.getRole() != null ? account.getRole() : "UNKNOWN",
-                account.getRentedItems().isEmpty() ? "0" : Integer.toString(account.getRentedItems().size()),
                 Integer.toString(account.getPoints())
         };
 

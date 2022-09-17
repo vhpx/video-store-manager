@@ -118,6 +118,7 @@ public class Account extends Entity {
 
     public void addRental(Item rental) {
         this.rentedItems.add(rental);
+        System.out.println("• Linked item " + rental.getId() + " to account " + this.getId());
     }
 
     public void removeRental(Item rental) {
