@@ -4,6 +4,7 @@ import com.guccigang.videostoremanager.auth.Account;
 import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.transactions.Transaction;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,10 +91,10 @@ public class AdminDashboardController implements Initializable {
     private TextField transactionSearchBar;
 
     @FXML
-    private TableView<Item> tableItems = new TableView<>();
+    private TableView<Item> itemsTable = new TableView<>();
 
     @FXML
-    private TableView<Transaction> tableTransactions;
+    private TableView<Transaction> transactionsTable = new TableView<>();
 
     @FXML
     private TableView<Account> accountsTable = new TableView<>();
@@ -123,7 +124,8 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<?, ?> itemGenre;
 
     @FXML
-    private TableColumn<Item, String> itemID = new TableColumn<>("ID");;
+    private final TableColumn<Item, String> itemID = new TableColumn<>("ID");
+    ;
 
     @FXML
     private TableColumn<?, ?> itemLoanType;
@@ -138,23 +140,23 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<?, ?> itemStockStatus;
 
     @FXML
-    private TableColumn<Item, String> itemTitle= new TableColumn<>("Title");
+    private final TableColumn<Item, String> itemTitle = new TableColumn<>("Title");
 
     // Transactions
     @FXML
-    private TableColumn<?, ?> transAccID;
+    private TableColumn<Transaction, String> transAccID = new TableColumn<>("Account ID");
 
     @FXML
-    private TableColumn<?, ?> transAccName;
+    private TableColumn<Transaction, String> transAccName = new TableColumn<>("Account Name");
 
     @FXML
-    private TableColumn<?, ?> transItemID;
+    private TableColumn<Transaction, String> transItemID = new TableColumn<>("Item ID");
 
     @FXML
-    private TableColumn<?, ?> transItemName;
+    private TableColumn<Transaction, String> transItemName = new TableColumn<>("Item Name");
 
     @FXML
-    private TableColumn<?, ?> transStatus;
+    private TableColumn<Transaction, String> transStatus = new TableColumn<>("Status");
 
     @FXML
     void search(ActionEvent event) {
@@ -166,7 +168,7 @@ public class AdminDashboardController implements Initializable {
         cbItem.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
         cbAccountMng.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
 
-        // Set cell value factories
+        // Set cell value factories for account table
         accountId.setCellValueFactory(new PropertyValueFactory<>("id"));
         accountAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         accountUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -175,17 +177,26 @@ public class AdminDashboardController implements Initializable {
         accountPoints.setCellValueFactory(new PropertyValueFactory<>("points"));
         accountRole.setCellValueFactory(new PropertyValueFactory<>("role"));
 
+        // Set cell value factories for item table
         itemTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         itemID.setCellValueFactory(new PropertyValueFactory<>("id"));
 
+        // Set cell value factories for transaction table
+        transAccID.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getAccount().getId()));
+        transAccName.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getAccount().getUsername()));
+        transItemID.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getItem().getId()));
+        transItemName.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().getItem().getTitle()));
+        transStatus.setCellValueFactory(transaction -> new ReadOnlyStringWrapper(transaction.getValue().isResolved() ? "Returned" : "Borrowing"));
+
         // Display all accounts
         accountsTable.setItems(getAccounts());
-
-        tableItems.setItems(getItems());
+        itemsTable.setItems(getItems());
+        transactionsTable.setItems(getTransactions());
 
         // Add columns to table
         accountsTable.getColumns().addAll(accountId, accountAddress, accountUsername, accountPassword, accountPhone, accountPoints, accountRole);
-        tableItems.getColumns().addAll(itemTitle,itemID);
+        itemsTable.getColumns().addAll(itemTitle, itemID);
+        transactionsTable.getColumns().addAll(transAccID);
     }
 
     private ObservableList<Account> getAccounts() {
@@ -196,12 +207,28 @@ public class AdminDashboardController implements Initializable {
         return FXCollections.observableArrayList(accounts);
     }
 
+    private ObservableList<Account> getAccounts(String role) {
+        var appCore = ApplicationCore.getInstance();
+        var accountManager = appCore.getAccountManager();
+        var accounts = accountManager.getAll(role);
+
+        return FXCollections.observableArrayList(accounts);
+    }
+
     private ObservableList<Item> getItems() {
         var appCore = ApplicationCore.getInstance();
         var itemManager = appCore.getItemManager();
         var items = itemManager.getAll();
 
         return FXCollections.observableArrayList(items);
+    }
+
+    private ObservableList<Transaction> getTransactions() {
+        var appCore = ApplicationCore.getInstance();
+        var transactionManager = appCore.getTransactionManager();
+        var transactions = transactionManager.getAll();
+
+        return FXCollections.observableArrayList(transactions);
     }
 
     @FXML

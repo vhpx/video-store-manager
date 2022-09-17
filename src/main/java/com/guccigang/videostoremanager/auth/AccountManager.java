@@ -112,27 +112,15 @@ public class AccountManager extends Manager<Account> {
         }
     }
 
-    // display all accounts sorted by id
-    public void displayAccountsSortedById() {
-        var accounts = getCopy();
-        accounts.sort(Comparator.comparing(Account::getId));
-        displayAccounts(accounts);
-    }
-
-    // display all accounts sorted by name
-    public void displayAccountsSortedByName() {
-        var accounts = getCopy();
-        accounts.sort(Comparator.comparing(Account::getName));
-        displayAccounts(accounts);
-    }
-
     // display a group of account according to role
-    public void displayAccountsByRole(String role) {
-        for (Account account : getAll()) {
-            if (account.getRole().equals(role)) {
-                System.out.println(account);
-            }
-        }
+    public ArrayList<Account> getAll(String role) {
+        var accounts = new ArrayList<Account>();
+
+        for (Account account : getAll())
+            if (account.getRole().equals(role))
+                accounts.add(account);
+
+        return accounts;
     }
 
     boolean isIdUsed(String id) {
