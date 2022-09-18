@@ -161,8 +161,8 @@ public class Account extends Entity {
         var transactionManager = app.getTransactionManager();
         var itemManager = app.getItemManager();
 
-        // Get the current transaction
-        Transaction transaction = transactionManager.getTransaction(this, item);
+        // Get the current transaction that is not returned yet
+        Transaction transaction = transactionManager.getTransaction(this, item, false);
 
         // Resolve the transaction and increase the stock
         transaction.resolve();

@@ -36,7 +36,15 @@ public class TransactionManager extends Manager<Transaction> {
             if (t.getAccount().equals(account) && t.getItem().equals(item))
                 return t;
 
-        throw new TransactionException("Cannot get transaction");
+        throw new TransactionException("Transaction not found.");
+    }
+
+    public Transaction getTransaction(Account account, Item item, boolean resolved) throws TransactionException {
+        for (Transaction t : getAll())
+            if (t.getAccount().equals(account) && t.getItem().equals(item) && t.isResolved() == resolved)
+                return t;
+
+        throw new TransactionException("Transaction not found.");
     }
 
     public ArrayList<Transaction> getTransactions(Account account) {
