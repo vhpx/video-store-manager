@@ -10,7 +10,7 @@ ___
 
 ### I. CONTRIBUTION INFORMATION
 
-_While each member participates in all project's stages, this section highlights his/her major contributions. In general, each member shares an equal 20% of total project contributions_
+_While each member participates in all project's stages, this section highlights his/her major contributions. In general, each member shares an equal 20% of total project contributions._
 
 #### CONTRIBUTOR 1: [VO HOANG PHUC](https://github.com/vhpx) (ID: S3926761)
 
@@ -44,4 +44,4 @@ ___
 
 ### III. REFERENCES
 [1] Vu Thanh Minh. "Assignments – Group Project Report", Semester 2, 2022. rmit.instructure.com. Accessed on Jul. 18, 2022.
-Available for authorized personnel: https://rmit.instructure.com/courses/104034/assignments/701474
+Available for authorized personnel: https://rmit.instructure.com/courses/104034/assignments/701474.
