@@ -31,8 +31,8 @@ public class Constants {
         return DATA_PATH + TRANSACTIONS_FILE;
     }
 
-    private static final int POINT_PER_TRANSACTION = 50;
-    private static final int POINT_FOR_FREE_RENT = 10;
+    private static final int POINT_PER_TRANSACTION = 10;
+    private static final int POINT_FOR_FREE_RENT = 100;
 
     public static int getPointPerTransaction() {
         return POINT_PER_TRANSACTION;
@@ -42,25 +42,25 @@ public class Constants {
         return POINT_FOR_FREE_RENT;
     }
 
-    private static final ScenePackage[] scenesToLoad = {
+    private static final ScenePackage[] availableScenes = {
             // Authentication
             new ScenePackage("auth"),
             // Customer View
             new ScenePackage("user-dashboard"),
             new ScenePackage("account-info"),
-            new ScenePackage("item-modi"),
-            new ScenePackage("account-modi"),
+            new ScenePackage("item-editor"),
+            new ScenePackage("account-editor"),
 
             // Admin View
             new ScenePackage("admin-dashboard"),
     };
 
-    public static ScenePackage[] getScenesToLoad() {
-        return scenesToLoad;
+    public static ScenePackage[] getAvailableScenes() {
+        return availableScenes;
     }
 
     public static ScenePackage getDefaultScene() {
         // Return the first scene in the list
-        return scenesToLoad[0];
+        return availableScenes[0];
     }
 }

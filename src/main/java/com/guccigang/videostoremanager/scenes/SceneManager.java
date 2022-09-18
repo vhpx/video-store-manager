@@ -85,7 +85,7 @@ public class SceneManager {
         }
 
         // Get the scene package
-        var packages = Constants.getScenesToLoad();
+        var packages = Constants.getAvailableScenes();
         ScenePackage scenePkg = null;
 
         for (ScenePackage pkg : packages) {

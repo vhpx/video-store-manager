@@ -31,8 +31,7 @@ public class Account extends Entity {
         this.role = "GUEST";
     }
 
-    public Account(String id, String username, String password, String address, String phone, String name,
-                   String role, int points) {
+    public Account(String id, String username, String password, String address, String phone, String name, String role, int points) {
         this(id, username, password);
         this.address = address;
         this.phone = phone;
@@ -46,8 +45,7 @@ public class Account extends Entity {
     }
 
     public void setId(String id) throws Exception {
-        if (!AccountUtils.isValidId(id))
-            throw new AccountException("Invalid item id: " + id);
+        if (!AccountUtils.isValidId(id)) throw new AccountException("Invalid item id: " + id);
 
         super.setId(id);
     }
@@ -133,10 +131,11 @@ public class Account extends Entity {
             // Add the transaction to the transaction manager
             transactionManager.add(transaction);
 
-            // If the account is a VIP and has at least 100 points, remove 100 points
-            // and announce that this rental is free
-            if (this.role.equals(Constants.ROLE_VIP) && this.points >= 100) {
-                this.points -= 100;
+            // Check if the account is a VIP and have enough points to get free rental
+            int pointsNeeded = Constants.getPointForFreeRent();
+
+            if (this.role.equals(Constants.ROLE_VIP) && this.points >= pointsNeeded) {
+                this.points -= pointsNeeded;
                 System.out.println("• Account " + this.getId() + " has " + this.points + " points left.");
                 System.out.println("• Rental is free for account " + this.getId() + " this time.");
             } else {
@@ -146,6 +145,9 @@ public class Account extends Entity {
 
             // Decrease the stock of the item
             itemManager.decreaseStock(item);
+
+            // Announce the rental
+            System.out.println("• Account " + this.getId() + " has rented item " + item.getId() + ".");
 
             // Add the item to the rented items list
             addRental(item);
@@ -168,6 +170,9 @@ public class Account extends Entity {
 
         // Remove the item from the rented items list
         removeRental(item);
+
+        // Announce the return
+        System.out.println("• Account " + this.getId() + " has returned item " + item.getId() + ".");
 
         // Update the points
         updatePoints();
@@ -199,29 +204,26 @@ public class Account extends Entity {
 
         // Add points to the current account since it is a VIP
         points += Constants.getPointPerTransaction();
+        System.out.println("• Added " + Constants.getPointPerTransaction() + " points to account " + this.getId() + ". Total: " + this.points + " points");
     }
 
     private boolean isAlreadyRented(Item item) {
         // Check if this item was already rented by this account
         for (Item i : rentedItems)
-            if (i.getId().equals(item.getId()))
-                return true;
+            if (i.getId().equals(item.getId())) return true;
 
         return false;
     }
 
     private boolean canRent(Item item) throws AccountException, ItemException {
         // If the current item is already rented by this account
-        if (isAlreadyRented(item))
-            throw new AccountException("This item is already rented by this account");
+        if (isAlreadyRented(item)) throw new AccountException("This item is already rented by this account");
 
         // If the current item is not in stock, return false
-        if (!item.isInStock())
-            throw new ItemException("This item is not in stock");
+        if (!item.isInStock()) throw new ItemException("This item is not in stock");
 
         // If the current account is either a REGULAR or a VIP, return true
-        if (this.getRole().equals("REGULAR") || this.getRole().equals("VIP"))
-            return true;
+        if (this.getRole().equals("REGULAR") || this.getRole().equals("VIP")) return true;
 
         // Otherwise, the account is a GUEST, which can only rent 2 items at a time
         if (this.getRentedItems().size() >= 2)
@@ -238,8 +240,7 @@ public class Account extends Entity {
         if (newPassword.equals(this.password))
             throw new AccountException("Your new password is being used. Please enter the new one!");
 
-        if (newPassword.length() == 0)
-            throw new AccountException("Please enter in anything.");
+        if (newPassword.length() == 0) throw new AccountException("Please enter in anything.");
 
         this.password = newPassword;
     }
@@ -248,8 +249,7 @@ public class Account extends Entity {
         if (newPhoneNum.equals(this.phone))
             throw new AccountException("Your new phone number is being used. Please enter the new one!");
 
-        if (newPhoneNum.length() == 0)
-            throw new AccountException("Please enter in anything.");
+        if (newPhoneNum.length() == 0) throw new AccountException("Please enter in anything.");
 
         if (newPhoneNum.matches("\\d{3}-\\d{3}-\\d{4}"))
             throw new AccountException("The phone number format should be XXX-XXX-XXXX!");
@@ -261,8 +261,7 @@ public class Account extends Entity {
         if (newAddress.equals(this.address))
             throw new AccountException("Your current address is being used. Please enter the new one!");
 
-        if (newAddress.length() == 0)
-            throw new AccountException("Please enter in anything.");
+        if (newAddress.length() == 0) throw new AccountException("Please enter in anything.");
 
         this.address = newAddress;
     }
@@ -271,8 +270,7 @@ public class Account extends Entity {
         if (newName.equals(this.name))
             throw new AccountException("Please enter the name that is different than the one you using!");
 
-        if (name.length() == 0)
-            throw new AccountException("You name cannot be empty.");
+        if (name.length() == 0) throw new AccountException("You name cannot be empty.");
 
         this.name = newName;
     }
@@ -284,15 +282,6 @@ public class Account extends Entity {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", name='" + name + '\'' +
-                ", role='" + role + '\'' +
-                ", points=" + points +
-                ", rentedItems=" + rentedItems +
-                '}';
+        return "Account{" + "username='" + username + '\'' + ", password='" + password + '\'' + ", address='" + address + '\'' + ", phone='" + phone + '\'' + ", name='" + name + '\'' + ", role='" + role + '\'' + ", points=" + points + ", rentedItems=" + rentedItems + '}';
     }
 }
