@@ -121,12 +121,12 @@
                <Insets right="10.0" top="10.0" />
             </HBox.margin>
          </ImageView>
-            <TextField prefHeight="30.0" prefWidth="380.0" promptText="Search bar" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+            <TextField fx:id="historyField" prefHeight="30.0" prefWidth="380.0" promptText="Search bar" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
                 <HBox.margin>
                     <Insets right="5.0" top="10.0" />
                 </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="Search">
+            <Button mnemonicParsing="false" onAction="#searchHistory" prefHeight="30.0" prefWidth="120.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="Search">
                 <HBox.margin>
                     <Insets right="5.0" top="10.0" />
                 </HBox.margin>
@@ -227,7 +227,7 @@
                      <Insets right="5.0" top="10.0" />
                   </HBox.margin>
                </TextField>
-               <Button mnemonicParsing="false" onAction="#searchHistoryItem" prefHeight="30.0" prefWidth="120.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="Search">
+               <Button mnemonicParsing="false" onAction="#searchBorrowedItem" prefHeight="30.0" prefWidth="120.0" styleClass="buttonYellow" stylesheets="@CSS/JVMStyleSheet.css" text="Search">
                   <HBox.margin>
                      <Insets right="5.0" top="10.0" />
                   </HBox.margin>
