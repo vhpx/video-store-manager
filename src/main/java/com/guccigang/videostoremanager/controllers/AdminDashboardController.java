@@ -55,11 +55,11 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private Button btnTransactions;
 
-//    @FXML
-//    private ComboBox<String> cbAccountMng;
-//
-//    @FXML
-//    private ComboBox<String> cbItem;
+    @FXML
+    private ComboBox<String> comboBoxItem = new ComboBox<>();
+
+    @FXML
+    private ComboBox<String> comboBoxAccount  = new ComboBox<>();
 
     @FXML
     private ComboBox<String> cbTransactions;
@@ -181,8 +181,8 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        //cbItem.setItems(FXCollections.observableArrayList("Titles", "IDs", "Display All", "Display Out Of Stock"));
-        //cbAccountMng.setItems(FXCollections.observableArrayList("All Customers", "Guest", "Regular", "VIP"));
+        this.comboBoxItem.setItems(FXCollections.observableArrayList("By Name","By ID"));
+        this.comboBoxAccount.setItems(FXCollections.observableArrayList("By Name","By ID"));
         this.pnlTransactions.setVisible(false);
         this.pnlAccount.setVisible(false);
         this.pnlItems.setVisible(true);
@@ -208,7 +208,7 @@ public class AdminDashboardController implements Initializable {
                 param -> new ReadOnlyObjectWrapper<>(param.getValue())
         );
         accountAction.setCellFactory(param -> new TableCell<Account, Account>() {
-            //            ImageView createImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/add.png"))));
+//            ImageView createImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/add.png"))));
 //            ImageView deleteImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/trash.png"))));
 //            ImageView updateImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/update.png"))));
 
@@ -240,6 +240,7 @@ public class AdminDashboardController implements Initializable {
 //                update.setGraphic(deleteImage);
 
                 VBox vBox = new VBox();
+                delete.getStyleClass().add("buttonYellow");
                 vBox.getChildren().addAll(delete,update);
                 setGraphic(vBox);
                 delete.setOnAction(
@@ -252,7 +253,9 @@ public class AdminDashboardController implements Initializable {
                 update.setOnAction(
                         event -> {
                             var sceneManager =  ApplicationCore.getInstance().getSceneManager();
-                            sceneManager.showScene("account-modi");
+                            Flag.setAccount(getTableView().getItems().get(getIndex()));
+                            Flag.check =0;
+                            sceneManager.showScene("account-editor");
                         }
                 );
 
@@ -327,7 +330,7 @@ public class AdminDashboardController implements Initializable {
                             var sceneManager =  ApplicationCore.getInstance().getSceneManager();
                             Flag.setCheck(0);
                             Flag.setItem(getTableView().getItems().get(getIndex()));
-                            sceneManager.showScene("item-modi");
+                            sceneManager.showScene("item-editor");
                         }
                 );
 
@@ -429,5 +432,33 @@ public class AdminDashboardController implements Initializable {
             }
         }
     }
+
+    @FXML
+    private void createItem()
+    {
+        var sceneManager = ApplicationCore.getInstance().getSceneManager();
+        Flag.setCheck(1);
+        sceneManager.showScene("item-editor");
+    }
+    @FXML
+    private void searchItem()
+    {
+    }
+    @FXML
+    private void createAccount()
+    {
+        var sceneManager = ApplicationCore.getInstance().getSceneManager();
+        Flag.check = 1;
+        sceneManager.showScene("account-editor");
+    }@FXML
+    private void searchAccount()
+    {
+
+    }
+
+
+
+
+
 }
 

@@ -1,5 +1,6 @@
 package com.guccigang.videostoremanager.controllers;
 
+import com.guccigang.videostoremanager.auth.Account;
 import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.errors.ItemException;
@@ -189,6 +190,7 @@ public class AccountController implements Initializable {
                                 alert.setTitle("Return Error");
                                 alert.setHeaderText(e.getMessage());
                                 alert.setContentText("Sorry for the inconvenience.");
+                                alert.showAndWait();
                             }
                         });
             }
@@ -228,7 +230,10 @@ public class AccountController implements Initializable {
                                 Item currentItem = getTableView().getItems().get(getIndex());
                                 System.out.println(currentItem.toString());
                                 System.out.println(account.toString());
-                                account.rentItem(currentItem);
+                                displayBorrowStatus(currentItem,account);
+                                rentTable.refresh();
+                                historyTable.refresh();
+                                borrowedTable.refresh();
                                 // account.displayRental();
                             } catch (ItemException e) {
                                 throw new RuntimeException(e);
@@ -237,17 +242,36 @@ public class AccountController implements Initializable {
                                 alert.setTitle("Borrow Error");
                                 alert.setHeaderText(e.getMessage());
                                 alert.setContentText("Sorry for the inconvenience.");
+                                alert.showAndWait();
                             }
 
                         });
             }
         });
-
         rentTable.setItems(getItems());
         rentTable.getColumns().addAll(itemTitle, itemGenre, itemRentalType, itemLoanType, itemFees, itemNoCoppy,
                 itemAction);
 
     }
+    private void displayBorrowStatus(Item item, Account account) throws ItemException, AccountException {
+        if (!showConfirmBorrow())
+            return;
+        account.rentItem(item);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Borrow Successful");
+        alert.setContentText("You successfully borrow the item!");
+        alert.showAndWait();
+    }
+    static boolean showConfirmBorrow() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Your are about to borrow.");
+        alert.setContentText("Are you sure that you want to borrow it?");
+        return alert.showAndWait().orElseThrow() == ButtonType.OK;
+    }
+
+
+
 
     private void displayHistoryTable() {
         // set column value for the history table

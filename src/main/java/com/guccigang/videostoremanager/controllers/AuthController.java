@@ -57,13 +57,11 @@ public class AuthController {
         }
 
         var manager = app.getSceneManager();
-
         // Check if the user is the admin
         if (auth.isAdmin()) {
             manager.showScene("admin-dashboard");
             return;
         }
-
         // Otherwise, show the user dashboard
         manager.showScene("user-dashboard");
     }
@@ -86,7 +84,6 @@ public class AuthController {
             alert.showAndWait();
             return;
         }
-
         // Show the user dashboard
         var manager = app.getSceneManager();
         manager.showScene("user-dashboard");

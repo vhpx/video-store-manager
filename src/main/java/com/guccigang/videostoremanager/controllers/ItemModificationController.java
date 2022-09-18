@@ -1,22 +1,25 @@
 package com.guccigang.videostoremanager.controllers;
 
 import com.guccigang.videostoremanager.core.ApplicationCore;
-import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.errors.ItemException;
-import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.scenes.SceneManager;
-import com.guccigang.videostoremanager.utils.ItemUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import com.guccigang.videostoremanager.utils.ItemUtils;
-public class ItemModification implements Initializable {
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+
+public class ItemModificationController implements Initializable {
+
+    @FXML
+    private HBox genrePane = new HBox();
     private SceneManager sceneManager = ApplicationCore.getInstance().getSceneManager();
 
 
@@ -92,6 +95,22 @@ public class ItemModification implements Initializable {
         comboxGenre.setItems(genreList);
         comboxLoanType.setItems(loanList);
         comboxRentalType.setItems(rentalList);
+        comboxRentalType.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldvalue, String newValue) {
+
+                if (!newValue.equals("Game"))
+                {
+                    System.out.println("it's not game");
+                    genrePane.setVisible(true);
+                    return;
+                }
+                System.out.println("it's game game");
+                genrePane.setVisible(false);
+
+            }
+        });
+
         if (Flag.check == 0)
         {
             feeField.setText(String.valueOf(Flag.item.getRentalFee()));
@@ -100,12 +119,11 @@ public class ItemModification implements Initializable {
             comboxGenre.setValue(Flag.item.getGenre());
             comboxRentalType.setValue(Flag.item.getRentalType());
             comboxLoanType.setValue(Flag.item.getLoanType());
-
-//            comboxGenre.setPromptText(Flag.item.getGenre());
-//            comboxRentalType.setPromptText(Flag.item.getRentalType());
-//            comboxLoanType.setPromptText(Flag.item.getLoanType());
         }
     }
+
+
+
 
 
 

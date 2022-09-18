@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" style="-fx-background-color: #D3D0CB#D3D0CB;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" style="-fx-background-color: #D3D0CB;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.guccigang.videostoremanager.controllers.AccountModificationController">
    <children>
       <VBox layoutY="-1.0" prefHeight="401.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -37,7 +38,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox layoutX="211.0" layoutY="20.0" prefHeight="25.0" prefWidth="343.0" />
+                        <ComboBox fx:id="comboBoxType" layoutX="211.0" layoutY="20.0" prefHeight="25.0" prefWidth="343.0" />
                      </children>
                   </Pane>
                </children>
@@ -51,7 +52,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="nameField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>
@@ -65,7 +66,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="addressField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>
@@ -79,35 +80,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
-                     </children>
-                  </Pane>
-               </children>
-            </HBox>
-            <HBox prefHeight="66.0" prefWidth="400.0">
-               <children>
-                  <Pane prefHeight="66.0" prefWidth="601.0">
-                     <children>
-                        <Label layoutX="73.0" layoutY="18.0" text="Balance:">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
-                     </children>
-                  </Pane>
-               </children>
-            </HBox>
-            <HBox prefHeight="66.0" prefWidth="400.0">
-               <children>
-                  <Pane prefHeight="66.0" prefWidth="601.0">
-                     <children>
-                        <Label layoutX="73.0" layoutY="18.0" text="Points">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="phoneField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>
@@ -121,7 +94,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="userNameField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>
@@ -135,17 +108,33 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="passField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>
+            </HBox>
+            <HBox fx:id="pointPane" prefHeight="66.0" prefWidth="400.0">
+               <children>
+                  <Label prefWidth="110.0" text="Points: ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="71.0" right="27.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="pointField" prefHeight="25.0" prefWidth="345.0" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </HBox>
             <HBox prefHeight="149.0" prefWidth="600.0">
                <children>
                   <Pane prefHeight="112.0" prefWidth="601.0">
                      <children>
-                        <Button alignment="CENTER" layoutX="448.0" layoutY="67.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="103.0" style="-fx-background-color: #393E41#393E41;" styleClass="button1" stylesheets="" text="Save" textFill="WHITE" />
-                        <Button alignment="CENTER" layoutX="324.0" layoutY="67.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="103.0" style="-fx-background-color: #393E41#393E41;" styleClass="button1" stylesheets="" text="Cancel" textFill="WHITE" />
+                        <Button alignment="CENTER" layoutX="448.0" layoutY="67.0" mnemonicParsing="false" onAction="#save" prefHeight="47.0" prefWidth="103.0" style="-fx-background-color: #393E41#393E41;" styleClass="button1" stylesheets="" text="Save" textFill="WHITE" />
+                        <Button alignment="CENTER" layoutX="324.0" layoutY="67.0" mnemonicParsing="false" onAction="#cancel" prefHeight="47.0" prefWidth="103.0" style="-fx-background-color: #393E41#393E41;" styleClass="button1" stylesheets="" text="Cancel" textFill="WHITE" />
                      </children>
                   </Pane>
                </children>
