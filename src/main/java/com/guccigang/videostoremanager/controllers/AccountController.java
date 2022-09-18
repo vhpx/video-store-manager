@@ -23,6 +23,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -31,6 +33,13 @@ public class AccountController implements Initializable {
     private final ObservableList<String> sortOptions = FXCollections.observableArrayList("Alphabet",
             "Rental Type",
             "Genre");
+
+    @FXML
+    TextField itemField;
+
+    @FXML
+    TextField borrowedField;
+
 
     @FXML
     Circle circleImage;
@@ -387,5 +396,30 @@ public class AccountController implements Initializable {
         this.optionLabel.setText("Renting History");
         this.statusMini.setText("Dashboard/ Renting History");
     }
+    @FXML
+    private void searchHistoryItem()
+    {
+
+    }
+    @FXML
+    private void searchItem()
+    {
+        rentTable.setItems(filterList(getItems(),itemField.getText()));
+    }
+
+    private ObservableList<Item> filterList(List<Item> list, String searchText){
+        List<Item> filteredList = new ArrayList<>();
+        for (Item item : list){
+            if(searchByType(item, searchText)) filteredList.add(item);
+        }
+        return FXCollections.observableList(filteredList);
+    }
+
+    private boolean searchByType(Item item, String searchText)
+    {
+       return item.getTitle().equals(searchText)? true:false;
+    }
+
+
 
 }

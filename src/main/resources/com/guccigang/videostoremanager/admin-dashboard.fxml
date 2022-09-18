@@ -155,7 +155,7 @@
                                 <Insets right="5.0" top="5.0" />
                             </HBox.margin>
                         </Button>
-                  <Button fx:id="btnTransactionSearch11" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Create">
+                  <Button fx:id="btnTransactionSearch11" alignment="CENTER" mnemonicParsing="false" onAction="#createAccount" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Create">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
@@ -198,12 +198,12 @@
                            <Insets right="5.0" top="5.0" />
                         </HBox.margin>
                      </ComboBox>
-                     <Button fx:id="btnTransactionSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Search">
+                     <Button fx:id="btnTransactionSearch" alignment="CENTER" mnemonicParsing="false" onAction="#searchItem" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Search">
                         <HBox.margin>
                            <Insets right="5.0" top="5.0" />
                         </HBox.margin>
                      </Button>
-                            <Button fx:id="btnItemSearch" alignment="CENTER" mnemonicParsing="false" onAction="#handleClick" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Create">
+                            <Button fx:id="btnItemSearch" alignment="CENTER" mnemonicParsing="false" onAction="#createItem" prefHeight="30.0" prefWidth="204.0" style="-fx-background-color: E2C044; -fx-background-radius: 10;" stylesheets="@CSS/adminMain.css" text="Create">
                                 <HBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                 </HBox.margin>

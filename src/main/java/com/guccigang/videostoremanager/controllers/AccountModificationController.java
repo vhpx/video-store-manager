@@ -18,6 +18,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -56,6 +57,21 @@ public class AccountModificationController implements Initializable {
 
     @FXML
     void save(ActionEvent event) {
+        var accountManager = ApplicationCore.getInstance().getAccountManager();
+        ArrayList<String> inputs = new ArrayList<>();
+        inputs.add(nameField.getText());
+        inputs.add(passField.getText());
+        inputs.add(addressField.getText());
+        inputs.add(phoneField.getText());
+        inputs.add(comboBoxType.getValue());
+        inputs.add(pointField.getText());
+
+        if (Flag.check ==1) // to be created
+        {
+            System.out.println("create account");
+        }else{
+            System.out.println("update account");
+        }
 
     }
 
