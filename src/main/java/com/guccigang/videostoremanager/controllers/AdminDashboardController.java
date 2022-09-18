@@ -266,6 +266,9 @@ public class AdminDashboardController implements Initializable {
 
             @Override
             protected void updateItem(Account item, boolean empty) {
+                delete.setPrefWidth(150);
+                update.setPrefWidth(150);
+
                 super.updateItem(item, empty);
 
                 if (item == null) {
@@ -299,8 +302,9 @@ public class AdminDashboardController implements Initializable {
                 update.setOnAction(
                         event -> {
                             var sceneManager =  ApplicationCore.getInstance().getSceneManager();
-                            Flag.setAccount(getTableView().getItems().get(getIndex()));
-                            Flag.check =0;
+//                            Flag.setAccount(getTableView().getItems().get(getIndex()));
+//                            Flag.check =0;
+                            //sceneManager.
                             sceneManager.showScene("account-editor");
                         }
                 );

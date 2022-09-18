@@ -205,7 +205,8 @@ public class AccountController implements Initializable {
 
             @Override
             protected void updateItem(Item item, boolean empty) {
-                // rentButton.getStyleClass().add("buttonYellow");
+                returnButton.getStyleClass().add("buttonYellow");
+                returnButton.setPrefWidth(150);
                 super.updateItem(item, empty);
 
                 if (item == null) {
@@ -280,6 +281,7 @@ public class AccountController implements Initializable {
             @Override
             protected void updateItem(Item item, boolean empty) {
                 rentButton.getStyleClass().add("buttonYellow");
+                rentButton.setPrefWidth(150);
                 super.updateItem(item, empty);
 
                 if (item == null) {
