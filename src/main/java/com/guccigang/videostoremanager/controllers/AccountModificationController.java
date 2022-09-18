@@ -1,32 +1,24 @@
 package com.guccigang.videostoremanager.controllers;
 
+import com.guccigang.videostoremanager.auth.Account;
 import com.guccigang.videostoremanager.core.ApplicationCore;
-import com.guccigang.videostoremanager.scenes.SceneManager;
+import com.guccigang.videostoremanager.core.Constants;
+import com.guccigang.videostoremanager.errors.AccountException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AccountModificationController implements Initializable {
-
     @FXML
     HBox pointPane = new HBox();
-    private SceneManager sceneController = ApplicationCore.getInstance().getSceneManager();
 
     @FXML
     private TextField addressField;
@@ -35,10 +27,10 @@ public class AccountModificationController implements Initializable {
     private ComboBox<String> comboBoxType = new ComboBox<>();
 
     @FXML
-    private TextField nameField;
+    private TextField usernameField;
 
     @FXML
-    private TextField passField;
+    private TextField passwordField;
 
     @FXML
     private TextField phoneField;
@@ -47,74 +39,107 @@ public class AccountModificationController implements Initializable {
     private TextField pointField;
 
     @FXML
-    private TextField userNameField;
+    private TextField nameField;
 
+    private String id = "";
 
     @FXML
     void cancel(ActionEvent event) {
-        sceneController.showScene("admin-dashboard");
+        var app = ApplicationCore.getInstance();
+        var manager = app.getSceneManager();
+        manager.showScene("admin-dashboard");
     }
 
     @FXML
     void save(ActionEvent event) {
-        var accountManager = ApplicationCore.getInstance().getAccountManager();
-        ArrayList<String> inputs = new ArrayList<>();
-        inputs.add(nameField.getText());
-        inputs.add(passField.getText());
-        inputs.add(addressField.getText());
-        inputs.add(phoneField.getText());
-        inputs.add(comboBoxType.getValue());
-        inputs.add(pointField.getText());
+        try {
+            var app = ApplicationCore.getInstance();
+            var accounts = app.getAccountManager();
 
-        if (Flag.check ==1) // to be created
-        {
-            System.out.println("create account");
-        }else{
-            System.out.println("update account");
+            var username = usernameField.getText();
+            var password = passwordField.getText();
+            var name = nameField.getText();
+            var address = addressField.getText();
+            var phone = phoneField.getText();
+            var type = comboBoxType.getValue();
+            var point = Integer.parseInt(pointField.getText());
+
+            if (Flag.check == 1) {
+                System.out.println("Creating new account");
+                // Create the account
+                var account = accounts.createAccount(username, password);
+                id = account.getId();
+            } else {
+                System.out.println("Updating account");
+            }
+
+            // Check if id is valid
+            if (id == null || id.isEmpty())
+                throw new AccountException("Invalid account id");
+
+            // Get the account by username
+            var account = accounts.getAccountById(id);
+
+            account.setName(name);
+            account.setAddress(address);
+            account.setPhone(phone);
+            account.setPoints(point);
+
+            switch (type) {
+                case "GUEST" -> account.setRole(Constants.ROLE_GUEST);
+                case "REGULAR" -> account.setRole(Constants.ROLE_REGULAR);
+                case "VIP" -> account.setRole(Constants.ROLE_VIP);
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
-
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comboBoxType.setItems(FXCollections.observableArrayList("Guest","Regular","VIP"));
+        comboBoxType.setItems(FXCollections.observableArrayList("Guest", "Regular", "VIP"));
 
-        comboBoxType.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldvalue, String newValue) {
-                if (newValue.equals("VIP"))
-                {
-                    pointPane.setVisible(false);
-                    return;
-                }
-                pointPane.setVisible(true);
-
+        comboBoxType.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue.equals("VIP")) {
+                pointPane.setVisible(false);
+                return;
             }
+            pointPane.setVisible(true);
+
         });
-        if (Flag.check == 0)
-        {
-           comboBoxType.setValue(Flag.account.getRole());
-           nameField.setText(Flag.account.getName());
-           userNameField.setText(Flag.account.getUsername());
-           passField.setText(Flag.account.getPassword());
-           addressField.setText(Flag.account.getAddress());
-           phoneField.setText(Flag.account.getPhone());
-           if (!Flag.account.getRole().equals("VIP"))
-           {
-               pointPane.setVisible(false);
-           }else{
-               pointPane.setVisible(true);
-               pointField.setText(String.valueOf(Flag.account.getPoints()));
-           }
+
+        if (Flag.check == 0) {
+            comboBoxType.setValue(Flag.account.getRole());
+            usernameField.setText(Flag.account.getName());
+            nameField.setText(Flag.account.getUsername());
+            passwordField.setText(Flag.account.getPassword());
+            addressField.setText(Flag.account.getAddress());
+            phoneField.setText(Flag.account.getPhone());
+            pointField.setText(String.valueOf(Flag.account.getPoints()));
+            id = Flag.account.getId();
+
+            if (!Flag.account.getRole().equals("VIP")) {
+                pointPane.setVisible(false);
+            } else {
+                pointPane.setVisible(true);
+                pointField.setText(String.valueOf(Flag.account.getPoints()));
+            }
         }
-        if(Flag.check == 1){
+
+        if (Flag.check == 1) {
             comboBoxType.setValue(null);
+            usernameField = new TextField();
             nameField = new TextField();
-            userNameField= new TextField();
-            passField= new TextField();
-            addressField= new TextField();
-            phoneField= new TextField();
+            passwordField = new TextField();
+            addressField = new TextField();
+            phoneField = new TextField();
+            pointField = new TextField();
+            id = "";
         }
     }
 }

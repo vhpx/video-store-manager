@@ -52,7 +52,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="nameField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="usernameField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>
@@ -94,7 +94,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="userNameField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="nameField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>
@@ -108,7 +108,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="passField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
+                        <TextField fx:id="passwordField" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                   </Pane>
                </children>

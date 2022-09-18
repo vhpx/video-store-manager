@@ -54,7 +54,7 @@ public class Account extends Entity {
         return username;
     }
 
-    protected void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -62,7 +62,7 @@ public class Account extends Entity {
         return password;
     }
 
-    protected void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -70,7 +70,7 @@ public class Account extends Entity {
         return address;
     }
 
-    protected void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -78,7 +78,7 @@ public class Account extends Entity {
         return phone;
     }
 
-    protected void setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -86,7 +86,7 @@ public class Account extends Entity {
         return name;
     }
 
-    protected void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -94,7 +94,7 @@ public class Account extends Entity {
         return role;
     }
 
-    protected void setRole(String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -102,7 +102,7 @@ public class Account extends Entity {
         return points;
     }
 
-    protected void setPoints(int points) {
+    public void setPoints(int points) {
         this.points = points;
     }
 

@@ -162,12 +162,10 @@ public class AccountController implements Initializable {
             var username = auth.isAdmin() ? "admin" : auth.getCurrentAccount().getUsername();
             this.greetingLabel.setText("Hello, " + username + "!");
         }
+
         displayItemTable();
         displayHistoryTable();
         displayBorrowedListTable();
-
-
-
     }
 
     private ObservableList<Transaction> getTransactions() {
@@ -221,7 +219,7 @@ public class AccountController implements Initializable {
                                 var authManager = ApplicationCore.getInstance().getAuthManager();
                                 var account = authManager.getCurrentAccount();
                                 Item currentItem = getTableView().getItems().get(getIndex());
-                                displayReturnStatus(currentItem,account);
+                                displayReturnStatus(currentItem, account);
 
 
                                 borrowedTable.setItems(getBorrowedItem());
@@ -231,6 +229,7 @@ public class AccountController implements Initializable {
                                 borrowedTable.refresh();
                                 rentTable.refresh();
                                 historyTable.refresh();
+
                                 // account.displayRental();
                             } catch (TransactionException e) {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -256,6 +255,7 @@ public class AccountController implements Initializable {
         alert.setContentText("You successfully return the item!");
         alert.showAndWait();
     }
+
     static boolean showConfirmationReturn() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -295,7 +295,7 @@ public class AccountController implements Initializable {
                                 Item currentItem = getTableView().getItems().get(getIndex());
                                 System.out.println(currentItem.toString());
                                 System.out.println(account.toString());
-                                displayBorrowStatus(currentItem,account);
+                                displayBorrowStatus(currentItem, account);
 
                                 borrowedTable.setItems(getBorrowedItem());
                                 rentTable.setItems(getItems());
@@ -323,6 +323,7 @@ public class AccountController implements Initializable {
                 itemAction);
 
     }
+
     private void displayBorrowStatus(Item item, Account account) throws ItemException, AccountException {
         if (!showConfirmBorrow())
             return;
@@ -332,6 +333,7 @@ public class AccountController implements Initializable {
         alert.setContentText("You successfully borrow the item!");
         alert.showAndWait();
     }
+
     static boolean showConfirmBorrow() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -339,8 +341,6 @@ public class AccountController implements Initializable {
         alert.setContentText("Are you sure that you want to borrow it?");
         return alert.showAndWait().orElseThrow() == ButtonType.OK;
     }
-
-
 
 
     private void displayHistoryTable() {

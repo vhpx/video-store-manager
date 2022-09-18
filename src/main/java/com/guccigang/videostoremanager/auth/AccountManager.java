@@ -71,6 +71,18 @@ public class AccountManager extends Manager<Account> {
     }
 
     public Account createAccount(String username, String password) throws AccountException {
+        // Check if username is empty
+        if (username.isEmpty())
+            throw new AccountException("Username cannot be empty");
+
+        // Check if password is empty
+        if (password.isEmpty())
+            throw new AccountException("Password cannot be empty");
+
+        // Check if the username is admin
+        if (username.equals("admin"))
+            throw new AccountException("The username 'admin' is reserved.");
+
         // Check if account already exists
         if (getAccountByUsername(username) != null)
             throw new AccountException("Account already exists.");
@@ -84,6 +96,9 @@ public class AccountManager extends Manager<Account> {
             // Create account
             var account = new Account(id, username, password);
             add(account);
+
+            // Announce account creation
+            System.out.println("Account created: " + account);
 
             return account;
         }
