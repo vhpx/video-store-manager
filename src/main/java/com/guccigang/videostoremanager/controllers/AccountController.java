@@ -5,7 +5,6 @@ import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.errors.ItemException;
 import com.guccigang.videostoremanager.errors.TransactionException;
 import com.guccigang.videostoremanager.items.Item;
-import com.guccigang.videostoremanager.scenes.SceneManager;
 import com.guccigang.videostoremanager.transactions.Transaction;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -236,7 +235,7 @@ public class AccountController implements Initializable {
                                 Item currentItem =  getTableView().getItems().get(getIndex());
                                 System.out.println(currentItem.toString());
                                 System.out.println(account.toString());
-                                account.rent(currentItem);
+                                account.rentItem(currentItem);
                                 account.displayRental();
                             } catch (ItemException e) {
                                 throw new RuntimeException(e);

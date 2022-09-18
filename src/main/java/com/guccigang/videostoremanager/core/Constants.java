@@ -9,6 +9,10 @@ public class Constants {
         return APP_NAME;
     }
 
+    public static String ROLE_GUEST = "GUEST";
+    public static String ROLE_REGULAR = "REGULAR";
+    public static String ROLE_VIP = "VIP";
+
     private static final String DATA_PATH = "/data/";
 
     private static final String ITEMS_FILE = "items.txt";
@@ -27,15 +31,15 @@ public class Constants {
         return DATA_PATH + TRANSACTIONS_FILE;
     }
 
-    private static final int POINT_RECEIVED = 50;
-    private static final int POINT_DEDUCTED = 10;
+    private static final int POINT_PER_TRANSACTION = 50;
+    private static final int POINT_FOR_FREE_RENT = 10;
 
-    public static int getPointReceived() {
-        return POINT_RECEIVED;
+    public static int getPointPerTransaction() {
+        return POINT_PER_TRANSACTION;
     }
 
-    public static int getPointDeducted() {
-        return POINT_DEDUCTED;
+    public static int getPointForFreeRent() {
+        return POINT_FOR_FREE_RENT;
     }
 
     private static final ScenePackage[] scenesToLoad = {
