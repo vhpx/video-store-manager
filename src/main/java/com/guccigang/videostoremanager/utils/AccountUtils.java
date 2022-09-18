@@ -22,8 +22,10 @@ public class AccountUtils extends ObjectUtils<Account> {
     }
 
     public Account parse(String str) {
+        // Split the string into an array of strings
         String[] tokens = str.split(", ");
 
+        // Get the raw data
         String id = tokens[0];
         String username = tokens[1];
         String password = tokens[2];

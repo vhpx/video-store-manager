@@ -67,6 +67,7 @@ public class AuthController {
     }
 
     @FXML
+    // Sign up event handler
     void signup(ActionEvent event) {
         var app = ApplicationCore.getInstance();
         var auth = app.getAuthManager();

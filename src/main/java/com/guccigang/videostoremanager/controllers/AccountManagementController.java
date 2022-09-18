@@ -20,10 +20,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AccountManagementController implements Initializable {
-
-    private AuthManager authManager = ApplicationCore.getInstance().getAuthManager();
-    private Account account = authManager.getCurrentAccount();
-    private SceneManager sceneController;
+    private final AuthManager authManager = ApplicationCore.getInstance().getAuthManager(); // get the auth manager
+    private final Account account = authManager.getCurrentAccount(); // get the current account
+    private SceneManager sceneController; // scene manager
     @FXML
     private Circle circle;
     @FXML
@@ -47,6 +46,7 @@ public class AccountManagementController implements Initializable {
 
     @FXML
     private Label nameLabel;
+
     @FXML
     private Label phoneLabel;
 
@@ -58,12 +58,12 @@ public class AccountManagementController implements Initializable {
 
     @FXML
     private Label optionLabel;
+
     @FXML
     private Label userNameLabel;
+
     @FXML
     private Label passwordLabel;
-
-
 
     @FXML
     private AnchorPane displayPane;
@@ -93,6 +93,7 @@ public class AccountManagementController implements Initializable {
     }
 
     @FXML
+    // Logout
     void logout() {
         if (showLogoutConfirmation()) {
             var app = ApplicationCore.getInstance();
@@ -117,9 +118,11 @@ public class AccountManagementController implements Initializable {
     }
 
     @FXML
+    // Save the changes made to the account
     void save(ActionEvent event)  {
         try{
             System.out.println("asdfasdfasdf");
+            // Get the new values
             if (this.passwordField.getText().length()!=0)
                 account.updatePassword(passwordField.getText());
             if (this.phoneField.getText().length()!=0)
@@ -130,12 +133,12 @@ public class AccountManagementController implements Initializable {
                 account.updateName(nameField.getText());
         }catch (AccountException e)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR); // create a new alert
             alert.setTitle("Information Update Error");
             alert.setHeaderText(e.getMessage());
             alert.setContentText("Please try again!");
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // create a new alert
         alert.setTitle("Information Update");
         alert.setHeaderText("Successful");
         alert.setContentText("Your account information update has been modified successfully!");
@@ -146,16 +149,14 @@ public class AccountManagementController implements Initializable {
     }
 
     static void showSuccessfullyUpdate() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // create a new alert
         alert.setTitle("Information Update");
         alert.setHeaderText("Successful");
         alert.setContentText("Your account information update has been modified successfully!");
-
     }
 
     @FXML
     void setting(ActionEvent event) {
-
     }
 
     @Override
@@ -175,6 +176,7 @@ public class AccountManagementController implements Initializable {
 
     }
 
+    // display the account information
     public void displayAccountinfo()
     {
         this.nameLabel.setText("Full Name: "+ account.getName());
@@ -185,7 +187,4 @@ public class AccountManagementController implements Initializable {
         this.userNameLabel.setText("User Name: "+ account.getUsername());
         this.passwordLabel.setText("Password: " + account.getPassword());
     }
-
-
-
 }

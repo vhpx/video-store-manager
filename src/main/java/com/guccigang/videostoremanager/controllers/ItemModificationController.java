@@ -22,9 +22,7 @@ public class ItemModificationController implements Initializable {
 
     @FXML
     private HBox genrePane = new HBox();
-    private SceneManager sceneManager = ApplicationCore.getInstance().getSceneManager();
-
-
+    private final SceneManager sceneManager = ApplicationCore.getInstance().getSceneManager();
 
     @FXML
     private ComboBox<String> comboxGenre = new ComboBox<String>();

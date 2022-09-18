@@ -8,8 +8,10 @@ public class ItemUtils extends ObjectUtils<Item> {
 
     public Item parse(String str) {
         try {
+            // Split the string into an array of strings
             String[] tokens = str.split(", ");
 
+            // Get the raw data
             String id = tokens[0];
             String title = tokens[1];
 

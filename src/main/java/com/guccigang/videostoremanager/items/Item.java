@@ -30,7 +30,7 @@ public class Item extends Entity {
         super.setId(id);
     }
 
-    protected boolean setTitle(String title) {
+    public boolean setTitle(String title) {
         if (!ItemUtils.isValidTitle(title))
             return false;
 
@@ -38,7 +38,7 @@ public class Item extends Entity {
         return true;
     }
 
-    protected boolean setRentalType(RentalType rentalType) {
+    public boolean setRentalType(RentalType rentalType) {
         if (rentalType == null)
             return false;
 
@@ -46,7 +46,7 @@ public class Item extends Entity {
         return true;
     }
 
-    protected boolean setGenre(Genre genre) {
+    public boolean setGenre(Genre genre) {
         if (genre == null)
             return false;
 
@@ -54,7 +54,7 @@ public class Item extends Entity {
         return true;
     }
 
-    protected boolean setRentalType(String rentalType) {
+    public boolean setRentalType(String rentalType) {
         RentalType type = ItemUtils.parseRentalType(rentalType);
 
         if (type == null)
@@ -78,7 +78,7 @@ public class Item extends Entity {
         return false;
     }
 
-    protected boolean setLoanType(LoanType loanType) {
+    public boolean setLoanType(LoanType loanType) {
         if (loanType == null)
             return false;
 
@@ -86,7 +86,7 @@ public class Item extends Entity {
         return true;
     }
 
-    protected boolean setLoanType(String loanType) {
+    public boolean setLoanType(String loanType) {
         LoanType type = ItemUtils.parseLoanType(loanType);
         if (type == null)
             return false;
@@ -102,7 +102,7 @@ public class Item extends Entity {
         }
     }
 
-    protected boolean setGenre(String genre) {
+    public boolean setGenre(String genre) {
         Genre type = ItemUtils.parseGenre(genre);
 
         if (type == null)
@@ -134,7 +134,7 @@ public class Item extends Entity {
         return false;
     }
 
-    protected boolean setStock(int stock) {
+    public boolean setStock(int stock) {
         if (stock < 0)
             return false;
 
@@ -142,7 +142,7 @@ public class Item extends Entity {
         return true;
     }
 
-    protected boolean setRentalFee(double rentalFee) {
+    public boolean setRentalFee(double rentalFee) {
         if (rentalFee < 0)
             return false;
 
