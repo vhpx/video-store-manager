@@ -183,7 +183,16 @@ public class AccountController implements Initializable {
                                 var authManager = ApplicationCore.getInstance().getAuthManager();
                                 var account = authManager.getCurrentAccount();
                                 Item currentItem = getTableView().getItems().get(getIndex());
-                                account.returnItem(currentItem);
+                                displayReturnStatus(currentItem,account);
+
+
+                                borrowedTable.setItems(getBorrowedItem());
+                                rentTable.setItems(getItems());
+                                historyTable.setItems(getTransactions());
+
+                                borrowedTable.refresh();
+                                rentTable.refresh();
+                                historyTable.refresh();
                                 // account.displayRental();
                             } catch (TransactionException e) {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -197,6 +206,24 @@ public class AccountController implements Initializable {
         });
         borrowedTable.setItems(getBorrowedItem());
         borrowedTable.getColumns().addAll(listTitle, listGenre, listRentalType, listLoanType, borrowedListAction);
+    }
+
+    private void displayReturnStatus(Item item, Account account) throws TransactionException {
+        if (!showConfirmationReturn())
+            return;
+        account.returnItem(item);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Congratulation!");
+        alert.setHeaderText("Return Successful");
+        alert.setContentText("You successfully return the item!");
+        alert.showAndWait();
+    }
+    static boolean showConfirmationReturn() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Your are about to return this item.");
+        alert.setContentText("Are you sure that you want to return it?");
+        return alert.showAndWait().orElseThrow() == ButtonType.OK;
     }
 
     private void displayItemTable() {
@@ -231,9 +258,14 @@ public class AccountController implements Initializable {
                                 System.out.println(currentItem.toString());
                                 System.out.println(account.toString());
                                 displayBorrowStatus(currentItem,account);
+
+                                borrowedTable.setItems(getBorrowedItem());
+                                rentTable.setItems(getItems());
+                                historyTable.setItems(getTransactions());
+
+                                borrowedTable.refresh();
                                 rentTable.refresh();
                                 historyTable.refresh();
-                                borrowedTable.refresh();
                                 // account.displayRental();
                             } catch (ItemException e) {
                                 throw new RuntimeException(e);
@@ -265,7 +297,7 @@ public class AccountController implements Initializable {
     static boolean showConfirmBorrow() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.setHeaderText("Your are about to borrow.");
+        alert.setHeaderText("Your are about to borrow this item.");
         alert.setContentText("Are you sure that you want to borrow it?");
         return alert.showAndWait().orElseThrow() == ButtonType.OK;
     }

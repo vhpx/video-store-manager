@@ -8,3 +8,6 @@ C001, I006-2013, true
 C001, I001-2001, false
 C001, I002-1988, false
 C001, I003-1992, false
+C008, I001-2001, false
+C001, I005-2015, false
+C001, I006-2013, false
