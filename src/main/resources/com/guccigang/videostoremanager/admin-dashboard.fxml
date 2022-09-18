@@ -193,16 +193,11 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                 </HBox.margin>
                             </ImageView>
-                            <TextField fx:id="itemField" prefHeight="30.0" prefWidth="300.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                            <TextField fx:id="itemField" prefHeight="30.0" prefWidth="380.0" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS">
                                 <HBox.margin>
                                     <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                 </HBox.margin>
                             </TextField>
-                     <ComboBox fx:id="comboBoxSortItem" prefHeight="30.0" prefWidth="200.0" promptText="Sort by">
-                        <HBox.margin>
-                           <Insets right="5.0" top="5.0" />
-                        </HBox.margin>
-                     </ComboBox>
                      <ComboBox fx:id="comboBoxItem" prefHeight="30.0" prefWidth="220.0" promptText="Search by">
                         <HBox.margin>
                            <Insets right="5.0" top="5.0" />
@@ -247,7 +242,7 @@
     <Pane fx:id="pnlStatus" layoutX="252.0" prefHeight="100.0" style="-fx-background-color: #D3D0CB;" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0">
         <children>
             <Label fx:id="lbiStatusMini" layoutX="14.0" layoutY="14.0" text="/Menu/Accounts" />
-            <Label fx:id="lbiStatus" layoutX="10.0" layoutY="40.0" text="Account Management">
+            <Label fx:id="lbiStatus" layoutX="10.0" layoutY="40.0" text="Item Menu">
                 <font>
                     <Font name="System Bold" size="24.0" />
                 </font>

@@ -395,19 +395,10 @@ public class AccountController implements Initializable {
     }
 
     @FXML
-    // Display the account information
-    private void comboBoxChanged() {
-        if (this.comboBox.getValue().equals("Account Profile")) {
+    private void profileButton() {
             var app = ApplicationCore.getInstance();
             var manager = app.getSceneManager();
             manager.showScene("account-info");
-            this.comboBox.getSelectionModel().clearSelection();
-            // accountPane.getChildren().remove(comboBox);
-            // comboBox = new ComboBox();
-            // comboBox.setItems(list);// do whatever else you need to format your ComboBox
-            // accountPane.getChildren().add(comboBox);
-
-        }
     }
 
     @FXML

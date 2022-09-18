@@ -8,6 +8,7 @@ import com.guccigang.videostoremanager.errors.ItemException;
 import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.items.ItemManager;
 import com.guccigang.videostoremanager.transactions.Transaction;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -167,66 +169,36 @@ public class AdminDashboardController implements Initializable {
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         this.comboBoxItem.setItems(FXCollections.observableArrayList("BY TITLE","BY ID"));
         this.comboBoxAccount.setItems(FXCollections.observableArrayList("BY NAME","BY ID"));
-        this.comboBoxSortAccount.setItems(FXCollections.observableArrayList("BY NAME","BY ID","GUEST","REGULAR","VIP", "ALL"));
-        this.comboBoxSortItem.setItems(FXCollections.observableArrayList("BY NAME","BY ID","ALL"));
+        this.comboBoxSortAccount.setItems(FXCollections.observableArrayList("GUEST","REGULAR","VIP", "ALL"));
+        //this.comboBoxSortItem.setItems(FXCollections.observableArrayList("BY NAME","BY ID","ALL"));
 
         this.comboBoxSortAccount.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) { // when the value of the combo box is changed
                 if (!newValue.equals(null))
                 {
-                    if (newValue.equals("ALL"))
-                    {
-                        accountsTable.setItems(getAccounts());
-                        comboBoxSortAccount.setValue("Sort By");
-                    }
-                    else if (newValue.equals("BY NAME"))
-                    {
-                        accountsTable.setItems(FXCollections.observableArrayList(accountManager.sort(false)));
-                        var list = accountManager.sort(false);
-                        for (Account i : list)
-                            System.out.println(i.toString());
-                    }
-                    else if (newValue.equals("BY ID"))
-                        accountsTable.setItems(FXCollections.observableArrayList(accountManager.sort(true)));
-                    else
                         accountsTable.setItems(FXCollections.observableArrayList(accountManager.getAll(newValue)));
-                }
-            }
-        });
-
-        this.comboBoxSortItem.valueProperty().addListener(new ChangeListener<String>() { // when the value of the combo box is changed
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue,  String oldValue, String newValue) {
-                if (!newValue.equals(null))
-                {
-                    if (newValue.equals("ALL"))
-                    {
-                        comboBoxSortItem.setSelectionModel(null);
-                        itemsTable.setItems(getItems());
-                    }
-                    else if (newValue.equals("BY NAME"))
-                        itemsTable.setItems(FXCollections.observableArrayList(itemManager.sort(false)));
-                    else if (newValue.equals("BY ID"))
-                        itemsTable.setItems(FXCollections.observableArrayList(itemManager.sort(true)));
                 }
             }
         });
 
         this.itemField.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observableValue,  String oldValue, String newValue) { // when the value of the combo box is changed
-                if (itemField.getText().length() == 0 && comboBoxSortItem.getSelectionModel().equals(null))
+            public void changed(ObservableValue<? extends String> observableValue,  String oldValue, String newValue) {
+                if (itemField.getText().length() == 0)
                     itemsTable.setItems(getItems());
             }
         });
+        
         this.accountField.textProperty().addListener(new ChangeListener<String>() { // when the value of the combo box is changed
             @Override
             public void changed(ObservableValue<? extends String> observableValue,  String oldValue, String newValue) {
-                if (accountField.getText().length() == 0 && comboBoxSortAccount.getSelectionModel().equals(null)) // if the text field is empty
+
+                if (accountField.getText().length() == 0) //&& comboBoxSortAccount.getSelectionModel().equals(null))
                     accountsTable.setItems(getAccounts());
             }
         });
+        
         this.pnlTransactions.setVisible(false);
         this.pnlAccount.setVisible(false);
         this.pnlItems.setVisible(true);
@@ -238,8 +210,15 @@ public class AdminDashboardController implements Initializable {
 
     }
 
-    private void displayAccounts() {
+    public void updateTable()
+    {
+        accountsTable.setItems(getAccounts());
+        itemsTable.setItems(getItems());
+        transactionsTable.setItems(getTransactions());
+    }
 
+    private void displayAccounts()
+    {
         // Set cell value factories for account table
         accountId.setCellValueFactory(new PropertyValueFactory<>("id"));
         accountAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -253,13 +232,7 @@ public class AdminDashboardController implements Initializable {
                 param -> new ReadOnlyObjectWrapper<>(param.getValue())
         );
         accountAction.setCellFactory(param -> new TableCell<Account, Account>() {
-//            ImageView createImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/add.png"))));
-//            ImageView deleteImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/trash.png"))));
-//            ImageView updateImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/update.png"))));
-
-
-            private final Button delete = new Button("Delete"); // create a delete button
-
+            private final Button delete = new Button("Delete");
             private final Button update = new Button("Update"); // create an update button
 
 
@@ -275,28 +248,16 @@ public class AdminDashboardController implements Initializable {
                     setGraphic(null);
                     return;
                 }
-//                createImage.setPreserveRatio(true);
-//                updateImage.setPreserveRatio(true);
-//                deleteImage.setPreserveRatio(true);
-//
-//                createImage.setFitHeight(15);
-//                updateImage.setFitHeight(15);
-//                deleteImage.setFitHeight(15);
-//
-//
-//                create.setGraphic(createImage);
-//                delete.setGraphic(updateImage);
-//                update.setGraphic(deleteImage);
-
                 VBox vBox = new VBox();
                 delete.getStyleClass().add("buttonYellow");
                 vBox.getChildren().addAll(delete,update);
                 setGraphic(vBox);
                 delete.setOnAction(
                         event -> {
-                            var itemManager = ApplicationCore.getInstance().getAccountManager(); // get the item manager
-                            Account currenAccount = getTableView().getItems().get(getIndex()); // get the current item
-                            itemManager.remove(currenAccount); // remove the item
+                            Account currentAccount = getTableView().getItems().get(getIndex());
+                            displayDeleteAccountStatus(currentAccount);
+                            accountsTable.setItems(getAccounts());
+                            accountsTable.refresh();
                         }
                 );
                 update.setOnAction(
@@ -305,6 +266,19 @@ public class AdminDashboardController implements Initializable {
 //                            Flag.setAccount(getTableView().getItems().get(getIndex()));
 //                            Flag.check =0;
                             //sceneManager.
+
+                            Platform.runLater(()->{
+                                FXMLLoader fxmlLoader = new FXMLLoader();
+                                fxmlLoader.setLocation(getClass().getResource("account-editor.fxml"));
+                                AccountModificationController controller =fxmlLoader.getController();
+                                controller.setAccount(getTableView().getItems().get(getIndex()));
+                            });
+                            try {
+                                Thread.sleep(100);
+                            }catch (InterruptedException e)
+                            {
+
+                            }
                             sceneManager.showScene("account-editor");
                         }
                 );
@@ -316,7 +290,25 @@ public class AdminDashboardController implements Initializable {
 
         // Display all accounts
         accountsTable.setItems(getAccounts());
-        accountsTable.getColumns().addAll(accountId,accountName, accountAddress, accountPhone, accountPoints, accountRole,  accountUsername, accountPassword,accountAction);
+        accountsTable.getColumns().addAll(accountId,accountName, accountRole,accountAddress, accountPhone,   accountUsername, accountPassword, accountPoints,accountAction);
+    }
+
+    private void displayDeleteAccountStatus(Account account)  {
+        if (!showConfirmDeleteAccount())
+            return;
+        ApplicationCore.getInstance().getAccountManager().remove(account);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Delete Successful");
+        alert.setContentText("You successfully delete the account!");
+        alert.showAndWait();
+    }
+
+    static boolean showConfirmDeleteAccount() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Your are about to delete the account out of the data base.");
+        alert.setContentText("Are you sure that you want to delete it?");
+        return alert.showAndWait().orElseThrow() == ButtonType.OK;
     }
 
     private void displayItems()
@@ -333,45 +325,33 @@ public class AdminDashboardController implements Initializable {
         itemAction.setCellValueFactory(
                 param -> new ReadOnlyObjectWrapper<>(param.getValue())
         );
+
         itemAction.setCellFactory(param -> new TableCell<Item, Item>() {
-
-//            ImageView createImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/add.png"))));
-//            ImageView deleteImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/trash.png"))));
-//            ImageView updateImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/videostoremanager/update.png"))));
-
             private final Button delete = new Button("Delete");
 
             private final Button update = new Button("Update");
 
             @Override
             protected void updateItem(Item item, boolean empty) {
+                delete.setPrefWidth(150);
+                update.setPrefWidth(150);
                 super.updateItem(item, empty);
 
                 if (item == null) {
                     setGraphic(null);
                     return;
                 }
-//                createImage.setPreserveRatio(true);
-//                updateImage.setPreserveRatio(true);
-//                deleteImage.setPreserveRatio(true);
-//
-//                createImage.setFitHeight(15);
-//                updateImage.setFitHeight(15);
-//                deleteImage.setFitHeight(15);
-//
-//
-//                create.setGraphic(createImage);
-//                delete.setGraphic(updateImage);
-//                update.setGraphic(deleteImage);
-
                 VBox vBox = new VBox();
                 vBox.getChildren().addAll(delete,update);
                 setGraphic(vBox);
                 delete.setOnAction(
                         event -> {
-                            var itemManager = ApplicationCore.getInstance().getItemManager(); // get the item manager
-                            Item currentItem = getTableView().getItems().get(getIndex()); // get the current item
-                            itemManager.remove(currentItem); // remove the item
+                            var itemManager = ApplicationCore.getInstance().getItemManager();
+                            Item currentItem = getTableView().getItems().get(getIndex());
+                            displayDeteleItem(currentItem);
+
+                            itemsTable.setItems(getItems());
+                            itemsTable.refresh();
                         }
                 );
 
@@ -393,6 +373,25 @@ public class AdminDashboardController implements Initializable {
         itemsTable.getColumns().addAll( itemID,itemTitle,itemGenre,itemRentalType,itemLoanType,itemStockStatus,itemAction);
 
     }
+    private void displayDeteleItem(Item item){
+        if (!showConfirmDeleteAccount())
+            return;
+        ApplicationCore.getInstance().getItemManager().remove(item);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Delete Successful");
+        alert.setContentText("You successfully delete the item!");
+        alert.showAndWait();
+    }
+
+    static boolean showConfirmDeleteItem() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Your are about to delete this item out of the data base.");
+        alert.setContentText("Are you sure that you want to delete it?");
+        return alert.showAndWait().orElseThrow() == ButtonType.OK;
+    }
+
+
 
     private void displayTransaction()
     {

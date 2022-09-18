@@ -5,6 +5,8 @@ import com.guccigang.videostoremanager.auth.AuthManager;
 import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.scenes.SceneManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -161,9 +163,8 @@ public class AccountManagementController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (account.getRole().equals("VIP"))
+        if (!account.getRole().equals("VIP"))
             this.pointLabel.setVisible(false);
-
         sceneController = ApplicationCore.getInstance().getSceneManager();
         Image image = new Image(
                 Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/images.png")));
@@ -183,7 +184,7 @@ public class AccountManagementController implements Initializable {
         this.phoneLabel.setText("Phone Number "+ account.getPhone());
         this.addressLabel.setText("Address: "+account.getAddress());
         this.rankingLabel.setText("Role: " + account.getRole());
-        this.pointLabel.setText("Points: " + String.valueOf(account.getPoints()));
+        //this.pointLabel.setText("Points: " + String.valueOf(account.getPoints()));
         this.userNameLabel.setText("User Name: "+ account.getUsername());
         this.passwordLabel.setText("Password: " + account.getPassword());
     }

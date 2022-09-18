@@ -6,3 +6,4 @@ C005, hphuoc, 112233, Huu Phuoc, 123 Main St., 123-456-7890, GUEST, 0
 C006, guest, 123, Guest Account, 123 Main St., 123-456-7890, GUEST, 0
 C007, regular, 123, Regular Account, 123 Main St., 123-456-7890, REGULAR, 0
 C008, huuphuoc, 123, VIP Account, 123 Main St., 123-456-7890, VIP, 0
+C009, asdf, asdf, UNKNOWN, UNKNOWN, UNKNOWN, GUEST, 0

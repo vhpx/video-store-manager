@@ -2,6 +2,7 @@ package com.guccigang.videostoremanager;
 
 import com.guccigang.videostoremanager.core.ApplicationCore;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class VSMApplication extends Application {
