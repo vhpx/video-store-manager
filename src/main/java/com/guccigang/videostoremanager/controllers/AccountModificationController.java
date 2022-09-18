@@ -51,6 +51,7 @@ public class AccountModificationController implements Initializable {
     private String id = "";
 
     @FXML
+    // Button event handler
     void cancel(ActionEvent event) {
         var app = ApplicationCore.getInstance();
         var manager = app.getSceneManager();
@@ -58,6 +59,7 @@ public class AccountModificationController implements Initializable {
     }
 
     @FXML
+    // Save button event handler
     void save(ActionEvent event) {
         try {
             var app = ApplicationCore.getInstance();
@@ -70,6 +72,7 @@ public class AccountModificationController implements Initializable {
             var phone = phoneField.getText();
             var type = comboBoxType.getValue();
             var point = Integer.parseInt(pointField.getText());
+
             var account = accounts.createAccount(username, password);
 
             // Check if id is valid
@@ -83,11 +86,12 @@ public class AccountModificationController implements Initializable {
             account.setPhone(phone);
             account.setPoints(point);
 
-            switch (type) {
+            switch (type) { // Set the account type
                 case "GUEST" -> account.setRole(Constants.ROLE_GUEST);
                 case "REGULAR" -> account.setRole(Constants.ROLE_REGULAR);
                 case "VIP" -> account.setRole(Constants.ROLE_VIP);
             }
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("admin-dasboard.fxml"));
             AdminDashboardController controller =fxmlLoader.getController();
@@ -116,9 +120,9 @@ public class AccountModificationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comboBoxType.setItems(FXCollections.observableArrayList("Guest", "Regular", "VIP"));
+        comboBoxType.setItems(FXCollections.observableArrayList("Guest", "Regular", "VIP")); // Set the combo box items
 
-        comboBoxType.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+        comboBoxType.valueProperty().addListener((observableValue, oldValue, newValue) -> { // Combo box listener
             if (newValue.equals("VIP")) {
                 pointPane.setVisible(false);
                 return;

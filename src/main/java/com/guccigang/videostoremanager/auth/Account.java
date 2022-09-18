@@ -45,8 +45,8 @@ public class Account extends Entity {
     }
 
     public void setId(String id) throws Exception {
+        // Check if the id is valid
         if (!AccountUtils.isValidId(id)) throw new AccountException("Invalid item id: " + id);
-
         super.setId(id);
     }
 
@@ -135,6 +135,7 @@ public class Account extends Entity {
             int pointsNeeded = Constants.getPointForFreeRent();
 
             if (this.role.equals(Constants.ROLE_VIP) && this.points >= pointsNeeded) {
+                // Deduct the current points by the points needed
                 this.points -= pointsNeeded;
                 System.out.println("• Account " + this.getId() + " has " + this.points + " points left.");
                 System.out.println("• Rental is free for account " + this.getId() + " this time.");
@@ -237,19 +238,23 @@ public class Account extends Entity {
     }
 
     public void updatePassword(String newPassword) throws AccountException {
+        // Check if the new password is the same as the current password
         if (newPassword.equals(this.password))
             throw new AccountException("Your new password is being used. Please enter the new one!");
 
-        if (newPassword.length() == 0) throw new AccountException("Please enter in anything.");
+        // check if the new password is not empty
+        if (newPassword.isEmpty()) throw new AccountException("Please enter in anything.");
 
         this.password = newPassword;
     }
 
     public void updatePhone(String newPhoneNum) throws AccountException {
+        // Check if the new phone number is the same as the current phone number
         if (newPhoneNum.equals(this.phone))
             throw new AccountException("Your new phone number is being used. Please enter the new one!");
 
-        if (newPhoneNum.length() == 0) throw new AccountException("Please enter in anything.");
+        // check if the new phone number is not empty
+        if (newPhoneNum.isEmpty()) throw new AccountException("Please enter in anything.");
 
         if (newPhoneNum.matches("\\d{3}-\\d{3}-\\d{4}"))
             throw new AccountException("The phone number format should be XXX-XXX-XXXX!");
@@ -258,26 +263,25 @@ public class Account extends Entity {
     }
 
     public void updateAddress(String newAddress) throws AccountException {
+        // Check if the new address is the same as the current address
         if (newAddress.equals(this.address))
             throw new AccountException("Your current address is being used. Please enter the new one!");
 
-        if (newAddress.length() == 0) throw new AccountException("Please enter in anything.");
+        // check if the new address is not empty
+        if (newAddress.isEmpty()) throw new AccountException("Please enter in anything.");
 
         this.address = newAddress;
     }
 
     public void updateName(String newName) throws AccountException {
+        // Check if the new name is the same as the current name
         if (newName.equals(this.name))
             throw new AccountException("Please enter the name that is different than the one you using!");
 
-        if (name.length() == 0) throw new AccountException("You name cannot be empty.");
+        // check if the new name is not empty
+        if (name.isEmpty()) throw new AccountException("You name cannot be empty.");
 
         this.name = newName;
-    }
-
-    public void displayRental() {
-        for (Item i : rentedItems)
-            System.out.println(i.toString());
     }
 
     @Override

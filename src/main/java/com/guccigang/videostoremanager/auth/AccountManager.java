@@ -30,6 +30,7 @@ public class AccountManager extends Manager<Account> {
     }
 
     public Account getAccountById(String id) {
+        // Loop through the account list to find the account with the same id and then return
         for (Account account : getAll())
             if (account.getId().equals(id))
                 return account;
@@ -38,6 +39,7 @@ public class AccountManager extends Manager<Account> {
     }
 
     public Account getAccountByUsername(String username) {
+        // Loop through the account list to find the account with the same name and then return
         for (Account account : getAll())
             if (account.getUsername().equals(username))
                 return account;
@@ -46,6 +48,7 @@ public class AccountManager extends Manager<Account> {
     }
 
     public boolean authenticate(String username, String password) {
+        // Check if the username exist, if exist then check if the password is correct
         Account account = getAccountByUsername(username);
         if (account == null)
             return false;
@@ -122,24 +125,9 @@ public class AccountManager extends Manager<Account> {
         return false;
     }
 
-    public void levelUp(Account account) {
-        if (Objects.equals(account.getRole(), "VIP"))
-            return;
-
-        var app = ApplicationCore.getInstance();
-        var transactionManager = app.getTransactionManager();
-        var resolvedAmount = transactionManager.countTransactions(account, true);
-
-        if (Objects.equals(account.getRole(), "REGULAR") && resolvedAmount >= 5) {
-            account.setRole("VIP");
-            return;
-        }
-
-        if (Objects.equals(account.getRole(), "GUEST") && resolvedAmount >= 3) {
-            account.setRole("REGULAR");
-        }
-    }
     public ArrayList<Account> sort(boolean type) {
+        // Sort account by ID or by Name
+        // type True is sort by ID, type False is sort by Name
         var result = this.getAll();
         if (type)
             Collections.sort(result,new AccountIDComparator());
@@ -149,6 +137,7 @@ public class AccountManager extends Manager<Account> {
     }
 
     public ArrayList<Account> searchAccount(String input) {
+        // Loop through the account list to find the account with the same name or id and then return
         var result = new ArrayList<Account>();
 
         for (Account a : getAll())

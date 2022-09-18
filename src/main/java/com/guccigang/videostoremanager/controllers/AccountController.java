@@ -32,9 +32,7 @@ import java.util.ResourceBundle;
 
 public class AccountController implements Initializable {
     private final ObservableList<String> list = FXCollections.observableArrayList("Account Profile");
-    private final ObservableList<String> sortOptions = FXCollections.observableArrayList("Alphabet",
-            "Rental Type",
-            "Genre");
+    private final ObservableList<String> sortOptions = FXCollections.observableArrayList("Alphabet", "Rental Type", "Genre");
 
     @FXML
     TextField itemField;
@@ -45,9 +43,9 @@ public class AccountController implements Initializable {
     @FXML
     TextField borrowedField;
 
-
     @FXML
     Circle circleImage;
+
     @FXML
     GridPane transaction;
 
@@ -56,6 +54,7 @@ public class AccountController implements Initializable {
 
     @FXML
     AnchorPane accountPane;
+
     @FXML
     GridPane browsePane;
 
@@ -73,12 +72,16 @@ public class AccountController implements Initializable {
 
     @FXML
     TableView<Item> borrowedTable = new TableView<>();
+
     @FXML
     private final TableColumn<Item, String> listTitle = new TableColumn<>("Title");
+
     @FXML
     private final TableColumn<Item, String> listGenre = new TableColumn<>("Genre");
+
     @FXML
     private final TableColumn<Item, String> listRentalType = new TableColumn<>("Rental Type");
+
     @FXML
     private final TableColumn<Item, String> listLoanType = new TableColumn<>("Loan Type");
 
@@ -87,42 +90,50 @@ public class AccountController implements Initializable {
 
     @FXML
     private final TableColumn<Item, String> itemTitle = new TableColumn<>("Title");
+
     @FXML
     private final TableColumn<Item, String> itemGenre = new TableColumn<>("Genre");
+
     @FXML
     private final TableColumn<Item, String> itemRentalType = new TableColumn<>("Rental Type");
+
     @FXML
     private final TableColumn<Item, String> itemLoanType = new TableColumn<>("Loan Type");
+
     @FXML
     private final TableColumn<Item, Double> itemFees = new TableColumn<>("Fees");
 
     @FXML
-    private final TableColumn<Item, String> itemNoCoppy = new TableColumn<>("Copy Available");
+    private final TableColumn<Item, String> itemNoCopy = new TableColumn<>("Copy Available");
 
     @FXML
     private TableView<Transaction> historyTable = new TableView<>();
 
     @FXML
-    private final TableColumn<Transaction, String> hisotryTitle = new TableColumn<>("Title");
+    private final TableColumn<Transaction, String> historyTitle = new TableColumn<>("Title");
 
     @FXML
     private final TableColumn<Transaction, String> historyGenre = new TableColumn<>("Genre");
 
     @FXML
     private final TableColumn<Transaction, String> historyRentalType = new TableColumn<>("Rental Type");
+
     @FXML
     private final TableColumn<Transaction, String> historyLoanType = new TableColumn<>("Loan Type");
+
     @FXML
     private final TableColumn<Transaction, String> historyItemStatus = new TableColumn<>("Rental Status");
 
     @FXML
     private final TableColumn<Transaction, Transaction> historyAction = new TableColumn<>("Action");
+
     @FXML
     private final TableColumn<Item, Item> itemAction = new TableColumn<>("Action");
 
     @FXML
     private final TableColumn<Item, Item> borrowedListAction = new TableColumn<>("Action");
 
+    // Initialize the controller class
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.comboBox.setItems(list);
@@ -131,6 +142,7 @@ public class AccountController implements Initializable {
         this.browsePane.setVisible(false);
         this.historyField.textProperty().addListener(new ChangeListener<String>() {
             @Override
+            // This method is called whenever the text in the search field is changed
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 if (newValue.length()==0)
                     historyTable.setItems(getTransactions());
@@ -138,6 +150,7 @@ public class AccountController implements Initializable {
         });
         this.itemField.textProperty().addListener(new ChangeListener<String>() {
             @Override
+            // This method is called whenever the text in the search field is changed
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 if (newValue.length()==0)
                     rentTable.setItems(getItems());
@@ -145,12 +158,13 @@ public class AccountController implements Initializable {
         });
         this.borrowedField.textProperty().addListener(new ChangeListener<String>() {
             @Override
+            // This method is called whenever the text in the search field is changed
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 if (newValue.length()==0)
                     borrowedTable.setItems(getBorrowedItem());
             }
         });
-
+        // Set the table columns
         Image image = new Image(
                 Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/images.png")));
         circleImage.setFill(new ImagePattern(image));
@@ -158,8 +172,9 @@ public class AccountController implements Initializable {
         var app = ApplicationCore.getInstance();
         var auth = app.getAuthManager();
 
-        if (auth.isLoggedIn()) {
-            var username = auth.isAdmin() ? "admin" : auth.getCurrentAccount().getUsername();
+        // Set the greeting label
+        if (auth.isLoggedIn()) { // If the user is logged in
+            var username = auth.isAdmin() ? "admin" : auth.getCurrentAccount().getUsername(); // Get the username
             this.greetingLabel.setText("Hello, " + username + "!");
         }
 
@@ -168,30 +183,34 @@ public class AccountController implements Initializable {
         displayBorrowedListTable();
     }
 
+    // This method is called whenever the user clicks on the "Account Profile" button
     private ObservableList<Transaction> getTransactions() {
-        var appCore = ApplicationCore.getInstance();
-        var transactionManager = appCore.getTransactionManager();
-        var transactions = transactionManager.getTransactions(appCore.getAuthManager().getCurrentAccount(), true);
+        var appCore = ApplicationCore.getInstance(); // Get the application core
+        var transactionManager = appCore.getTransactionManager(); // Get the transaction manager
+        var transactions = transactionManager.getTransactions(appCore.getAuthManager().getCurrentAccount(), true); // Get the transactions
 
-        return FXCollections.observableArrayList(transactions);
+        return FXCollections.observableArrayList(transactions); // Return the transactions
     }
 
+    // Get items
     private ObservableList<Item> getItems() {
-        var appCore = ApplicationCore.getInstance();
-        var itemManager = appCore.getItemManager();
-        var items = itemManager.getAll();
+        var appCore = ApplicationCore.getInstance(); // Get the application core
+        var itemManager = appCore.getItemManager(); // Get the item manager
+        var items = itemManager.getAll(); // Get the items
 
-        return FXCollections.observableArrayList(items);
+        return FXCollections.observableArrayList(items); // Return the items
     }
 
+    // Get borrowed items
     private ObservableList<Item> getBorrowedItem() {
-        var appCore = ApplicationCore.getInstance();
-        var account = appCore.getAuthManager().getCurrentAccount();
-        var items = account.getRentedItems();
+        var appCore = ApplicationCore.getInstance(); // Get the application core
+        var account = appCore.getAuthManager().getCurrentAccount(); // Get the current account
+        var items = account.getRentedItems(); // Get the items
 
-        return FXCollections.observableArrayList(items);
+        return FXCollections.observableArrayList(items); // Return the items
     }
 
+    // Display the item table
     private void displayBorrowedListTable() {
         // set the column value for the item table
         listTitle.setCellValueFactory(item -> new ReadOnlyStringWrapper(item.getValue().getTitle()));
@@ -204,11 +223,13 @@ public class AccountController implements Initializable {
             private final Button returnButton = new Button("Return");
 
             @Override
+            // Update item button
             protected void updateItem(Item item, boolean empty) {
                 returnButton.getStyleClass().add("buttonYellow");
                 returnButton.setPrefWidth(150);
                 super.updateItem(item, empty);
 
+                // If the cell is not empty
                 if (item == null) {
                     setGraphic(null);
                     return;
@@ -217,54 +238,59 @@ public class AccountController implements Initializable {
                 returnButton.setOnAction(
                         event -> {
                             try {
-                                var authManager = ApplicationCore.getInstance().getAuthManager();
-                                var account = authManager.getCurrentAccount();
-                                Item currentItem = getTableView().getItems().get(getIndex());
-                                displayReturnStatus(currentItem, account);
+                                var authManager = ApplicationCore.getInstance().getAuthManager(); // Get the auth manager
+                                var account = authManager.getCurrentAccount(); // Get the current account
+                                Item currentItem = getTableView().getItems().get(getIndex()); // Get the current item
+                                displayReturnStatus(currentItem, account); // Display the return status
 
 
-                                borrowedTable.setItems(getBorrowedItem());
-                                rentTable.setItems(getItems());
-                                historyTable.setItems(getTransactions());
+                                borrowedTable.setItems(getBorrowedItem()); // Update the borrowed table
+                                rentTable.setItems(getItems()); // Update the rent table
+                                historyTable.setItems(getTransactions()); // Update the history table
 
-                                borrowedTable.refresh();
-                                rentTable.refresh();
-                                historyTable.refresh();
+                                borrowedTable.refresh(); // Refresh the borrowed table
+                                rentTable.refresh(); // Refresh the rent table
+                                historyTable.refresh(); // Refresh the history table
 
                                 // account.displayRental();
                             } catch (TransactionException e) {
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION); // Create an alert
                                 alert.setTitle("Return Error");
-                                alert.setHeaderText(e.getMessage());
+                                alert.setHeaderText(e.getMessage()); // Set the header text
                                 alert.setContentText("Sorry for the inconvenience.");
-                                alert.showAndWait();
+                                alert.showAndWait(); // Show the alert
                             }
                         });
             }
         });
+
+        // Set the items
         borrowedTable.setItems(getBorrowedItem());
         borrowedTable.getColumns().addAll(listTitle, listGenre, listRentalType, listLoanType, borrowedListAction);
     }
 
+    // Display item return status
     private void displayReturnStatus(Item item, Account account) throws TransactionException {
         if (!showConfirmationReturn())
             return;
         account.returnItem(item);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // Create an alert
         alert.setTitle("Congratulation!");
         alert.setHeaderText("Return Successful");
         alert.setContentText("You successfully return the item!");
-        alert.showAndWait();
+        alert.showAndWait(); // Show the alert
     }
 
+    // Display a confirmation to return item
     static boolean showConfirmationReturn() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION); // Create an alert
         alert.setTitle("Confirmation");
         alert.setHeaderText("Your are about to return this item.");
         alert.setContentText("Are you sure that you want to return it?");
-        return alert.showAndWait().orElseThrow() == ButtonType.OK;
+        return alert.showAndWait().orElseThrow() == ButtonType.OK; // Show the alert
     }
 
+    // Display item table
     private void displayItemTable() {
         // set the column value for the item table
         itemTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -272,18 +298,20 @@ public class AccountController implements Initializable {
         itemRentalType.setCellValueFactory(new PropertyValueFactory<>("rentalType"));
         itemLoanType.setCellValueFactory(new PropertyValueFactory<>("loanType"));
         itemFees.setCellValueFactory(new PropertyValueFactory<>("rentalFee"));
-        itemNoCoppy.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        itemNoCopy.setCellValueFactory(new PropertyValueFactory<>("stock"));
         itemAction.setCellValueFactory(
                 param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         itemAction.setCellFactory(param -> new TableCell<Item, Item>() {
             private final Button rentButton = new Button("Rent");
 
             @Override
+            // Update item button
             protected void updateItem(Item item, boolean empty) {
                 rentButton.getStyleClass().add("buttonYellow");
                 rentButton.setPrefWidth(150);
                 super.updateItem(item, empty);
 
+                // If the cell is not empty
                 if (item == null) {
                     setGraphic(null);
                     return;
@@ -292,40 +320,41 @@ public class AccountController implements Initializable {
                 rentButton.setOnAction(
                         event -> {
                             try {
-                                var authManager = ApplicationCore.getInstance().getAuthManager();
-                                var account = authManager.getCurrentAccount();
-                                Item currentItem = getTableView().getItems().get(getIndex());
-                                System.out.println(currentItem.toString());
-                                System.out.println(account.toString());
-                                displayBorrowStatus(currentItem, account);
+                                var authManager = ApplicationCore.getInstance().getAuthManager(); // Get the auth manager
+                                var account = authManager.getCurrentAccount(); // Get the current account
+                                Item currentItem = getTableView().getItems().get(getIndex()); // Get the current item
+                                System.out.println(currentItem.toString()); // Print the current item
+                                System.out.println(account.toString()); // Print the current account
+                                displayBorrowStatus(currentItem, account); // Display the borrow status
 
-                                borrowedTable.setItems(getBorrowedItem());
-                                rentTable.setItems(getItems());
-                                historyTable.setItems(getTransactions());
+                                borrowedTable.setItems(getBorrowedItem()); // Update the borrowed table
+                                rentTable.setItems(getItems()); // Update the rent table
+                                historyTable.setItems(getTransactions()); // Update the history table
 
-                                borrowedTable.refresh();
-                                rentTable.refresh();
+                                borrowedTable.refresh(); // Refresh the borrowed table
+                                rentTable.refresh(); // Refresh the rent table
                                 historyTable.refresh();
                                 // account.displayRental();
                             } catch (ItemException e) {
-                                throw new RuntimeException(e);
+                                throw new RuntimeException(e); // Throw the exception
                             } catch (AccountException e) {
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION); // Create an alert
                                 alert.setTitle("Borrow Error");
-                                alert.setHeaderText(e.getMessage());
+                                alert.setHeaderText(e.getMessage()); // Set the header text
                                 alert.setContentText("Sorry for the inconvenience.");
-                                alert.showAndWait();
+                                alert.showAndWait(); // Show the alert
                             }
 
                         });
             }
         });
         rentTable.setItems(getItems());
-        rentTable.getColumns().addAll(itemTitle, itemGenre, itemRentalType, itemLoanType, itemFees, itemNoCoppy,
+        rentTable.getColumns().addAll(itemTitle, itemGenre, itemRentalType, itemLoanType, itemFees, itemNoCopy,
                 itemAction);
 
     }
-
+    
+    // Display borrowed status
     private void displayBorrowStatus(Item item, Account account) throws ItemException, AccountException {
         if (!showConfirmBorrow())
             return;
@@ -335,7 +364,8 @@ public class AccountController implements Initializable {
         alert.setContentText("You successfully borrow the item!");
         alert.showAndWait();
     }
-
+    
+    // Display a confirmation to borrow
     static boolean showConfirmBorrow() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -344,10 +374,10 @@ public class AccountController implements Initializable {
         return alert.showAndWait().orElseThrow() == ButtonType.OK;
     }
 
-
+    // Display history table
     private void displayHistoryTable() {
         // set column value for the history table
-        hisotryTitle.setCellValueFactory(
+        historyTitle.setCellValueFactory(
                 transaction -> new ReadOnlyStringWrapper(transaction.getValue().getItem().getTitle()));
         historyGenre.setCellValueFactory(
                 transaction -> new ReadOnlyStringWrapper(transaction.getValue().getItem().getGenre()));
@@ -359,7 +389,7 @@ public class AccountController implements Initializable {
                 transaction.getValue().isResolved() ? "Returned" : "Borrowing"));
         //
         historyTable.setItems(getTransactions());
-        historyTable.getColumns().addAll(hisotryTitle, historyGenre, historyRentalType, historyLoanType,
+        historyTable.getColumns().addAll(historyTitle, historyGenre, historyRentalType, historyLoanType,
                 historyItemStatus);
 
     }
@@ -369,10 +399,10 @@ public class AccountController implements Initializable {
             var app = ApplicationCore.getInstance();
             var manager = app.getSceneManager();
             manager.showScene("account-info");
-
     }
 
     @FXML
+    // Log out
     void logout() {
         if (showLogoutConfirmation()) {
             var app = ApplicationCore.getInstance();
@@ -386,6 +416,7 @@ public class AccountController implements Initializable {
         }
     }
 
+    // Display a logout confirmation message
     static boolean showLogoutConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Log out");
@@ -421,24 +452,24 @@ public class AccountController implements Initializable {
         this.statusMini.setText("Dashboard/ Renting History");
     }
 
-
-
     @FXML
-    private void searchHistory()
-    {
-        historyTable.setItems(filterListTransaction(getTransactions(),historyField.getText()));
+    private void searchHistory() {
+        historyTable.setItems(filterListTransaction(getTransactions(),historyField.getText())); // Update the history table
     }
+
     @FXML
     private void searchBorrowedItem()
     {
         borrowedTable.setItems(filterList(getItems(),borrowedField.getText()));
     }
+
     @FXML
     private void searchItem()
     {
         rentTable.setItems(filterList(getItems(),itemField.getText()));
     }
 
+    // Filter the list of items
     private ObservableList<Item> filterList(List<Item> list, String searchText){
         List<Item> filteredList = new ArrayList<>();
         for (Item item : list){
@@ -454,12 +485,8 @@ public class AccountController implements Initializable {
         return FXCollections.observableList(filteredList);
     }
 
-
     private boolean searchByType(Item item, String searchText)
     {
        return item.getTitle().equalsIgnoreCase(searchText)? true:false;
     }
-
-
-
 }

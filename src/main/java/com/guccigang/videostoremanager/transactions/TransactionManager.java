@@ -32,6 +32,7 @@ public class TransactionManager extends Manager<Transaction> {
     }
 
     public Transaction getTransaction(Account account, Item item) throws TransactionException {
+        // Get the transaction list of a given account and item
         for (Transaction t : getAll())
             if (t.getAccount().equals(account) && t.getItem().equals(item))
                 return t;
@@ -40,6 +41,7 @@ public class TransactionManager extends Manager<Transaction> {
     }
 
     public Transaction getTransaction(Account account, Item item, boolean resolved) throws TransactionException {
+        // Get the transaction list of a given account and item, with resolved status
         for (Transaction t : getAll())
             if (t.getAccount().equals(account) && t.getItem().equals(item) && t.isResolved() == resolved)
                 return t;
@@ -49,6 +51,9 @@ public class TransactionManager extends Manager<Transaction> {
 
     public ArrayList<Transaction> getTransactions(Account account) {
         var transactions = new ArrayList<Transaction>();
+
+        // Loop through the transaction list to find the transactions
+        // with the same account and then return
         for (Transaction t : getAll())
             if (t.getAccount().equals(account))
                 transactions.add(t);
@@ -58,6 +63,9 @@ public class TransactionManager extends Manager<Transaction> {
 
     public ArrayList<Transaction> getTransactions(Account account, boolean resolved) {
         var transactions = new ArrayList<Transaction>();
+
+        // Loop through the transaction list to find the transactions
+        // with the same account and resolved status and then return
         for (Transaction t : getAll())
             if (t.getAccount().equals(account) && t.isResolved() == resolved)
                 transactions.add(t);

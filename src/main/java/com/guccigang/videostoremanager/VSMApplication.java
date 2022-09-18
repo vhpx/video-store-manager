@@ -21,6 +21,7 @@ public class VSMApplication extends Application {
             // Execute the main flow of the application
             app.execute();
         } catch (Exception e) {
+            // Print the error and stack trace
             System.out.println("There was an error loading the main scene.");
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();

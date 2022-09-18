@@ -37,9 +37,16 @@ public class SceneManager {
     }
 
     public void add(String name, Scene scene) {
+        // If the scene with the given name already exists, throw an exception
         if (scenes.containsKey(name)) throw new IllegalArgumentException("Scene with name " + name + " already exists");
+
+        // If the name is null, throw an exception
         if (name == null || name.isEmpty()) throw new IllegalArgumentException("Scene name cannot be null or empty");
+
+        // If the scene is null, throw an exception
         if (scene == null) throw new IllegalArgumentException("Scene cannot be null");
+
+        // Add the scene to the list
         scenes.put(name, scene);
     }
     
@@ -90,6 +97,7 @@ public class SceneManager {
         var packages = Constants.getAvailableScenes();
         ScenePackage scenePkg = null;
 
+        // Find the default scene package
         for (ScenePackage pkg : packages) {
             if (pkg.getSceneName().equals(name)) {
                 scenePkg = pkg;

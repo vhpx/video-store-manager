@@ -12,10 +12,6 @@ import java.util.Scanner;
 public class IOHelper {
     private final static Scanner sc = new Scanner(System.in);
 
-    public static Scanner getScanner() {
-        return sc;
-    }
-
     public static String getProjectPath() {
         // Generate a random file name
         String fileName = "temp-" + System.currentTimeMillis();
@@ -33,13 +29,17 @@ public class IOHelper {
     }
 
     public static ArrayList<String> readFile(String fileName) {
+        // Get the path to store data
         String path = getProjectPath() + fileName;
+
+        // Create a list to store the lines
         ArrayList<String> lines = new ArrayList<>();
 
         try {
             FileReader fr = new FileReader(path);
             BufferedReader br = new BufferedReader(fr);
 
+            // Read the file line by line
             String line;
             while ((line = br.readLine()) != null)
                 lines.add(line);
@@ -54,11 +54,14 @@ public class IOHelper {
     }
 
     public static void createFile(String fileName, ArrayList<String> lines) {
+        // Get the path to store data
         String path = getProjectPath() + fileName;
+
         try {
             FileWriter fw = new FileWriter(path);
             BufferedWriter bw = new BufferedWriter(fw);
 
+            // Write the lines to the file
             for (String line : lines)
                 bw.write(line + "\n");
 
@@ -67,45 +70,5 @@ public class IOHelper {
             e.printStackTrace();
             System.out.println("Error creating file " + fileName);
         }
-    }
-
-    public static void createFile(String fileName, String line) {
-        String path = getProjectPath() + fileName;
-        try {
-            FileWriter fw = new FileWriter(path);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            bw.write(line);
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error creating file " + fileName);
-        }
-    }
-
-    public static void appendFile(String fileName, String line) {
-        String path = getProjectPath() + fileName;
-        try {
-            FileWriter fw = new FileWriter(path, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            bw.write(line);
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error appending to file " + fileName);
-        }
-    }
-
-    public static void deleteFile(String fileName) {
-        String path = getProjectPath() + fileName;
-        File file = new File(path);
-        file.delete();
-    }
-
-    public static void renameFile(String fileName, String newFileName) {
-        String path = getProjectPath() + fileName;
-        File file = new File(path);
-        file.renameTo(new File(getProjectPath() + newFileName));
     }
 }

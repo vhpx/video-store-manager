@@ -4,6 +4,7 @@ public class Entity {
     private String id;
 
     public Entity(String id) {
+        // If the ID is null, throw an exception
         if (id == null)
             throw new IllegalArgumentException("Id cannot be null");
 

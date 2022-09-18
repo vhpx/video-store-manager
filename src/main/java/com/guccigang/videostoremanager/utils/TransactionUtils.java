@@ -17,8 +17,10 @@ public class TransactionUtils extends ObjectUtils<Transaction> {
 
     public Transaction parse(String str) {
         try {
+            // Split the string by the delimiter
             String[] tokens = str.split(", ");
 
+            // Get the raw data
             String accountId = tokens[0];
             String itemId = tokens[1];
             boolean resolved = Boolean.parseBoolean(tokens[2]);
