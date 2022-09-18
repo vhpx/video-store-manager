@@ -41,10 +41,11 @@ public class Constants {
     private static final ScenePackage[] scenesToLoad = {
             // Authentication
             new ScenePackage("auth"),
-
             // Customer View
             new ScenePackage("user-dashboard"),
             new ScenePackage("account-info"),
+            new ScenePackage("item-modi"),
+            new ScenePackage("account-modi"),
 
             // Admin View
             new ScenePackage("admin-dashboard"),

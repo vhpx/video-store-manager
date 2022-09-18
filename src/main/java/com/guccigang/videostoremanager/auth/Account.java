@@ -126,7 +126,9 @@ public class Account extends Entity {
     }
 
     public void rent(Item item) throws ItemException, AccountException {
+        System.out.println("inside rent");
         if (canRent(item)) {
+            System.out.println("can rent");
             var app = ApplicationCore.getInstance();
             var transactionManager = app.getTransactionManager();
             var itemManager = app.getItemManager();
@@ -180,18 +182,69 @@ public class Account extends Entity {
             }
         }
 
-        if (this.points < Constants.getPointDeducted()) {
-            throw new AccountException("This account has not enough points");
-        }
+//        if (this.points < Constants.getPointDeducted()) {
+//            throw new AccountException("This account has not enough points");
+//        }
 
         return true;
     }
 
-    public void updatePassword(String oldPassword, String newPassword) throws AccountException {
-        if (oldPassword.equals(this.password)) {
-            this.password = newPassword;
-        } else {
-            throw new AccountException("Incorrect password.");
-        }
+    public void updatePassword(String newPassword) throws AccountException {
+        if (newPassword.equals(this.password))
+            throw new AccountException("Your new password is being used. Please enter the new one!");
+        else if (newPassword.length() == 0)
+            throw new AccountException("Please enter in anything.");
+        this.password = newPassword;
+
+    }
+    public void updatePhone(String newPhoneNum) throws AccountException {
+        if (newPhoneNum.equals(this.phone))
+            throw new AccountException("Your new phone number is being used. Please enter the new one!");
+        else if (newPhoneNum.length() == 0)
+            throw new AccountException("Please enter in anything.");
+        else if (newPhoneNum.matches("\\d{3}-\\d{3}-\\d{4}"))
+            throw new AccountException("The phone number format should be XXX-XXX-XXXX!");
+        this.phone = newPhoneNum;
+    }
+
+    public void updateAddress(String newAddress) throws AccountException {
+        if (newAddress.equals(this.address))
+            throw new AccountException("Your current address is being used. Please enter the new one!");
+        else if (newAddress.length() == 0)
+            throw new AccountException("Please enter in anything.");
+
+        this.address = newAddress;
+    }
+
+    public void updateName(String newName) throws AccountException {
+        if (newName.equals(this.name))
+            throw new AccountException("Please enter the name that is different than the one you using!");
+        else if (name.length() == 0)
+            throw new AccountException("You name cannot be empty.");
+
+        this.name = newName;
+    }
+
+
+    public void displayRental()
+    {
+        for (Item i: rentedItems)
+            System.out.println(i.toString());
+    }
+
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", points=" + points +
+                ", rentedItems=" + rentedItems +
+                '}';
     }
 }
+

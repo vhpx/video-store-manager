@@ -51,6 +51,8 @@ public class ApplicationCore {
     /**
      * Stop the application managers and save the data to the local storage.
      */
+
+    public void save() {internal.stop();}
     public void stop() {
         // Stop all internal managers
         internal.stop();

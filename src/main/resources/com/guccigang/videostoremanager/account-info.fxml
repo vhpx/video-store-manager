@@ -23,30 +23,66 @@
    <children>
       <AnchorPane fx:id="displayPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
          <children>
-            <Label fx:id="fnameLabel" prefWidth="100.0" text="First Name : " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label fx:id="rankingLabel" text="Ranking: " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label fx:id="pointLabel" text="Points: " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label fx:id="lnameLabel" prefWidth="100.0" text="Last Name:  " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="80.0">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label fx:id="phoneLabel" prefWidth="100.0" text="Phone: " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label fx:id="addressLabel" prefWidth="100.0" text="Address" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="160.0">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="387.0" prefWidth="387.0">
+               <children>
+                  <Label fx:id="nameLabel" prefWidth="250.0" text="Full Name:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="userNameLabel" prefWidth="250.0" text="User Name:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="passwordLabel" prefWidth="250.0" text="Password: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="phoneLabel" prefWidth="250.0" text="Phone: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="addressLabel" prefWidth="250.0" text="Address">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="rankingLabel" prefWidth="250.0" text="Ranking: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="pointLabel" prefWidth="250.0" text="Points: ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
       <VBox layoutX="33.0" layoutY="20.0" prefWidth="250.0" style="-fx-background-color: #393E41;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -67,7 +103,7 @@
                     </rowConstraints>
                      <children>
                         <Label prefHeight="33.0" prefWidth="145.0" text="Welcome back," textFill="WHITE" GridPane.hgrow="ALWAYS" />
-                        <Label prefHeight="17.0" prefWidth="145.0" style="-fx-font-weight: bold;" text="&lt;Name&gt;" textFill="WHITE" GridPane.rowIndex="1">
+                        <Label fx:id="profileNameLabel" prefHeight="17.0" prefWidth="145.0" style="-fx-font-weight: bold;" text="&lt;Name&gt;" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -136,7 +172,7 @@
                </styleClass>
             </Button>
             <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="47.0" prefWidth="188.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Log out">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="56.0" prefWidth="251.0" styleClass="button1" stylesheets="@CSS/adminMain.css" text="Log out">
                <font>
                   <Font size="18.0" />
                </font>
@@ -162,28 +198,6 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label text="Email address">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <graphic>
-               </graphic>
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/envelope.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Label>
-            <TextField fx:id="emailField">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </TextField>
             <Label text="Full Name">
                <font>
                   <Font size="16.0" />
@@ -203,14 +217,9 @@
             </Label>
             <HBox prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="fnameField" prefHeight="25.0" promptText="First Name" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="nameField" prefHeight="25.0" promptText="Full Name" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="5.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <TextField fx:id="lnameField" promptText="Last Name" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -235,7 +244,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <TextField fx:id="addressField">
+            <TextField fx:id="addressField" promptText="Address">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -257,7 +266,27 @@
                   </ImageView>
                </graphic>
             </Label>
-            <TextField fx:id="phoneField">
+            <TextField fx:id="phoneField" promptText="Phone Number">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/lock.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="passwordField" promptText="Password">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -269,7 +298,7 @@
                         <Font size="18.0" />
                      </font>
                      <BorderPane.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                      </BorderPane.margin>
                   </Button>
                </center>
