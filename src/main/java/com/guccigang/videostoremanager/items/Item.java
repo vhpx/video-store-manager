@@ -13,7 +13,7 @@ public class Item extends Entity {
     private double rentalFee;
 
     public Item(String id, String title, RentalType rentalType, LoanType loanType, Genre genre,
-                int stock, double rentalFee) {
+            int stock, double rentalFee) {
         super(id);
         this.title = title;
         this.rentalType = rentalType;
@@ -164,7 +164,7 @@ public class Item extends Entity {
 
     public String getLoanType() {
         return switch (this.loanType) {
-            case TWO_DAYS_LOAN -> "TWO_DAY";
+            case TWO_DAYS_LOAN -> "TWO_DAYS";
             case ONE_WEEK_LOAN -> "ONE_WEEK";
         };
     }
@@ -219,15 +219,18 @@ public class Item extends Entity {
         this.stock -= n;
     }
 
-    public void updateTitle(String newTitle) throws ItemException
-    {
+    public boolean isInStock() {
+        return this.stock > 0;
+    }
+
+    public void updateTitle(String newTitle) throws ItemException {
         if (newTitle.length() == 0)
             throw new ItemException("Title cannot be empty");
 
         this.title = newTitle;
     }
-    public void updateGenre(String newGenre) throws ItemException
-    {
+
+    public void updateGenre(String newGenre) throws ItemException {
         if (newGenre.length() == 0)
             throw new ItemException("Title cannot be empty");
         if (!setGenre(newGenre))
@@ -235,24 +238,23 @@ public class Item extends Entity {
 
         setGenre(newGenre);
     }
-    public void updateRentalType(String newRentalType) throws ItemException
-    {
+
+    public void updateRentalType(String newRentalType) throws ItemException {
         if (newRentalType.length() == 0)
-        throw new ItemException("Title cannot be empty");
+            throw new ItemException("Title cannot be empty");
         if (!setRentalType(newRentalType))
             throw new ItemException("Invalid input for Rental Type");
 
         setRentalType(newRentalType);
     }
-    public void updateFee(double newFee) throws ItemException
-    {
+
+    public void updateFee(double newFee) throws ItemException {
         if (setRentalFee(newFee))
             return;
         throw new ItemException("Invalid input for Rental Fee");
     }
 
-    public void updateLoanType(String newLoanType) throws ItemException
-    {
+    public void updateLoanType(String newLoanType) throws ItemException {
         if (newLoanType.length() == 0)
             throw new ItemException("Title cannot be empty");
         if (!setLoanType(newLoanType))
@@ -260,15 +262,11 @@ public class Item extends Entity {
         setLoanType(newLoanType);
     }
 
-    public void updateCopy(int newNoCoppy) throws ItemException
-    {
+    public void updateCopy(int newNoCoppy) throws ItemException {
         if (setStock(newNoCoppy))
             return;
         throw new ItemException("Invalid input for number of copy");
     }
-
-
-
 
     public enum Genre {
         ACTION,
@@ -288,7 +286,6 @@ public class Item extends Entity {
         TWO_DAYS_LOAN,
         ONE_WEEK_LOAN
     }
-
 
     @Override
     public String toString() {

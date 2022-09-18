@@ -6,7 +6,6 @@ import com.guccigang.videostoremanager.items.Item;
 
 public class ItemUtils extends ObjectUtils<Item> {
 
-
     public Item parse(String str) {
         try {
             String[] tokens = str.split(", ");
@@ -77,9 +76,9 @@ public class ItemUtils extends ObjectUtils<Item> {
     }
 
     public static Item.LoanType parseLoanType(String loanType) {
-        if (loanType.equalsIgnoreCase("one_week"))
+        if (loanType.equalsIgnoreCase("ONE_WEEK"))
             return Item.LoanType.ONE_WEEK_LOAN;
-        if (loanType.equalsIgnoreCase("two_day"))
+        if (loanType.equalsIgnoreCase("TWO_DAYS"))
             return Item.LoanType.TWO_DAYS_LOAN;
         return null;
     }

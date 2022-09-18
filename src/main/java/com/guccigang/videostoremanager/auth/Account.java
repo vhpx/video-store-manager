@@ -32,7 +32,7 @@ public class Account extends Entity {
     }
 
     public Account(String id, String username, String password, String address, String phone, String name,
-                   String role, int points) {
+            String role, int points) {
         this(id, username, password);
         this.address = address;
         this.phone = phone;
@@ -126,9 +126,7 @@ public class Account extends Entity {
     }
 
     public void rent(Item item) throws ItemException, AccountException {
-        System.out.println("inside rent");
         if (canRent(item)) {
-            System.out.println("can rent");
             var app = ApplicationCore.getInstance();
             var transactionManager = app.getTransactionManager();
             var itemManager = app.getItemManager();
@@ -138,7 +136,6 @@ public class Account extends Entity {
             transactionManager.add(transaction);
             itemManager.decreaseStock(item);
 
-            this.points -= Constants.getPointDeducted();
             addRental(item);
         } else {
             throw new AccountException("This account cannot rent this item");
@@ -159,34 +156,34 @@ public class Account extends Entity {
         removeRental(item);
     }
 
-    public boolean isRented(Item item) {
+    public boolean isAlreadyRented(Item item) {
         // Check if this item was already rented by this account
-        for (Item i : rentedItems) {
-            if (i.equals(item)) {
+        for (Item i : rentedItems)
+            if (i.getId().equals(item.getId()))
                 return true;
-            }
-        }
+
         return false;
     }
 
     public boolean canRent(Item item) throws AccountException {
-        if (isRented(item))
-            throw new AccountException("This account has rented this item");
+        // If the current item is already rented by this account, return false
+        if (isAlreadyRented(item))
+            return false;
 
-        if (this.getRole().equals("GUEST")) {
-            if (this.getRentedItems().size() <= 2) {
-                throw new AccountException("Guest account can rent maximum 2 items");
-            }
-            if (item.getLoanType().equals("TWO_DAY")) {
-                throw new AccountException("Guest account cannot borrow a 2-day item");
-            }
-        }
+        // If the current item is not in stock, return false
+        if (!item.isInStock())
+            return false;
 
-//        if (this.points < Constants.getPointDeducted()) {
-//            throw new AccountException("This account has not enough points");
-//        }
+        // If the current account is either a REGULAR or a VIP, return true
+        if (this.getRole().equals("REGULAR") || this.getRole().equals("VIP"))
+            return true;
 
-        return true;
+        // Otherwise, the account is a GUEST, which can only rent 2 items at a time
+        if (this.getRentedItems().size() >= 2)
+            return false;
+
+        // The GUEST account cannot rent an item with loan type "TWO_DAYS"
+        return !item.getLoanType().equals("TWO_DAYS");
     }
 
     public void updatePassword(String newPassword) throws AccountException {
@@ -197,6 +194,7 @@ public class Account extends Entity {
         this.password = newPassword;
 
     }
+
     public void updatePhone(String newPhoneNum) throws AccountException {
         if (newPhoneNum.equals(this.phone))
             throw new AccountException("Your new phone number is being used. Please enter the new one!");
@@ -225,13 +223,10 @@ public class Account extends Entity {
         this.name = newName;
     }
 
-
-    public void displayRental()
-    {
-        for (Item i: rentedItems)
+    public void displayRental() {
+        for (Item i : rentedItems)
             System.out.println(i.toString());
     }
-
 
     @Override
     public String toString() {
@@ -247,4 +242,3 @@ public class Account extends Entity {
                 '}';
     }
 }
-
