@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+
 public class ItemModificationController implements Initializable {
 
     @FXML
@@ -42,6 +44,9 @@ public class ItemModificationController implements Initializable {
     private TextField copyField;
 
     @FXML
+    private TextField idField;
+
+    @FXML
     private TextField feeField;
 
     @FXML
@@ -54,38 +59,25 @@ public class ItemModificationController implements Initializable {
     @FXML
     void save(ActionEvent event) {
         var itemManager = ApplicationCore.getInstance().getItemManager();
+        ArrayList<String> inputs = new ArrayList<String>();
+
+        inputs.add(idField.getText());
+        inputs.add(this.titleField.getText());
+        inputs.add(this.comboxGenre.getSelectionModel().getSelectedItem());
+        inputs.add(this.comboxRentalType.getSelectionModel().getSelectedItem());
+        inputs.add(this.comboxLoanType.getSelectionModel().getSelectedItem());
+        inputs.add(copyField.getText());
+        inputs.add(feeField.getText());
+
+
         if (Flag.check == 1) //create
         {
+            System.out.println("create");
             //to be added
 
         }else{
-            try{
-                if (this.titleField.getText().length()!=0)
-                    Flag.item.updateTitle(titleField.getText());
-                if (this.comboxGenre.getSelectionModel().getSelectedItem().length()!=0)
-                    Flag.item.updateGenre(this.comboxGenre.getSelectionModel().getSelectedItem());
-                if (this.comboxLoanType.getSelectionModel().getSelectedItem().length()!=0)
-                    Flag.item.updateLoanType(this.comboxLoanType.getSelectionModel().getSelectedItem());
-                if (this.comboxRentalType.getSelectionModel().getSelectedItem().length()!=0)
-                    Flag.item.updateRentalType(this.comboxRentalType.getSelectionModel().getSelectedItem());
-                if (this.copyField!=null)
-                    Flag.item.updateCopy(Integer.parseInt(copyField.getText()));
-                if (this.feeField!=null)
-                    Flag.item.updateCopy(Integer.parseInt(feeField.getText()));
-            }catch (ItemException e)
-            {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Information Update Error");
-                alert.setHeaderText(e.getMessage());
-                alert.setContentText("Please try again!");
-            }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Update");
-            alert.setHeaderText("Successful");
-            alert.setContentText("Your item information update has been modified successfully!");
-
-            System.out.println(Flag.item.toString());
-            sceneManager.showScene("admin-dashboard");
+            System.out.println("update");
+            //tobe updated
         }
 
     }
@@ -110,9 +102,19 @@ public class ItemModificationController implements Initializable {
 
             }
         });
-
+//        if (Flag.check == 1) // the value cannot be empty when click create item
+//        {
+//            idField.setText("");
+//            feeField.setText(null);
+//            copyField.setText(null);
+//            titleField.setText(null);
+//            comboxGenre.setValue(null);
+//            comboxRentalType.setValue(null);
+//            comboxLoanType.setValue(null);
+//        }
         if (Flag.check == 0)
         {
+            idField.setText(Flag.item.getId());
             feeField.setText(String.valueOf(Flag.item.getRentalFee()));
             copyField.setText(String.valueOf(Flag.item.getStock()));
             titleField.setText(Flag.item.getTitle());
