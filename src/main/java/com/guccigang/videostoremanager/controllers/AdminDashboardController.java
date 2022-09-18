@@ -1,13 +1,17 @@
 package com.guccigang.videostoremanager.controllers;
 
 import com.guccigang.videostoremanager.auth.Account;
+import com.guccigang.videostoremanager.auth.AccountManager;
 import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.errors.ItemException;
 import com.guccigang.videostoremanager.items.Item;
+import com.guccigang.videostoremanager.items.ItemManager;
 import com.guccigang.videostoremanager.transactions.Transaction;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,36 +25,29 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class AdminDashboardController implements Initializable {
 
-    @FXML
-    private TextField accountMngSearchBar;
-
-    @FXML
-    private AnchorPane background;
+    private AccountManager accountManager = ApplicationCore.getInstance().getAccountManager();
+    private ItemManager itemManager = ApplicationCore.getInstance().getItemManager();
 
     @FXML
     private Button btnAccount;
 
     @FXML
-    private Button btnAccountMngSearch;
+    private TextField itemField;
 
     @FXML
-    private Button btnItemSearch;
+    private TextField accountField;
 
     @FXML
     private Button btnItems;
 
     @FXML
     private Button btnLogOut;
-
-    @FXML
-    private Button btnSetting;
-
-    @FXML
-    private Button btnTransactionSearch;
 
     @FXML
     private Button btnTransactions;
@@ -62,11 +59,10 @@ public class AdminDashboardController implements Initializable {
     private ComboBox<String> comboBoxAccount  = new ComboBox<>();
 
     @FXML
-    private ComboBox<String> cbTransactions;
+    private ComboBox<String> comboBoxSortItem = new ComboBox<>();
 
     @FXML
-    private TextField itemSearchBar;
-
+    private ComboBox<String> comboBoxSortAccount  = new ComboBox<>();
     @FXML
     private Label lbiStatus;
 
@@ -78,24 +74,11 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private GridPane pnlItems;
-
-    @FXML
-    private GridPane pnlSetting;
-
     @FXML
     private Pane pnlStatus;
 
     @FXML
     private GridPane pnlTransactions;
-
-    @FXML
-    private VBox settingBackground;
-
-    @FXML
-    private HBox settingBackground2;
-
-    @FXML
-    private TextField transactionSearchBar;
 
     @FXML
     private TableView<Item> itemsTable = new TableView<>();
@@ -126,6 +109,8 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private final TableColumn<Account, String> accountRole = new TableColumn<>("Role");
+    @FXML
+    private final TableColumn<Account, String> accountName = new TableColumn<>("Name");
 
     @FXML
     private TableColumn<Item, Item.Genre> itemGenre = new TableColumn<>("Genre");
@@ -181,18 +166,78 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        this.comboBoxItem.setItems(FXCollections.observableArrayList("By Name","By ID"));
-        this.comboBoxAccount.setItems(FXCollections.observableArrayList("By Name","By ID"));
+        this.comboBoxItem.setItems(FXCollections.observableArrayList("BY TITLE","BY ID"));
+        this.comboBoxAccount.setItems(FXCollections.observableArrayList("BY NAME","BY ID"));
+        this.comboBoxSortAccount.setItems(FXCollections.observableArrayList("BY NAME","BY ID","GUEST","REGULAR","VIP", "ALL"));
+        this.comboBoxSortItem.setItems(FXCollections.observableArrayList("BY NAME","BY ID","ALL"));
+
+        this.comboBoxSortAccount.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (!newValue.equals(null))
+                {
+                    if (newValue.equals("ALL"))
+                    {
+                        accountsTable.setItems(getAccounts());
+                        comboBoxSortAccount.setValue("Sort By");
+                    }
+                    else if (newValue.equals("BY NAME"))
+                    {
+                        accountsTable.setItems(FXCollections.observableArrayList(accountManager.sort(false)));
+                        var list = accountManager.sort(false);
+                        for (Account i : list)
+                            System.out.println(i.toString());
+                    }
+                    else if (newValue.equals("BY ID"))
+                        accountsTable.setItems(FXCollections.observableArrayList(accountManager.sort(true)));
+                    else
+                        accountsTable.setItems(FXCollections.observableArrayList(accountManager.getAll(newValue)));
+                }
+            }
+        });
+
+        this.comboBoxSortItem.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue,  String oldValue, String newValue) {
+                if (!newValue.equals(null))
+                {
+                    if (newValue.equals("ALL"))
+                    {
+                        comboBoxSortItem.setSelectionModel(null);
+                        itemsTable.setItems(getItems());
+                    }
+                    else if (newValue.equals("BY NAME"))
+                        itemsTable.setItems(FXCollections.observableArrayList(itemManager.sort(false)));
+                    else if (newValue.equals("BY ID"))
+                        itemsTable.setItems(FXCollections.observableArrayList(itemManager.sort(true)));
+                }
+            }
+        });
+
+        this.itemField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue,  String oldValue, String newValue) {
+                if (itemField.getText().length() == 0 && comboBoxSortItem.getSelectionModel().equals(null))
+                    itemsTable.setItems(getItems());
+            }
+        });
+        this.accountField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue,  String oldValue, String newValue) {
+                if (accountField.getText().length() == 0 && comboBoxSortAccount.getSelectionModel().equals(null))
+                    accountsTable.setItems(getAccounts());
+            }
+        });
         this.pnlTransactions.setVisible(false);
         this.pnlAccount.setVisible(false);
         this.pnlItems.setVisible(true);
+
+
         displayTransaction();
         displayAccounts();
         displayItems();
 
     }
-
-
     private void displayAccounts()
     {
 
@@ -204,6 +249,7 @@ public class AdminDashboardController implements Initializable {
         accountPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         accountPoints.setCellValueFactory(new PropertyValueFactory<>("points"));
         accountRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        accountName.setCellValueFactory(new PropertyValueFactory<>("name"));
         accountAction.setCellValueFactory(
                 param -> new ReadOnlyObjectWrapper<>(param.getValue())
         );
@@ -220,6 +266,9 @@ public class AdminDashboardController implements Initializable {
 
             @Override
             protected void updateItem(Account item, boolean empty) {
+                delete.setPrefWidth(150);
+                update.setPrefWidth(150);
+
                 super.updateItem(item, empty);
 
                 if (item == null) {
@@ -253,8 +302,9 @@ public class AdminDashboardController implements Initializable {
                 update.setOnAction(
                         event -> {
                             var sceneManager =  ApplicationCore.getInstance().getSceneManager();
-                            Flag.setAccount(getTableView().getItems().get(getIndex()));
-                            Flag.check =0;
+//                            Flag.setAccount(getTableView().getItems().get(getIndex()));
+//                            Flag.check =0;
+                            //sceneManager.
                             sceneManager.showScene("account-editor");
                         }
                 );
@@ -266,7 +316,7 @@ public class AdminDashboardController implements Initializable {
 
         // Display all accounts
         accountsTable.setItems(getAccounts());
-        accountsTable.getColumns().addAll(accountId, accountAddress, accountUsername, accountPassword, accountPhone, accountPoints, accountRole,accountAction);
+        accountsTable.getColumns().addAll(accountId,accountName, accountAddress, accountPhone, accountPoints, accountRole,  accountUsername, accountPassword,accountAction);
     }
 
     private void displayItems()
@@ -339,7 +389,7 @@ public class AdminDashboardController implements Initializable {
         });
 
         itemsTable.setItems(getItems());
-        itemsTable.getColumns().addAll(itemTitle, itemID,itemGenre,itemRentalType,itemLoanType,itemStockStatus,itemAction);
+        itemsTable.getColumns().addAll( itemID,itemTitle,itemGenre,itemRentalType,itemLoanType,itemStockStatus,itemAction);
 
     }
 
@@ -355,11 +405,6 @@ public class AdminDashboardController implements Initializable {
         transactionsTable.setItems(getTransactions());
         transactionsTable.getColumns().addAll(transAccID, transAccName, transItemID, transItemName, transStatus);
     }
-
-
-
-
-
     private ObservableList<Account> getAccounts() {
         var appCore = ApplicationCore.getInstance();
         var accountManager = appCore.getAccountManager();
@@ -432,7 +477,6 @@ public class AdminDashboardController implements Initializable {
             }
         }
     }
-
     @FXML
     private void createItem()
     {
@@ -440,22 +484,69 @@ public class AdminDashboardController implements Initializable {
         Flag.setCheck(1);
         sceneManager.showScene("item-editor");
     }
-    @FXML
-    private void searchItem()
-    {
-    }
+
     @FXML
     private void createAccount()
     {
         var sceneManager = ApplicationCore.getInstance().getSceneManager();
         Flag.check = 1;
         sceneManager.showScene("account-editor");
-    }@FXML
-    private void searchAccount()
+    }
+    @FXML
+    private void searchItem()
     {
-
+        String type;
+        if(comboBoxItem.getSelectionModel().getSelectedItem() ==null)
+            return;
+        type = comboBoxItem.getSelectionModel().getSelectedItem();
+        itemsTable.setItems(filterList(getItems(),itemField.getText(),type));//,comboBoxItem.getSelectionModel().getSelectedItem()));
+    }
+    private ObservableList<Item> filterList(List<Item>list, String searchText,String type){//,String type){
+        var itemManager = ApplicationCore.getInstance().getItemManager();
+        List<Item> filteredList = new ArrayList<>();
+        for (Item item : list){
+            if(searchByType(item, searchText, type)) filteredList.add(item);
+        }
+        return FXCollections.observableList(itemManager.searchItem(searchText));
     }
 
+    private boolean searchByType(Item item, String searchText,String type)
+    {
+
+        if (type.equals("By Title"))
+            return item.getTitle().equals(searchText)?true:false;
+        if (type.equals("By ID"))
+            return item.getId().equals(searchText)?true:false;
+        return false;
+    }
+
+    @FXML
+    private void searchAccount()
+    {
+        String type;
+        if(comboBoxItem.getSelectionModel().getSelectedItem() ==null)
+            return;
+        type = comboBoxItem.getSelectionModel().getSelectedItem();
+        accountsTable.setItems(filterAccountList(getAccounts(),accountField.getText(),type));
+    }
+    private ObservableList<Account> filterAccountList(List<Account>list, String searchText,String type){
+        var accountManager = ApplicationCore.getInstance().getAccountManager();
+        List<Account> filteredList = new ArrayList<>();
+        for (Account account : list){
+            if(searchAccountType(account, searchText, type)) filteredList.add(account);
+        }
+        return FXCollections.observableList(accountManager.searchAccount(searchText));
+    }
+    private boolean searchAccountType(Account account, String searchText,String type)
+    {
+        if(type.equals(null))
+            return false;
+        if (type.equals("By Name"))
+            return account.getName().equals(searchText)?true:false;
+        if (type.equals("By ID"))
+            return account.getId().equals(searchText)?true:false;
+        return true;
+    }
 
 
 

@@ -9,6 +9,8 @@ import com.guccigang.videostoremanager.items.Item;
 import com.guccigang.videostoremanager.transactions.Transaction;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,6 +38,9 @@ public class AccountController implements Initializable {
 
     @FXML
     TextField itemField;
+
+    @FXML
+    TextField historyField;
 
     @FXML
     TextField borrowedField;
@@ -124,6 +129,27 @@ public class AccountController implements Initializable {
         this.borrowedPane.setVisible(true);
         this.transaction.setVisible(false);
         this.browsePane.setVisible(false);
+        this.historyField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (newValue.length()==0)
+                    historyTable.setItems(getTransactions());
+            }
+        });
+        this.itemField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (newValue.length()==0)
+                    rentTable.setItems(getItems());
+            }
+        });
+        this.borrowedField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (newValue.length()==0)
+                    borrowedTable.setItems(getBorrowedItem());
+            }
+        });
 
         Image image = new Image(
                 Objects.requireNonNull(getClass().getResourceAsStream("/com/guccigang/images/images.png")));
@@ -179,14 +205,14 @@ public class AccountController implements Initializable {
 
             @Override
             protected void updateItem(Item item, boolean empty) {
-                // rentButton.getStyleClass().add("buttonYellow");
+                returnButton.getStyleClass().add("buttonYellow");
+                returnButton.setPrefWidth(150);
                 super.updateItem(item, empty);
 
                 if (item == null) {
                     setGraphic(null);
                     return;
                 }
-
                 setGraphic(returnButton);
                 returnButton.setOnAction(
                         event -> {
@@ -196,6 +222,7 @@ public class AccountController implements Initializable {
                                 Item currentItem = getTableView().getItems().get(getIndex());
                                 displayReturnStatus(currentItem, account);
 
+
                                 borrowedTable.setItems(getBorrowedItem());
                                 rentTable.setItems(getItems());
                                 historyTable.setItems(getTransactions());
@@ -203,7 +230,7 @@ public class AccountController implements Initializable {
                                 borrowedTable.refresh();
                                 rentTable.refresh();
                                 historyTable.refresh();
-                                
+
                                 // account.displayRental();
                             } catch (TransactionException e) {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -254,6 +281,7 @@ public class AccountController implements Initializable {
             @Override
             protected void updateItem(Item item, boolean empty) {
                 rentButton.getStyleClass().add("buttonYellow");
+                rentButton.setPrefWidth(150);
                 super.updateItem(item, empty);
 
                 if (item == null) {
@@ -400,27 +428,45 @@ public class AccountController implements Initializable {
         this.statusMini.setText("Dashboard/ Renting History");
     }
 
-    @FXML
-    private void searchHistoryItem() {
 
-    }
 
     @FXML
-    private void searchItem() {
-        rentTable.setItems(filterList(getItems(), itemField.getText()));
+    private void searchHistory()
+    {
+        historyTable.setItems(filterListTransaction(getTransactions(),historyField.getText()));
+    }
+    @FXML
+    private void searchBorrowedItem()
+    {
+        borrowedTable.setItems(filterList(getItems(),borrowedField.getText()));
+    }
+    @FXML
+    private void searchItem()
+    {
+        rentTable.setItems(filterList(getItems(),itemField.getText()));
     }
 
-    private ObservableList<Item> filterList(List<Item> list, String searchText) {
+    private ObservableList<Item> filterList(List<Item> list, String searchText){
         List<Item> filteredList = new ArrayList<>();
-        for (Item item : list) {
-            if (searchByType(item, searchText)) filteredList.add(item);
+        for (Item item : list){
+            if(searchByType(item, searchText)) filteredList.add(item);
+        }
+        return FXCollections.observableList(filteredList);
+    }
+    private ObservableList<Transaction> filterListTransaction(List<Transaction> list, String searchText){
+        List<Transaction> filteredList = new ArrayList<>();
+        for (Transaction i : list){
+            if(searchByType(i.getItem(), searchText)) filteredList.add(i);
         }
         return FXCollections.observableList(filteredList);
     }
 
-    private boolean searchByType(Item item, String searchText) {
-        return item.getTitle().equals(searchText) ? true : false;
+
+    private boolean searchByType(Item item, String searchText)
+    {
+       return item.getTitle().equalsIgnoreCase(searchText)? true:false;
     }
+
 
 
 }

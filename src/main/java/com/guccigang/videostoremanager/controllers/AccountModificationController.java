@@ -17,6 +17,26 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AccountModificationController implements Initializable {
+
+
+    public void setAccount(Account account)
+    {
+        comboBoxType.setValue(account.getRole());
+        usernameField.setText(account.getName());
+        nameField.setText(account.getUsername());
+        passwordField.setText(account.getPassword());
+        addressField.setText(account.getAddress());
+        phoneField.setText(account.getPhone());
+        pointField.setText(String.valueOf(account.getPoints()));
+        id = account.getId();
+
+        if (!account.getRole().equals("VIP")) {
+            pointPane.setVisible(false);
+        } else {
+            pointPane.setVisible(true);
+            pointField.setText(String.valueOf(account.getPoints()));
+        }
+    }
     @FXML
     HBox pointPane = new HBox();
 
@@ -113,33 +133,33 @@ public class AccountModificationController implements Initializable {
 
         });
 
-        if (Flag.check == 0) {
-            comboBoxType.setValue(Flag.account.getRole());
-            usernameField.setText(Flag.account.getName());
-            nameField.setText(Flag.account.getUsername());
-            passwordField.setText(Flag.account.getPassword());
-            addressField.setText(Flag.account.getAddress());
-            phoneField.setText(Flag.account.getPhone());
-            pointField.setText(String.valueOf(Flag.account.getPoints()));
-            id = Flag.account.getId();
-
-            if (!Flag.account.getRole().equals("VIP")) {
-                pointPane.setVisible(false);
-            } else {
-                pointPane.setVisible(true);
-                pointField.setText(String.valueOf(Flag.account.getPoints()));
-            }
-        }
-
-        if (Flag.check == 1) {
-            comboBoxType.setValue(null);
-            usernameField = new TextField();
-            nameField = new TextField();
-            passwordField = new TextField();
-            addressField = new TextField();
-            phoneField = new TextField();
-            pointField = new TextField();
-            id = "";
-        }
+//        if (Flag.check == 0) {
+//            comboBoxType.setValue(Flag.account.getRole());
+//            usernameField.setText(Flag.account.getName());
+//            nameField.setText(Flag.account.getUsername());
+//            passwordField.setText(Flag.account.getPassword());
+//            addressField.setText(Flag.account.getAddress());
+//            phoneField.setText(Flag.account.getPhone());
+//            pointField.setText(String.valueOf(Flag.account.getPoints()));
+//            id = Flag.account.getId();
+//
+//            if (!Flag.account.getRole().equals("VIP")) {
+//                pointPane.setVisible(false);
+//            } else {
+//                pointPane.setVisible(true);
+//                pointField.setText(String.valueOf(Flag.account.getPoints()));
+//            }
+//        }
+//
+//        if (Flag.check == 1) {
+//            comboBoxType.setValue(null);
+//            usernameField = new TextField();
+//            nameField = new TextField();
+//            passwordField = new TextField();
+//            addressField = new TextField();
+//            phoneField = new TextField();
+//            pointField = new TextField();
+//            id = "";
+//        }
     }
 }

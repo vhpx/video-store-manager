@@ -42,6 +42,8 @@ public class SceneManager {
         if (scene == null) throw new IllegalArgumentException("Scene cannot be null");
         scenes.put(name, scene);
     }
+    
+
 
     public void showScene(ScenePackage pkg) {
         // Check if the stage has been linked
@@ -239,8 +241,8 @@ public class SceneManager {
         stage.close();
     }
 
-    public Scene getCurrentScene() {
-        return this.stage.getScene();
+    public Stage getStage() {
+        return this.stage;
     }
 
 }
