@@ -36,12 +36,12 @@ ___
 
 ### II. PROJECT LINKS
 
- - [GITHUB REPOSITORY](https://github.com/vhpx/video-store-manager)
- - [VIDEO DEMONSTRATION](https://github.com/vhpx/video-store-manager) (Work-in-progress)
- - [UML DIAGRAM](https://drive.google.com/file/d/1AKf6qyC_p8tz5zStkNBLcmO3s7_CshXv/view?usp=sharing)
+ - [**GITHUB REPOSITORY**](https://github.com/vhpx/video-store-manager)
+ - [**VIDEO DEMONSTRATION**](https://github.com/vhpx/video-store-manager) (Work-in-progress)
+ - [**UML DIAGRAM**](https://drive.google.com/file/d/1AKf6qyC_p8tz5zStkNBLcmO3s7_CshXv/view?usp=sharing)
 
 ___
 
 ### III. REFERENCES
-[1] Vu Thanh Minh. "Assignments – Group Project Report", Semester 2, 2022. rmit.instructure.com. Accessed on Jul. 18, 2022.
+**[1]** Vu Thanh Minh. "Assignments – Group Project Report", Semester 2, 2022. rmit.instructure.com. Accessed on Jul. 18, 2022.
 Available for authorized personnel: https://rmit.instructure.com/courses/104034/assignments/701474.
