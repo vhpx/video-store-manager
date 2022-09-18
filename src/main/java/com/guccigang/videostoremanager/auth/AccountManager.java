@@ -1,8 +1,6 @@
 package com.guccigang.videostoremanager.auth;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 import com.guccigang.videostoremanager.errors.AccountException;
 import com.guccigang.videostoremanager.utils.AccountIO;
@@ -11,6 +9,7 @@ import com.guccigang.videostoremanager.utils.AccountUtils;
 import com.guccigang.videostoremanager.core.ApplicationCore;
 import com.guccigang.videostoremanager.core.Constants;
 import com.guccigang.videostoremanager.core.Manager;
+import javafx.collections.FXCollections;
 
 public class AccountManager extends Manager<Account> {
     public void initialize() {
@@ -125,6 +124,14 @@ public class AccountManager extends Manager<Account> {
             account.setRole("REGULAR");
         }
     }
+    public ArrayList<Account> sort(boolean type) {
+        var result = this.getAll();
+        if (type)
+            Collections.sort(result,new AccountIDComparator());
+        else
+            Collections.sort(result,new AccountNameComparator());
+        return result;
+    }
 
     public ArrayList<Account> searchAccount(String input) {
         var result = new ArrayList<Account>();
@@ -134,5 +141,23 @@ public class AccountManager extends Manager<Account> {
                 result.add(a);
 
         return result;
+    }
+}
+class AccountIDComparator implements Comparator <Account>{
+    @Override
+    public int compare(Account o1, Account o2) {
+        if (o2.getId().compareTo(o2.getId()) == 1)
+            return 1;
+        return -1;
+    }
+}
+class AccountNameComparator implements Comparator <Account>{
+    @Override
+    public int compare(Account o1, Account o2) {
+        if (o2.getName().compareTo(o2.getName()) == 1)
+            return 1;
+        if (o2.getName().compareTo(o2.getName()) == -1)
+            return -1;
+        return 0;
     }
 }
