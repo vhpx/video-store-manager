@@ -43,5 +43,5 @@ ___
 ___
 
 ### III. REFERENCES
-**[1]** Vu Thanh Minh. "Assignments – Group Project Report", Semester 2, 2022. rmit.instructure.com. Accessed on Jul. 18, 2022.
-Available for authorized personnel: https://rmit.instructure.com/courses/104034/assignments/701474.
+**[1]** Vu Thanh Minh. "Assignments – Final Project", Semester 2, 2022. rmit.instructure.com. Accessed on Sep. 18, 2022.
+Available for authorized personnel: https://rmit.instructure.com/courses/104904/assignments/709098
